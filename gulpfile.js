@@ -19,7 +19,7 @@ gulp.task('minify', () => {
     return gulp.src('src/resources/css/*.css')
     .pipe(concat('styles.min.css'))
     .pipe(cleanCss())
-    .pipe(gulp.dest('src/resources/css/min'))
+    .pipe(gulp.dest('src/public/css/min'))
     .pipe(browserSync.stream());
 });
 
@@ -27,12 +27,12 @@ gulp.task('minify', () => {
 // Static Server + watching scss/html files
 gulp.task('serve', gulp.series('sass', function() {
     browserSync.init({
-        server: './src/resources/'
+        server: './src/'
     });
 
     gulp.watch("src/resources/css/*.scss", gulp.series('sass'));
     gulp.watch("src/resources/css/*.css", gulp.series('minify'));
-    gulp.watch("src/resources/views/*.blade.php").on('change', browserSync.reload);
+    // gulp.watch("src/resources/views/*.blade.php").on('change', browserSync.reload);
 }));
 
 gulp.task('default', gulp.series('serve'));

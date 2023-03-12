@@ -4,9 +4,9 @@
   "description": "For SLVP Software Frontend Toolkit",
   "main": "index.js",
   "scripts": {
-    "start" : "npm run gulp",
+    "start": "npm run gulp",
     "gulp": "gulp",
-    "tailwind" : "npx tailwindcss -i ./src/tailwind/main.css -o ./src/css/tailwind.css --watch",
+    "tailwind": "npx tailwindcss -i ./src/resources/css/main.css -o ./src/resources/css/tailwind.css --watch",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "SLVP Software",
@@ -20,7 +20,7 @@
     "gulp-minify-css": "^1.2.4",
     "gulp-sass": "^5.1.0",
     "gulp-uglify": "^3.0.2",
-    "sass": "^1.58.3",
+    "sass": "^1.59.2",
     "tailwindcss": "^3.2.7"
   },
   "dependencies": {

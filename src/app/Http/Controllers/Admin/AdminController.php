@@ -11,7 +11,7 @@ class AdminController extends Controller
 {
     public function adminlogin(Request $request)
     {
-        
+        dd($request->all());
         
     }
     public function login()

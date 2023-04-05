@@ -27,7 +27,7 @@ class AdminController extends Controller
         }
         else
         {
-            dd("Invalid Chaka");
+            dd("Invalid Chakas");
         }
 
     }

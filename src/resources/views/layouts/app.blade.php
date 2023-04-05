@@ -4,7 +4,9 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Build something Great!</title>
+        <title>
+            {{config('app.name', 'A')}}
+        </title>
 
         <!-- Fonts -->
         <link rel="stylesheet" href="{{asset('css/min/styles.min.css')}}">

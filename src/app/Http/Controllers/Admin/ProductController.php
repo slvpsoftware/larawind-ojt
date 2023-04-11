@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use  App\Models\Product;
+use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -43,15 +43,9 @@ class ProductController extends Controller
             'funko',
             'keychains',
         ];
-
-        $test_item = 'test';
-
-        $test_item2 = 123;
-
-         return view('pages.addproduct', [
-            'category_list' => $category_list,
-            'test_item' => $test_item,
-            'test_item2' => $test_item2,
+   
+        return view('pages.addproduct', [
+            'category_list' => $category_list
          ]);
     }
 }

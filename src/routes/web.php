@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\Admin\AdminController;
-
+use App\Http\Controllers\Admin\ProductController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -24,4 +24,5 @@ Route::post('/adminlogin', [AdminController::class, 'adminlogin'])->name('adminl
 Route::get('/signup', [AdminController::class, 'register'])->name('signup');
 Route::post('/signup', [AdminController::class, 'signup'])->name('signup');
 
-
+Route::get('/addproduct', [ProductController::class, 'addprod'])->name('adpproduct');
+Route::post('/addproduct', [ProductController::class, 'addProduct'])->name('addproduct');

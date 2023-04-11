@@ -19,7 +19,8 @@ class AdminController extends Controller
         ];
         if (Auth::guard('admin')->attempt($credentials))//check the credentials
          {
-            dd(Auth::guard('admin')->user()->id);//display the user id if successfully logged in
+            // dd(Auth::guard('admin')->user()->id);//display the user id if successfully logged in
+            return redirect()->route('addproduct');
         }
         else
         {

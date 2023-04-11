@@ -4,7 +4,7 @@
 
 
 <!-- page -->
-<main class="relative min-h-screen w-full bg-white">
+<main class="relative min-h-screen w-full bg-white test-class">
     <!-- component -->
     <div class="p-6" x-data="app">
         <!-- header -->
@@ -19,13 +19,13 @@
             <!-- buttons -->
             <div>
                 <a href="{{route('login')}}"  x-show="isLoginPage"
-                    class="rounded-2xl border-b-2 border-b-gray-300 bg-white py-3 px-4 font-bold text-blue-500 ring-2 ring-gray-300 hover:bg-gray-200 active:translate-y-[0.125rem] active:border-b-gray-200">
-                    LOGIN
+                     class="rounded-2xl border-b-3 border-b-gray-300 py-3 px-4 font-bold text-violet-700 ring-2 ring-gray-300 hover:bg-violet-200 active:translate-y-[0.125rem] active:border-b-gray-200">   
+               LOGIN
                 </a>
 
                 <a href="{{route('signup')}}"  x-show="!isLoginPage"
-                    class="rounded-2xl border-b-2 border-b-gray-300 bg-white py-3 px-4 font-bold text-blue-500 ring-2 ring-gray-300 hover:bg-gray-200 active:translate-y-[0.125rem] active:border-b-gray-200">
-                    SIGN UP
+                   class="rounded-2xl border-b-3 border-b-gray-300 py-3 px-4 font-bold text-violet-700 ring-2 ring-gray-300 hover:bg-violet-200 active:translate-y-[0.125rem] active:border-b-gray-200">   
+                SIGN UP
                 </a>
             </div>
         </header>
@@ -36,7 +36,7 @@
              <form action={{route('signup')}} method="POST">
                 @csrf
                 <div x-show="isLoginPage" class="space-y-4">
-                    <header class="mb-3 text-2xl font-bold">Create your profile</header>
+                    <header class="mb-3 text-4xl text-violet-800  font-bold">Create your profile</header>
                     {{-- <div class="w-full rounded-2xl bg-gray-50 px-4 ring-2 ring-gray-200 focus-within:ring-blue-400">
                         <input type="text" placeholder="Age"
                             class="my-3 w-full border-none bg-transparent outline-none focus:outline-none" />
@@ -45,16 +45,17 @@
                         <input type="text" placeholder="Name (optional)"
                             class="my-3 w-full border-none bg-transparent outline-none focus:outline-none" />
                     </div> --}}
-                    <div class="w-full rounded-2xl bg-gray-50 px-4 ring-2 ring-gray-200 focus-within:ring-blue-400">
+                    <br>
+                    <div class="w-96 rounded-2xl bg-violet-50 px-4 ring-2 ring-gray-200 focus-within:ring-blue-400">
                         <input type="text" name="username" placeholder="Username"
                             class="my-3 w-full border-none bg-transparent outline-none focus:outline-none" />
                     </div>
-                    <div class="w-full rounded-2xl bg-gray-50 px-4 ring-2 ring-gray-200 focus-within:ring-blue-400">
+                    <div class="w-full rounded-2xl bg-violet-50 px-4 ring-2 ring-gray-200 focus-within:ring-blue-400">
                         <input type="password" name="password" placeholder="Password"
                             class="my-3 w-full border-none bg-transparent outline-none focus:outline-none" />
                     </div>
                     <button
-                        class="w-full rounded-2xl border-b-4 border-b-blue-600 bg-blue-500 py-3 font-bold text-white hover:bg-blue-400 active:translate-y-[0.125rem] active:border-b-blue-400">
+                       class="w-48 rounded-2xl border-b-4 border-b-violet-600 bg-violet-500 py-3 font-bold text-white hover:bg-violet-400 active:translate-y-[0.125rem] active:border-b-violet-400">
                         CREATE ACCOUNT
                     </button>
                 </div>
@@ -81,7 +82,7 @@
                 </form>
             </div> --}}
 
-            <div class="flex items-center space-x-4">
+            {{-- <div class="flex items-center space-x-4">
                 <hr class="w-full border border-gray-300" />
                 <div class="font-semibold text-gray-400">OR</div>
                 <hr class="w-full border border-gray-300" />
@@ -100,7 +101,7 @@
                     <a href="#" class="font-medium text-gray-500">Terms</a> and
                     <a href="#" class="font-medium text-gray-500">Privacy Policy</a>.
                 </div>
-            </footer>
+            </footer> --}}
         </section>
     </div>
 </main>

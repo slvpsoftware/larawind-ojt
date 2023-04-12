@@ -43,13 +43,12 @@ class ProductController extends Controller
               $new_category->category = $category;
               $new_category->save();
           }
-          return 'Product Added Successfully';
+          return view('pages.homepage');
         //   return view('pages.viewproduct', [
         //     'product' => $product
         // ]);
         //return view('pages.addproduct');
          }
-
    
 }
 

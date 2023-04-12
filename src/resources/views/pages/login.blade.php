@@ -15,12 +15,12 @@
             <!-- buttons -->
             <div class="flex space-x-4">
                 <a href="#"  x-show="isLoginPage"
-                    class="rounded-2xl border-b-2 border-black bg-stone-400 py-3 px-4 font-bold text-white-500 ring-2 ring-gray-300 hover:bg-gray-200 active:translate-y-[0.125rem] active:border-b-gray-200">
+                    class="rounded-2xl border-b-2 border-black bg-blue-500 py-3 px-4 font-bold text-white-500 ring-2 ring-gray-300 hover:bg-gray-200 active:translate-y-[0.125rem] active:border-b-gray-200">
                     LOGIN
             </a>
 
                 <a href="{{route('signup')}}" x-show="!isLoginPage"
-                    class="rounded-2xl border-b-2 border-black bg-stone-400 py-3 px-4 font-bold text-white-500 ring-2 ring-gray-300 hover:bg-gray-200 active:translate-y-[0.125rem] active:border-b-gray-200">
+                    class="rounded-2xl border-b-2 border-black bg-blue-500 py-3 px-4 font-bold text-white-500 ring-2 ring-gray-300 hover:bg-gray-200 active:translate-y-[0.125rem] active:border-b-gray-200">
                     SIGN UP
         </a>
             </div>

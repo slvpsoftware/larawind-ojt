@@ -19,7 +19,8 @@ class AdminController extends Controller
         ];
         if (Auth::guard('admin')->attempt($credentials))//check the credentials
          {
-            dd(Auth::guard('admin')->user()->id);//display the user id if successfully logged in
+            // dd(Auth::guard('admin')->user()->id);//display the user id if successfully logged in
+            return redirect()->route('home');
         }
         else
         {
@@ -31,7 +32,7 @@ class AdminController extends Controller
     }
     public function login()//display the log in page
     {
-        return view('pages.welcome');
+        return view('pages.login');
     }
 
     public function register()//display the register page
@@ -47,6 +48,17 @@ class AdminController extends Controller
     //    $isGoods =
         $admin->save();//save to database
     
-        return 'Account Created Successfully';
+        return view('pages.login');
+    }
+    //homepage
+    public function home()
+    {
+        return view('pages.homepage');
+    }
+    //logout
+    public function logout()
+    {
+        Auth::guard('admin')->logout();
+        return redirect()->route('login');
     }
 }

@@ -24,19 +24,16 @@
             <!-- buttons -->
             <div class="space-x-4">
                 <a href="{{route('add_product')}}"  x-show="isLoginPage"
-                class="rounded-2xl border-b-3 border-b-gray-300 py-3 px-4 font-bold text-violet-700 ring-2 ring-gray-300 hover:bg-violet-200 active:translate-y-[0.125rem] active:border-b-gray-200">   
-                ADD PRODUCT
+                    class="rounded-2xl border-b-3 border-b-gray-300 py-3 px-4 font-bold text-violet-700 ring-2 ring-gray-300 hover:bg-violet-200 active:translate-y-[0.125rem] active:border-b-gray-200">   
+                    ADD PRODUCT
                 </a>
                 
                 <a href="{{route('logout')}}"   x-show="!isLoginPage"
-                class="rounded-2xl border-b-3 border-b-gray-300 py-3 px-4 font-bold text-violet-700 ring-2 ring-gray-300 hover:bg-violet-200 active:translate-y-[0.125rem] active:border-b-gray-200">   
-                  LOGOUT
+                    class="rounded-2xl border-b-3 border-b-gray-300 py-3 px-4 font-bold text-violet-700 ring-2 ring-gray-300 hover:bg-violet-200 active:translate-y-[0.125rem] active:border-b-gray-200">   
+                    LOGOUT
                 </a>
             </div>
-        </header>
-
-       
+        </header>     
     </div>
 </main>
-
 @endsection

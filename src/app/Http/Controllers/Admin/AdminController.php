@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Admin;
 
-
 use  App\Models\Admin;
 use  App\Models\Product;
 use App\Http\Controllers\Controller;
@@ -16,16 +15,20 @@ class AdminController extends Controller
     public function adminlogin(Request $request)
     {
         //dd($request->all());
+        // dd stands for "Dump and Die." Laravel's dd() function can be defined as a 
+        // helper function, which is used to dump a variable's contents 
+        // to the browser and prevent the further script execution. Example: dd($array); 
+
         $credentials = [
             'username' => $request->username,
             'password' => $request->password,
         ];
+
         $loginOk=Auth::guard('admin')->attempt($credentials);
         
         //check if login okay
         if($loginOk)
         {
-
          //dd(Auth::guard('admin')->user()->id);
          // $product = Admin::find(Auth::guard('admin')->user()->id)->products;
          //dd($product);
@@ -35,10 +38,8 @@ class AdminController extends Controller
         {
             dd("Invalid Chakas");
         }
-
-       
-
     }
+
     //register
     public function register()
     {
@@ -55,56 +56,18 @@ class AdminController extends Controller
         $admin->password = Hash::make($request->password);
         $admin->save();
         
-         return view('pages.welcome');
+        return view('pages.welcome');
     }
-
-    // public function addedProduct(Request $request)
-    // {
-    //     $addProduct = new Product();
-    //     $addProduct->prod_name = $request->prod_name;
-    //     $addProduct->prod_price = $request->prod_price;
-    //     $addProduct->prod_description = $request->prod_description;
-    //     $addProduct->admin_id = Auth::guard('admin')->user()->id;
-    //     // $addProduct->product_image = $this->saveImage($request->product_image);
-    //     $addProduct->save();
-    //     dd($addProduct);
-    //     //return view('pages.addproduct');
-    // }
-
-    //  public function add_product()
-    // {
-    //      return view('pages.addproduct');
-    // }
-
-        
-     //view product
-    // public function view_product()
-    // {
-    //     dd($request->all());
-    //     return view('pages.viewproduct');
-    // }
-    
-    //save image to local storage
-    // public function saveImage($image)
-    // {
-    //     $image_name = time() . '.' . $image->getClientOriginalExtension();
-    //     $image->move(public_path('images'), $image_name);
-    //     return $image_name;
-    // } 
-    
+   
     public function home()
     {
         return view('pages.home');
     }
 
     //logout
-    
     public function logout()
     {
         Auth::guard('admin')->logout();
         return redirect()->route('login');
     }
-    
-
-
 }

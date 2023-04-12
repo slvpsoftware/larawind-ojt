@@ -20,6 +20,7 @@ class ProductController extends Controller
         $new_product->prod_image = $request->file('photo')->store('public/product_images');
         $new_product->admin_id = Auth::guard('admin')->user()->id;
         $new_product->save();
+       
         // Store Categories
         foreach($request->category as $category)
         {
@@ -28,7 +29,6 @@ class ProductController extends Controller
             $new_category->category = $category;
             $new_category->save();
         }
-
 
         return view('pages.viewproduct', [
             'new_product' => $new_product

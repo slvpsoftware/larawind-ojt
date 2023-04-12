@@ -16,7 +16,7 @@
 
             <!-- buttons -->
             <div class="space-x-4">
-                <a href="#" x-show="isLoginPage"
+                <a href="{{route('home')}}" x-show="isLoginPage"
                     class="rounded-2xl border-b-2 border-b-gray-300 bg-white py-3 px-4 font-bold text-blue-500 ring-2 ring-gray-300 hover:bg-gray-200 active:translate-y-[0.125rem] active:border-b-gray-200">
                     HOME
                  </a>
@@ -32,17 +32,10 @@
             @csrf
                 <section
                     class="absolute top-1/2 left-1/2 mx-auto max-w-sm -translate-x-1/2 -translate-y-1/2 transform space-y-4 text-center">
-                    <!-- register content -->
+                    
                      <div x-show="isLoginPage" class="space-y-4">
                         <header class="mb-5 text-4xl font-serif tracking-widest text-black">Add Product</header>
-                        {{-- <div class="w-full rounded-2xl bg-gray-50 px-4 ring-2 ring-gray-200 focus-within:ring-blue-400">
-                            <input type="text" placeholder="Age"
-                                class="my-3 w-full border-none bg-transparent outline-none focus:outline-none" />
-                        </div>
-                        <div class="w-full rounded-2xl bg-gray-50 px-4 ring-2 ring-gray-200 focus-within:ring-blue-400">
-                            <input type="text" placeholder="Name (optional)"
-                                class="my-3 w-full border-none bg-transparent outline-none focus:outline-none" />
-                        </div> --}}
+                       
                         <div class="w-full rounded-2xl bg-gray-200 px-4 ring-2 ring-gray-200 focus-within:ring-blue-400">
                             <input type="text" name="product_name" placeholder="Product Name"
                                 class="my-3 w-96 border-none bg-transparent outline-none focus:outline-none" />
@@ -63,7 +56,7 @@
                         @foreach($category_list as $key => $category)
                         <label for="category_{{ $key }}" class="cursor-pointer">
                             <div class="rounded-2xl bg-violet-50 px-4 ring-2 ring-gray-200 focus-within:ring-blue-400">
-                                <input type="checkbox" name="category[]" value="{{$key}}" id="category_{{ $key }}" placeholder="Product Description"
+                                <input type="checkbox" name="category[]" value="{{$key}}" id="category_{{ $key }}" placeholder=""
                                 class="my-3 border-none bg-transparent outline-none focus:outline-none" />
                                 {{$category}}
                             </div>

@@ -16,13 +16,22 @@ use App\Http\Controllers\Admin\ProductController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+//homepage route
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/login', [AdminController::class, 'login'])->name('login');
+//logout route
+Route::get('/logout', [AdminController::class, 'logout'])->name('logout');
 
+//login route
 Route::post('/adminlogin', [AdminController::class, 'adminlogin'])->name('adminlogin');
 
+//signup route
 Route::get('/signup', [AdminController::class, 'register'])->name('signup');
 Route::post('/signup', [AdminController::class, 'signup'])->name('signup');
 
+//adding of product route
 Route::get('/addproduct', [ProductController::class, 'addprod'])->name('adpproduct');
 Route::post('/addproduct', [ProductController::class, 'addProduct'])->name('addproduct');
+
+//homapage route
+Route::get('/home', [AdminController::class, 'home'])->name('home');

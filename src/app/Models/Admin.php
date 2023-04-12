@@ -8,5 +8,10 @@ use Illuminate\Foundation\Auth\User as Authenticatable; //copy from user.php MOD
 
 class Admin extends Authenticatable
 {
-    use HasFactory;
+    use HasFactory; 
+
+    public function products()
+    {
+        return $this->hasMany(Product::class);
+    }
 }

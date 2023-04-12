@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-<main class="relative min-h-screen w-full bg-black-200">
+<main class="relative min-h-screen w-full bg-gray-400">
     <!-- component -->
     <div class="p-6" x-data="app">
         <!-- header -->
@@ -47,8 +47,8 @@
                         </div>
 
                         <div class="w-full rounded-2xl bg-gray-200 px-4 ring-2 ring-gray-200 focus-within:ring-blue-400">
-                            <input type="text" name="product_description" placeholder="Description"
-                                class="my-3 w-96 border-none bg-transparent outline-none focus:outline-none" />
+                            <textarea type="text" name="product_description" placeholder="Description"
+                                class="my-3 w-96 border-none bg-transparent outline-none focus:outline-none" ></textarea>
                         </div>
 
                           {{--  Category Select  --}}

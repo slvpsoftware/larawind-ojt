@@ -30,12 +30,20 @@ class ProductController extends Controller
         $product->product_name = $request->product_name;
         $product->product_description = $request->product_description;
         $product->product_price = $request->product_price;
-        $product->prod_image = $request->file('photo')->store('public/product_images');
+        // $product->prod_image = $request->file('photo')->store('public/product_images');
         $product->admin_id = Auth::guard('admin')->user()->id;
-        $product->save();
-       
-        // return 'Product Added Successfully';
+        if($request->hasFile('photo'))
+        {
+            $image = $request->file('photo');
+            $extension = $image->getClientOriginalExtension();
+            $image_name = time().'.'.$extension;
+            $image->move(public_path('prod_images'), $image_name);
+            $product->prod_image = $image_name;
+        }
+        
+        
           // Store Categories
+          $product->save();
           foreach($request->category as $category)
           {
               $new_category = new Category();
@@ -44,11 +52,30 @@ class ProductController extends Controller
               $new_category->save();
           }
           return view('pages.homepage');
-        //   return view('pages.viewproduct', [
-        //     'product' => $product
-        // ]);
-        //return view('pages.addproduct');
-         }
+    }
+
+         //save image to local
+        //  public function saveImage(Request $request)
+        //  {
+        //      $image = $request->file('photo');
+        //      $image_name = time().'.'.$image->getClientOriginalExtension();
+        //      $image->move(public_path('product_images'), $image_name);
+        //      return $image_name;
+        //  }
+
+    public function viewProduct()
+    {
+        $product = Product::orderByDesc("created_at")->get();
+        $product->admin_id = Auth::guard('admin')->user()->id;
+        return view('pages.viewproduct', [
+            'product' => $product
+        ]);
+    }
+
+
+
+        
+         
    
 }
 

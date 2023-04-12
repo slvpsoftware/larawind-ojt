@@ -35,3 +35,6 @@ Route::post('/addproduct', [ProductController::class, 'addProduct'])->name('addp
 
 //homapage route
 Route::get('/home', [AdminController::class, 'home'])->name('home');
+
+//view product
+Route::get('/viewproduct', [ProductController::class, 'viewProduct'])->name('viewproduct');

@@ -30,5 +30,5 @@ Route::get('/logout', [AdminController::class, 'logout'])->name('logout');
 Route::get('/add_product', [ProductController::class, 'add_product'])->name('add_product');
 Route::post('/new_product', [ProductController::class, 'addedProduct'])->name('new_product');
 
-//Route::post('/view_product', [AdminController::class, 'view_product'])->name('view_product');
+Route::get('/view_product', [ProductController::class, 'view_product'])->name('view_product');
 

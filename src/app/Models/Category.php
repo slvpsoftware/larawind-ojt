@@ -14,4 +14,15 @@ class Category extends Model
     {
         return $this->belongsTo(Product::class);
     }
+
+    public function getNameAttribute()
+    {
+        $category_list = [
+            'figures',
+            'funko',
+            'keychains',
+        ];
+
+        return $category_list[$this->category];
+    }
 }

@@ -7,7 +7,6 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -17,12 +16,22 @@ class ProductController extends Controller
         $new_product->prod_name = $request->prod_name;
         $new_product->prod_price = $request->prod_price;
         $new_product->prod_description = $request->prod_description;
-        $new_product->prod_image = $request->file('photo')->store('public/product_images');
         $new_product->admin_id = Auth::guard('admin')->user()->id;
-        $new_product->save();
+
+        if($request->hasFile('photo'))
+        {
+            $file = $request->file('photo');
+            $extension = $file->getClientOriginalExtension();
+            $filename = time() . '.' . $extension;
+            $file->move('product_images', $filename);
+            $new_product->prod_image = $filename;
+        }
+        
+            $new_product->save();
        
         // Store Categories
-        foreach($request->category as $category)
+        foreach($request->category as $category
+        )
         {
             $new_category = new Category();
             $new_category->product_id = $new_product->id;
@@ -30,9 +39,7 @@ class ProductController extends Controller
             $new_category->save();
         }
 
-        return view('pages.viewproduct', [
-            'new_product' => $new_product
-        ]);
+        return view('pages.home');
         //return view('pages.addproduct');
     }
 
@@ -47,5 +54,24 @@ class ProductController extends Controller
         return view('pages.addproduct', [
             'category_list' => $category_list
          ]);
+    }
+
+    public function view_product()
+    {
+        $admin_id = Auth::guard('admin')->user()->id;
+        $product = Product::where("admin_id", $admin_id)->orderByDesc("created_at")->paginate(4);
+        
+        //Eloquent Relationship
+        // $admin = Auth::guard('admin')->user();
+        // $product = $admin->products()->orderByDesc("created_at")->get();
+        
+        // dd([
+        //     'product1' => $product1,
+        //     'product2' => $product2
+        // ]
+        // );
+        return view('pages.viewproduct', [
+            'product' => $product
+        ]);
     }
 }

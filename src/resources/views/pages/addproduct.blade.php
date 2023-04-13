@@ -23,9 +23,9 @@
 
             <!-- buttons -->
             <div class="space-x-4">
-                <a href="{{route('home')}}"  x-show="isLoginPage"
+                <a href="{{route('view_product')}}"  x-show="isLoginPage"
                     class="rounded-2xl border-b-3 border-b-gray-300 py-3 px-4 font-bold text-violet-700 ring-2 ring-gray-300 hover:bg-violet-200 active:translate-y-[0.125rem] active:border-b-gray-200">
-                    HOME 
+                    VIEW PRODUCTS 
                 </a>
                 <a href="{{route('logout')}}"   x-show="!isLoginPage"
                    class="rounded-2xl border-b-3 border-b-gray-300 py-3 px-4 font-bold text-violet-700 ring-2 ring-gray-300 hover:bg-violet-200 active:translate-y-[0.125rem] active:border-b-gray-200">
@@ -75,8 +75,9 @@
                             class="my-3 w-full border-none bg-transparent outline-none focus:outline-none" />
                        </div>
                        <div class="w-full rounded-2xl bg-violet-50 px-4 ring-2 ring-gray-200 focus-within:ring-blue-400">
-                            <input type="text" name="prod_description" placeholder="Product Description"
-                            class="my-3 w-full border-none bg-transparent outline-none focus:outline-none" />
+                            <textarea style="resize:none" type="text" name="prod_description" placeholder="Product Description"
+                            class="my-3 w-full border-none bg-transparent outline-none focus:outline-none">
+                            </textarea>
                        </div>
 
 

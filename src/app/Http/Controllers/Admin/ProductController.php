@@ -9,6 +9,8 @@ use App\Models\Category;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+//pagination
+use Illuminate\Pagination\Paginator;
 
 class ProductController extends Controller
 {
@@ -30,12 +32,20 @@ class ProductController extends Controller
         $product->product_name = $request->product_name;
         $product->product_description = $request->product_description;
         $product->product_price = $request->product_price;
-        $product->prod_image = $request->file('photo')->store('public/product_images');
+        // $product->prod_image = $request->file('photo')->store('public/product_images');
         $product->admin_id = Auth::guard('admin')->user()->id;
-        $product->save();
-       
-        // return 'Product Added Successfully';
+        if($request->hasFile('photo'))
+        {
+            $image = $request->file('photo');
+            $extension = $image->getClientOriginalExtension();
+            $image_name = time().'.'.$extension;
+            $image->move(public_path('prod_images'), $image_name);
+            $product->prod_image = $image_name;
+        }
+        
+        
           // Store Categories
+          $product->save();
           foreach($request->category as $category)
           {
               $new_category = new Category();
@@ -43,12 +53,30 @@ class ProductController extends Controller
               $new_category->category = $category;
               $new_category->save();
           }
-          return view('pages.homepage');
-        //   return view('pages.viewproduct', [
-        //     'product' => $product
-        // ]);
-        //return view('pages.addproduct');
-         }
+          return view('pages.homepage' );
+    }
+
+      
+
+    public function viewProduct()
+    {
+        // $productad = new Product();
+        $admin_id = Auth::guard('admin')->user()->id;
+        $product = Product::where("admin_id", $admin_id)->orderByDesc("created_at")->paginate(2);
+        
+        //eloquent
+        // $product = $admin_id->products()->orderByDesc("created_at")->get();
+        
+        return view('pages.viewproduct', [
+            'product' => $product
+        ]);
+    }
+    //pagination
+   
+
+
+        
+         
    
 }
 

@@ -53,7 +53,8 @@ class ProductController extends Controller
               $new_category->category = $category;
               $new_category->save();
           }
-          return view('pages.homepage' );
+        //   return view('pages.homepage' );
+        return redirect()->route('viewproduct');
     }
 
       
@@ -62,16 +63,24 @@ class ProductController extends Controller
     {
         // $productad = new Product();
         $admin_id = Auth::guard('admin')->user()->id;
-        $product = Product::where("admin_id", $admin_id)->orderByDesc("created_at")->paginate(2);
+        $products = Product::where("admin_id", $admin_id)->orderByDesc("created_at")->paginate(5);
         
         //eloquent
         // $product = $admin_id->products()->orderByDesc("created_at")->get();
         
         return view('pages.viewproduct', [
-            'product' => $product
+            'products' => $products
         ]);
     }
-    //pagination
+    //delete product
+    public function deleteProduct($id)
+    {
+        $product = Product::find($id);
+        
+        $product->delete();
+        return redirect()->route('viewproduct');
+    }
+
    
 
 

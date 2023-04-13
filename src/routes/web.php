@@ -38,3 +38,6 @@ Route::get('/home', [AdminController::class, 'home'])->name('home');
 
 //view product
 Route::get('/viewproduct', [ProductController::class, 'viewProduct'])->name('viewproduct');
+
+//route for deleting product using post
+Route::post('/deleteproduct/{id}', [ProductController::class, 'deleteProduct'])->name('deleteproduct');

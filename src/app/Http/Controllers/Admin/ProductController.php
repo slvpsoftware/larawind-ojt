@@ -39,7 +39,7 @@ class ProductController extends Controller
             $new_category->save();
         }
 
-        return view('pages.home');
+        return redirect()->route('view_product');
         //return view('pages.addproduct');
     }
 
@@ -73,5 +73,12 @@ class ProductController extends Controller
         return view('pages.viewproduct', [
             'product' => $product
         ]);
+    }
+
+    public function delete_product($id)
+    {
+        $product = Product::find($id)->delete();
+        //$product->delete();
+        return redirect()->route('view_product');
     }
 }

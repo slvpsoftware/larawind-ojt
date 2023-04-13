@@ -32,3 +32,5 @@ Route::post('/new_product', [ProductController::class, 'addedProduct'])->name('n
 
 Route::get('/view_product', [ProductController::class, 'view_product'])->name('view_product');
 
+//delete product
+Route::post('/delete_product/{id}', [ProductController::class, 'delete_product'])->name('delete_product');

@@ -144,6 +144,11 @@
     @endforeach
 
   </table>
+          <div class="row">
+            <div class="col-md-12  border-b-violet-900 py-3 px-4 font-bold">
+                {{ $product->links('pagination::tailwind') }}
+            </div>
+        </div>
 </div>
 
 @endsection

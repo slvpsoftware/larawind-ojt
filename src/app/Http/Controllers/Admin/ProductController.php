@@ -7,7 +7,6 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -40,9 +39,7 @@ class ProductController extends Controller
             $new_category->save();
         }
 
-        return view('pages.viewproduct', [
-            'new_product' => $new_product
-        ]);
+        return view('pages.home');
         //return view('pages.addproduct');
     }
 
@@ -61,7 +58,12 @@ class ProductController extends Controller
 
     public function view_product()
     {
-        $product = Product::orderByDesc("created_at")->get();
+        $admin_id = Auth::guard('admin')->user()->id;
+        $product = Product::where("admin_id", $admin_id)->orderByDesc("created_at")->paginate(4);
+        
+        //Eloquent Relationship
+        // $admin = Auth::guard('admin')->user();
+        // $product = $admin->products()->orderByDesc("created_at")->get();
         
         // dd([
         //     'product1' => $product1,

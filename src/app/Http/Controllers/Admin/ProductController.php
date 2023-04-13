@@ -9,6 +9,8 @@ use App\Models\Category;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+//pagination
+use Illuminate\Pagination\Paginator;
 
 class ProductController extends Controller
 {
@@ -51,27 +53,26 @@ class ProductController extends Controller
               $new_category->category = $category;
               $new_category->save();
           }
-          return view('pages.homepage');
+          return view('pages.homepage' );
     }
 
-         //save image to local
-        //  public function saveImage(Request $request)
-        //  {
-        //      $image = $request->file('photo');
-        //      $image_name = time().'.'.$image->getClientOriginalExtension();
-        //      $image->move(public_path('product_images'), $image_name);
-        //      return $image_name;
-        //  }
+      
 
     public function viewProduct()
     {
-        $product = Product::orderByDesc("created_at")->get();
-        $product->admin_id = Auth::guard('admin')->user()->id;
+        // $productad = new Product();
+        $admin_id = Auth::guard('admin')->user()->id;
+        $product = Product::where("admin_id", $admin_id)->orderByDesc("created_at")->paginate(2);
+        
+        //eloquent
+        // $product = $admin_id->products()->orderByDesc("created_at")->get();
+        
         return view('pages.viewproduct', [
             'product' => $product
         ]);
     }
-
+    //pagination
+   
 
 
         

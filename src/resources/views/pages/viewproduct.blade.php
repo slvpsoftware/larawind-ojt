@@ -1,9 +1,21 @@
 @extends('layouts.app')
+
 @section('content')
 <main class="relative min-h-screen w-full bg-gray-400">
     <!-- component -->
     <div class="p-6" x-data="app">
 <header class="flex w-full justify-between">
+
+          {{-- <!-- Latest compiled and minified CSS -->
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+      <!-- Optional theme -->
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+      <!-- Latest compiled and minified JavaScript -->
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script> --}}
+
+  
     <a href="{{route('login')}}">
         <svg class="h-7 w-7 cursor-pointer text-gray-400 hover:text-gray-300" fill="currentColor"
             viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" stroke="currentColor">
@@ -34,7 +46,7 @@
 </header>
 <!-- component -->
 <div class="overflow-hidden rounded-lg border border-gray-200 shadow-md m-5">
-    <table class="w-full border-collapse bg-white text-left text-sm text-gray-500">
+    <table class="w-full border-collapse bg-white text-left text-base text-gray-500">
       <thead class="bg-gray-300">
         <tr>
           <th scope="col" class="px-6 py-4 font-medium text-gray-900 ">Name</th>
@@ -64,13 +76,13 @@
 
               {{-- <span class="absolute right-0 bottom-0 h-2 w-2 rounded-full bg-green-400 ring ring-white"></span> --}}
             </div>
-            <div class="text-sm">
+            <div class="text-base">
               <div class="font-medium text-gray-700">{{$products->product_name}}</div>
              
             </div>
           </th>
           <td class="px-6 py-4">
-            <div class="text-sm">
+            <div class="text-base">
                 <div class="font-medium text-gray-700">{{$products->product_price}}</div>
               </div>
           </td>
@@ -81,7 +93,7 @@
              
         </td>
           <td class="px-6 py-4">
-            <div class="text-sm">
+            <div class="text-base">
                 <div class="font-medium text-gray-700">{{$products->product_description}}</div>
               </div>
           </td>
@@ -125,11 +137,15 @@
             </div>
           </td>
         </tr>
-        
       </tbody>
       @endforeach
     </table>
+    
+    {{-- pagination --}}
+   
   </div>
-
-
+    <div class="m-10">
+        {{$product->links('pagination::tailwind')}}
+        
+    </div>
 @endsection

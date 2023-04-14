@@ -75,10 +75,110 @@ class ProductController extends Controller
         ]);
     }
 
-    public function delete_product($id)
+    public function delete_product(Request $request)
     {
-        $product = Product::find($id)->delete();
-        //$product->delete();
+        $product = Product::find($request->id)->delete();
         return redirect()->route('view_product');
+    }
+
+    public function edit_product($id)
+    {
+      //  
+     //   $product = Product::find($id);
+          $admin_id = Auth::guard('admin')->user()->id;
+          $product = Product::where("admin_id", $admin_id)
+          ->where('id', $id)
+          ->get();
+
+
+          if($product->count() == 0)
+          {
+              return redirect()->back();
+          }   
+          else{
+            $product = $product->first();
+          }
+          //
+        $product_categories = $product->categories->pluck('category')->all();
+
+        //Eloquent Relationship
+        // $admin = Auth::guard('admin')->user();
+        // $product = $admin->products()->orderByDesc("created_at")->get();
+        
+        // dd([
+        //     'product1' => $product1,
+        //     'product2' => $product2
+        // ]
+        // );
+
+        $category_list = [
+            'figures',
+            'funko',
+            'keychains',
+        ];
+
+        return view('pages.editproduct', [
+            'product' => $product,
+            'category_list' => $category_list,
+            'product_categories' => $product_categories
+        ]);
+       
+       }
+
+    //edit product
+    public function edited_product(Request $request)
+    {
+        $admin_id = Auth::guard('admin')->user()->id;
+          $editedProduct = Product::where("admin_id", $admin_id)
+          ->where('id', $request->id)
+          ->get();
+
+          if($editedProduct->count() == 0)
+          {
+              return redirect()->back();
+          }   
+          else{
+            $editedProduct = $editedProduct->first();
+          }
+       // $editedProduct = Product::find($request->id);
+        $editedProduct->prod_name = $request->prod_name;
+        $editedProduct->prod_price = $request->prod_price;
+        $editedProduct->prod_description = $request->prod_description;
+       
+
+        if($request->hasFile('photo'))
+        {
+            $file = $request->file('photo');
+            $extension = $file->getClientOriginalExtension();
+            $filename = time() . '.' . $extension;
+            $file->move('product_images', $filename);
+            $editedProduct->prod_image = $filename;
+        }
+        
+            $editedProduct->update();
+
+            // Delete Categories
+            $editedProduct->categories()->delete();
+
+        
+        
+        // Store Categories
+        foreach($request->category ?? [] as $category
+        )
+        {
+            $new_category = new Category();
+            $new_category->product_id = $editedProduct->id;
+            $new_category->category = $category;
+            $new_category->save();
+        }
+        return redirect()->route('view_product');
+        // $product = Product::find()->get();
+       
+        // $admin_id = Auth::guard('admin')->user()->id;
+        // //$product = Product::where("admin_id", $admin_id);
+        
+        // return view('pages.editproduct', [
+        //     'product' => $product
+        // ]);
     }
 }

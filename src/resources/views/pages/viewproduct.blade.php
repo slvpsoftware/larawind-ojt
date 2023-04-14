@@ -100,7 +100,7 @@
         <td class="px-6 py-4">
           <div class="flex">
             
-            <form action={{route('delete_product', [$products->id])}} method="POST" onsubmit="return confirm('Are you sure you want to delete this product?');" style="display: inline-block;">
+            <form action={{route('delete_product')}} method="POST" onsubmit="return confirm('Are you sure you want to delete this product?');" style="display: inline-block;">
             @csrf
            
             <input type="hidden" name="id" value="{{$products->id}}">
@@ -128,7 +128,7 @@
 
           </form>
 
-            <a x-data="{ tooltip: 'Edite' }" href="#">
+            <a x-data="{ tooltip: 'Edite' }" href="{{route('edit_product',$products->id)}}">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"

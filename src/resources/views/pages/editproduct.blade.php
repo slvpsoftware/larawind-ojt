@@ -60,40 +60,37 @@
                 </button>
             </div> --}}
 
-            <form action={{route('new_product')}} method="POST" enctype="multipart/form-data">
+            <form action={{route('edited_product',$product->id)}} method="POST" enctype="multipart/form-data">
                 <!-- login content -->
                 <div x-show="!isLoginPage" class="space-y-4">
-                    <header class="mb-3 text-4xl text-violet-800  font-bold">Add Product</header>
+                    <header class="mb-3 text-4xl text-violet-800  font-bold">Edit Product</header>
                         @csrf
                         <br>
                        <div class="w-full rounded-2xl bg-violet-50 px-4 ring-2 ring-gray-200 focus-within:ring-blue-400">
-                             <input type="text" name="prod_name" placeholder="Product Name"
+                             <input type="text" name="prod_name" value="{{$product->prod_name}}"
                              class="my-3 w-full border-none bg-transparent outline-none focus:outline-none" />
+                            
                        </div>
                        <div class="w-full rounded-2xl bg-violet-50 px-4 ring-2 ring-gray-200 focus-within:ring-blue-400">
-                            <input type="text" name="prod_price" placeholder="Product Price"
+                            <input type="text" name="prod_price" value="{{$product->prod_price}}"
                             class="my-3 w-full border-none bg-transparent outline-none focus:outline-none" />
                        </div>
                         <div class="w-full rounded-2xl bg-violet-50 px-4 ring-2 ring-gray-200 focus-within:ring-blue-400">
                             <textarea type="text" style="resize:none" name="prod_description" placeholder="Description"
-                                class="my-3 w-96 border-none bg-transparent outline-none focus:outline-none" ></textarea>
-                        </div>
-                       {{-- <div class="w-full rounded-2xl bg-violet-50 px-4 ring-2 ring-gray-200 focus-within:ring-blue-400">
-                            <textarea style="resize:none" type="text" name="prod_description" placeholder="Product Description"
-                            class="my-3 w-96 border-none bg-transparent outline-none focus:outline-none">
-                            </textarea>
-                       </div> --}}
-
-
+                                class="my-3 w-96 border-none bg-transparent outline-none focus:outline-none" > {{$product->prod_description}}</textarea>
+                                
+                       </div>
                     {{--  Category Select  --}}
                     <div class="flex justify-between">
                         @foreach($category_list as $key => $category)
                         <label for="category_{{ $key }}" class="cursor-pointer">
                             <div class="rounded-2xl bg-violet-50 px-4 ring-2 ring-gray-200 focus-within:ring-blue-400">
                                 <input type="checkbox" name="category[]" value="{{$key}}" id="category_{{ $key }}" placeholder="Product Description"
-                                class="my-3 border-none bg-transparent outline-none focus:outline-none" />
-                                {{$category}}
-                            </div>
+                                class="my-3 border-none bg-transparent outline-none focus:outline-none" 
+                                    {{ in_array($key, $product_categories) ? 'checked':''}} 
+                                />
+                              {{$category}}
+                            </div> 
                         </label>
                         @endforeach
                     </div>
@@ -110,7 +107,7 @@
                         <div class="text-center">
                                 <!-- Current Profile Photo -->
                                 <div class="mt-2" x-show="! photoPreview">
-                                    <img id="productPreview"  class=" bg-violet-400 w-40 h-40 m-auto rounded-full shadow">
+                                    <img id="productPreview" src="{{asset('product_images/'.$product->prod_image)}}"  class=" bg-violet-400 w-40 h-40 m-auto rounded-full shadow">
                                 </div>
                                 <!-- New Profile Photo Preview -->
                                 <div class="mt-2" x-show="photoPreview" style="display: none;">
@@ -125,11 +122,11 @@
 
                     <button
                         class="w-96 rounded-2xl border-b-4 border-b-violet-600 bg-violet-500 py-3 font-bold text-white hover:bg-violet-400 active:translate-y-[0.125rem] active:border-b-violet-400">
-                        ADD
+                        UPDATE
                     </button>
 
                 </div>
-
+               
             </form>
 
             {{-- <div class="flex items-center space-x-4">

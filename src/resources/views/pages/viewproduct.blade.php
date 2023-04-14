@@ -71,7 +71,7 @@
               /> --}}
               {{-- fetch image from database --}}
                 <img
-                    class="h-full w-full  rounded-full object-scale-down object-center border-2 border-black"
+                    class="h-full w-full  rounded-full object-fit object-center border-2 border-black"
                     src="{{asset('prod_images/'.$product->prod_image)}}"
                     alt="">
 
@@ -114,7 +114,7 @@
           <td class="px-6 py-4">
 
 
-            <form action="{{route('deleteproduct', ['id' => $product->id])}}" method="POST" onsubmit="return confirm('Are you sure you want to delete this product?');" style="display: inline-block;">
+            <form action="{{route('deleteproduct')}}" method="POST" onsubmit="return confirm('Are you sure you want to delete this product?');" style="display: inline-block;">
               @csrf
             <div class="flex space-x-2">
               
@@ -139,7 +139,8 @@
             </form>
 
 
-              <a x-data="{ tooltip: 'Edite' }" href="#">
+              <a x-data="{ tooltip: 'Edite' }" href="{{route('editproduct',$product->id)}}">
+                {{-- <input type="hidden" name="id" value="{{$product->id}}"> --}}
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"

@@ -40,4 +40,9 @@ Route::get('/home', [AdminController::class, 'home'])->name('home');
 Route::get('/viewproduct', [ProductController::class, 'viewProduct'])->name('viewproduct');
 
 //route for deleting product using post
-Route::post('/deleteproduct/{id}', [ProductController::class, 'deleteProduct'])->name('deleteproduct');
+Route::post('/deleteproduct', [ProductController::class, 'deleteProduct'])->name('deleteproduct');
+
+//edit product route
+Route::get('/editproduct/{id}', [ProductController::class, 'editProduct'])->name('editproduct');
+//put route for updating product
+Route::post('/editproduct/{id}', [ProductController::class, 'updateProduct'])->name('editproduct');

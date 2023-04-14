@@ -73,18 +73,83 @@ class ProductController extends Controller
         ]);
     }
     //delete product
-    public function deleteProduct($id)
+    public function deleteProduct(Request $request)
     {
-        $product = Product::find($id);
         
+        $product = Product::find($request->id);
         $product->delete();
         return redirect()->route('viewproduct');
     }
 
-   
 
 
+    public function editProduct(Request $request)
+    {
+        $admin_id = Auth::guard('admin')->user()->id;
+        $product = Product::where("admin_id", $admin_id)->where ("id", $request->id)->get();
+        // $products = Product::find($request->id);
+        if($product->count() == 0)
+        {
+            return redirect()->back();
+        }
+        else
+        {
+            $product = $product->first();
+        }
+
+        $product_categories = $product->categories->pluck('category')->all();
+        $category_list = [
+            'figures',
+            'funko',
+            'keychains',
+        ];
         
+        return view('pages.editproduct', [
+            'category_list' => $category_list,
+            'product' => $product, 'product_categories' => $product_categories]);
+    }
+    
+
+    public function updateProduct(Request $request)
+    {
+        $admin_id = Auth::guard('admin')->user()->id;
+        $product = Product::where("admin_id", $admin_id)->where ("id", $request->id)->get();
+        if($product->count() == 0)
+        {
+            return redirect()->back();
+        }
+        else
+        {
+            $product = $product->first();
+        }
+
+
+        $product = Product::find($request->id);
+        $product->product_name = $request->product_name;
+        $product->product_description = $request->product_description;
+        $product->product_price = $request->product_price;
+       
+        if($request->hasFile('photo'))
+        {
+            $image = $request->file('photo');
+            $extension = $image->getClientOriginalExtension();
+            $image_name = time().'.'.$extension;
+            $image->move(public_path('prod_images'), $image_name);
+            $product->prod_image = $image_name;
+        }
+         $product->update();
+        
+         $product->categories()->delete();
+
+        foreach($request->category ?? [] as $category)
+        {
+            $new_category = new Category();
+            $new_category->product_id = $product->id;
+            $new_category->category = $category;
+            $new_category->save();
+        }
+        return redirect()->route('viewproduct');
+    }
          
    
 }

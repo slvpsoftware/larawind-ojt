@@ -7,6 +7,8 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
+
 
 class ProductController extends Controller
 {
@@ -77,7 +79,13 @@ class ProductController extends Controller
 
     public function delete_product(Request $request)
     {
-        $product = Product::find($request->id)->delete();
+        $product = Product::find($request->id);
+        $destination='product_images/'.$product->prod_image;
+        if(File::exists($destination))
+        {
+            File::delete($destination);
+        }
+        $product->delete();
         return redirect()->route('view_product');
     }
 
@@ -128,6 +136,20 @@ class ProductController extends Controller
     //edit product
     public function edited_product(Request $request)
     {
+        //dd($request->all());
+        if($request->submit == 'editForm' )
+        {
+            return $this->editForm($request);
+
+        }
+        else if($request->submit == 'delete_image')
+        {
+           return $this->delete_image($request);
+        }
+    }
+    public function editForm(Request $request)
+    {
+        //dd($request->all());
         $admin_id = Auth::guard('admin')->user()->id;
           $editedProduct = Product::where("admin_id", $admin_id)
           ->where('id', $request->id)
@@ -181,4 +203,17 @@ class ProductController extends Controller
         //     'product' => $product
         // ]);
     }
+    public function delete_image(Request $request)
+    {
+        $deleteImage = Product::find($request->id);
+        $destination='product_images/'.$deleteImage->prod_image;
+        if(File::exists($destination))
+        {
+            File::delete($destination);
+        }
+        $deleteImage->prod_image="";
+        $deleteImage->update();
+        return redirect()->route('view_product');
+    }
+    
 }

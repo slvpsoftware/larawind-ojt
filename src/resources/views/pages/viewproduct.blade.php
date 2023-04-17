@@ -49,13 +49,13 @@
     <table class="w-full border-collapse bg-white text-left text-base text-gray-500">
       <thead class="bg-gray-300">
         <tr>
-          <th scope="col" class="px-6 py-4 font-medium text-gray-900 ">Image</th>
-          <th scope="col" class="px-6 py-4 font-medium text-gray-900 ">Name</th>
-          <th scope="col" class="px-6 py-4 font-medium text-gray-900">Price</th>
-          <th scope="col" class="px-6 py-4 font-medium text-gray-900">Category</th>
-          <th scope="col" class="px-6 py-4 font-medium text-gray-900">Description</th>
-          <th scope="col" class="px-6 py-4 font-medium text-gray-900">Created At</th>
-          <th scope="col" class="px-6 py-4 font-medium text-gray-900">Action</th>
+          <th scope="col" class="px-6 py-4 font-medium text-gray-900 "> Image       </th>
+          <th scope="col" class="px-6 py-4 font-medium text-gray-900 "> Name        </th>
+          <th scope="col" class="px-6 py-4 font-medium text-gray-900">  Price       </th>
+          <th scope="col" class="px-6 py-4 font-medium text-gray-900">  Category    </th>
+          <th scope="col" class="px-6 py-4 font-medium text-gray-900">  Description </th>
+          <th scope="col" class="px-6 py-4 font-medium text-gray-900">  Created At  </th>
+          <th scope="col" class="px-6 py-4 font-medium text-gray-900">  Action      </th>
         </tr>
       </thead>
       @foreach ($products as $product)
@@ -63,17 +63,19 @@
       <tbody class="divide-y divide-gray-100 border-t border-gray-100">
         <tr class="hover:bg-gray-200">
           <th class="flex gap-3 px-6 py-4 font-normal text-gray-900">
-            <div class="relative h-24 w-24">
+            <div class="relative h-24 w-24 rounded-full bg-gray-400">
               {{-- <img
                 class="h-full w-full rounded-full object-cover object-center"
                 src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
                 alt=""
               /> --}}
               {{-- fetch image from database --}}
-                <img
+              @if ($product->prod_image !="")
+                  <img
                     class="h-full w-full  rounded-full object-fit object-center border-2 border-black"
                     src="{{asset('prod_images/'.$product->prod_image)}}"
                     alt="">
+              @endif
 
               {{-- <span class="absolute right-0 bottom-0 h-2 w-2 rounded-full bg-green-400 ring ring-white"></span> --}}
             </div>
@@ -164,7 +166,50 @@
       @endforeach
     </table>
     
-    {{-- pagination --}}
+    {{-- Sweetalert Delete --}}
+    {{-- <script>
+      window.addEventListener('delete-confirmation', event => {
+        Swal.fire(
+        {
+          title: 'Are you sure?',
+          text: "You won't be able to revert this!",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes, delete it!'
+        }).then((result) => 
+        {
+          if (result.isConfirmed) 
+          {
+           Livewire.emit('deleteProduct');
+          }
+        })
+      });
+
+
+      // Swal.fire(
+      //   {
+      //     title: 'Are you sure?',
+      //     text: "You won't be able to revert this!",
+      //     icon: 'warning',
+      //     showCancelButton: true,
+      //     confirmButtonColor: '#3085d6',
+      //     cancelButtonColor: '#d33',
+      //     confirmButtonText: 'Yes, delete it!'
+      //   }).then((result) => 
+      //   {
+      //     if (result.isConfirmed) 
+      //     {
+      //       Swal.fire(
+      //         'Deleted!',
+      //         'Your file has been deleted.',
+      //         'success'
+      //       )
+      //     }
+      //   }
+      //   )
+    </script> --}}
    
   </div>
     <div class="m-10">

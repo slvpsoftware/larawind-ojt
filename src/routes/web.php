@@ -46,3 +46,6 @@ Route::post('/deleteproduct', [ProductController::class, 'deleteProduct'])->name
 Route::get('/editproduct/{id}', [ProductController::class, 'editProduct'])->name('editproduct');
 //put route for updating product
 Route::post('/editproduct/{id}', [ProductController::class, 'updateProduct'])->name('editproduct');
+
+//route for deleting image using post
+Route::get('/deleteimage', [ProductController::class, 'deleteImage'])->name('deleteimage');

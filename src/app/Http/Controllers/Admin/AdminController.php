@@ -13,7 +13,8 @@ class AdminController extends Controller
     public function adminlogin(Request $request)
     {
         // dd($request->all());
-        $credentials = [
+        $credentials = 
+        [
             'username' => $request->username,
             'password' => $request->password
         ];
@@ -42,7 +43,7 @@ class AdminController extends Controller
 
     public function signup(Request $request)//form that accepts registration details
     {
-       $admin = new Admin();
+       $admin           = new Admin();
        $admin->username = $request->username;
        $admin->password = Hash::make($request->password);
     //    $isGoods =

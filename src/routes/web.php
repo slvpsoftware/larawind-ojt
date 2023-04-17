@@ -39,3 +39,6 @@ Route::get('/edit_product/{id}', [ProductController::class, 'edit_product'])->na
 
 //edit product
 Route::post('/edited_product/{id}', [ProductController::class, 'edited_product'])->name('edited_product');
+
+//delete image
+Route::get('/delete_image', [ProductController::class, 'delete_image'])->name('delete_image');

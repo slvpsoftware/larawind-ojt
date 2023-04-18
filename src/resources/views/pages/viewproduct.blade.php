@@ -31,9 +31,10 @@
             </div>
 
         </header>
-            <div class="my-auto max-w-md ps-6">
-              <form action="" class="relative mx-auto me-8">
-              <input type="search" 
+           
+        <div class="my-auto max-w-md ps-6">
+              <form action="{{route('search')}}" method="GET" class="relative mx-auto me-8">
+              <input name='search' type="search" 
                class="peer cursor-pointer relative z-10 h-9 w-12 rounded-full border bg-transparent pl-12 outline-none focus:w-full focus:cursor-text focus:border-violet-900 focus:pl-16 focus:pr-4 " />
                <svg xmlns="http://www.w3.org/2000/svg" class="absolute inset-y-0 my-auto h-3 w-12 border-r border-transparent stroke-violet-900 px-3.5 peer-focus:border-violet-900 peer-focus:stroke-violet-900" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />

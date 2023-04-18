@@ -42,3 +42,5 @@ Route::post('/edited_product/{id}', [ProductController::class, 'edited_product']
 
 //delete image
 Route::get('/delete_image', [ProductController::class, 'delete_image'])->name('delete_image');
+//search
+Route::get('/search', [ProductController::class, 'search'])->name('search');

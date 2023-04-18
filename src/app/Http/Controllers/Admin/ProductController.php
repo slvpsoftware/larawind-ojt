@@ -176,6 +176,16 @@ class ProductController extends Controller
         $delImage->update();
         return redirect()->route('viewproduct');
     }
+    //search product
+    public function search(Request $request)
+    {
+        $search = $request->search;
+        $admin_id = Auth::guard('admin')->user()->id;
+        $products = Product::where("admin_id", $admin_id)->where('product_name', 'like', '%'.$search.'%')
+        ->orWhere('product_description', 'like', '%'.$search.'%')
+        ->orderByDesc("created_at")->paginate(5);
+        return view('pages.viewproduct', ['products' => $products]);
+    }
    
 }
 

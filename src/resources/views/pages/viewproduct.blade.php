@@ -49,9 +49,11 @@
         <div class="relative flex h-5 flex-col-reverse justify-center overflow-hidden bg-gradient-to-br from-black to-black p-6 sm:py-12">
           <div class="relative  flex rounded-2xl bg-transparent px-2 pt-2  shadow-xl ring-1 ring-gray-900/5 sm:my-auto sm:max-w-lg sm:px-10">
             <div class="my-auto max-w-md">
-              <form action="" class="relative my-auto w-max">
+              <form action="{{route('search')}}" method="GET" class="relative my-auto w-max">
                 <input type="search" 
-                      class="peer cursor-pointer relative z-10 h-12 w-12 rounded-full border bg-transparent pl-12 outline-none focus:w-full focus:cursor-text focus:border-black focus:pl-16 focus:pr-4 text-black" />
+                      class="peer cursor-pointer relative z-10 h-12 w-12 rounded-full border bg-transparent pl-12 outline-none focus:w-full focus:cursor-text focus:border-black focus:pl-16 focus:pr-4 text-black" 
+                      name="search"/>
+                      
                 <svg xmlns="http://www.w3.org/2000/svg" class="absolute inset-y-0 my-auto h-8 w-12 border-r border-transparent stroke-black px-3.5 peer-focus:border-black peer-focus:stroke-black" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                 </svg>
@@ -79,59 +81,47 @@
         <tr class="hover:bg-gray-200">
           <th class="flex gap-3 px-6 py-4 font-normal text-gray-900">
             <div class="relative h-24 w-24 rounded-full bg-gray-400">
-              {{-- <img
-                class="h-full w-full rounded-full object-cover object-center"
-                src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                alt=""
-              /> --}}
-              {{-- fetch image from database --}}
-              
-              @if ($product->prod_image !="")
-                  <img
-                    class="h-full w-full  rounded-full object-fit object-center border-2 border-black"
-                    src="{{asset('prod_images/'.$product->prod_image)}}"
-                    alt="">
-              @endif
-
-              {{-- <span class="absolute right-0 bottom-0 h-2 w-2 rounded-full bg-green-400 ring ring-white"></span> --}}
+                @if ($product->prod_image !="")
+                      <img
+                        class="h-full w-full  rounded-full object-fit object-center border-2 border-black"
+                        src="{{asset('prod_images/'.$product->prod_image)}}"
+                        alt="">
+                  @endif
             </div>
-            {{-- <div class="text-base">
-              <div class="font-medium text-gray-700"></div>
-             
-            </div> --}}
           </th>
+
           <td class="px-6 py-4 ">
             <div class="text-base ">
                 <div class="font-medium text-gray-700 capitalize">{{$product->product_name}}</div>
-              </div>
+            </div>
           </td>
+
           <td class="px-6 py-4">
             <div class="text-base">
                 <div class="font-medium text-gray-700">{{$product->product_price}}</div>
-              </div>
+            </div>
           </td>
+
           <td class="px-6 py-4">
             <div class="text-base">
               <div class="font-medium text-gray-700"> {{$product->categories->count() > 0 ? $product->categories->first()->name : "No Category"}}</div>
             </div>
             {{-- category --}}
-          
-           
-             
-        </td>
+          </td>
+
           <td class="px-6 py-4">
             <div class="text-base">
                 <div class="font-medium text-gray-700">{{$product->product_description}}</div>
-              </div>
+            </div>
           </td>
+
           <td class="px-6 py-4">
             <div class="text-base">
               <div class="font-medium text-gray-700">{{$product->created_at}}</div>
             </div>
           </td>
+
           <td class="px-6 py-4">
-
-
             <form action="{{route('deleteproduct')}}" method="POST" onsubmit="return confirm('Are you sure you want to delete this product?');" style="display: inline-block;">
               @csrf
             <div class="flex space-x-2">
@@ -180,56 +170,12 @@
         </tr>
       </tbody>
       @endforeach
+      
     </table>
-    
-    {{-- Sweetalert Delete --}}
-    {{-- <script>
-      window.addEventListener('delete-confirmation', event => {
-        Swal.fire(
-        {
-          title: 'Are you sure?',
-          text: "You won't be able to revert this!",
-          icon: 'warning',
-          showCancelButton: true,
-          confirmButtonColor: '#3085d6',
-          cancelButtonColor: '#d33',
-          confirmButtonText: 'Yes, delete it!'
-        }).then((result) => 
-        {
-          if (result.isConfirmed) 
-          {
-           Livewire.emit('deleteProduct');
-          }
-        })
-      });
-
-
-      // Swal.fire(
-      //   {
-      //     title: 'Are you sure?',
-      //     text: "You won't be able to revert this!",
-      //     icon: 'warning',
-      //     showCancelButton: true,
-      //     confirmButtonColor: '#3085d6',
-      //     cancelButtonColor: '#d33',
-      //     confirmButtonText: 'Yes, delete it!'
-      //   }).then((result) => 
-      //   {
-      //     if (result.isConfirmed) 
-      //     {
-      //       Swal.fire(
-      //         'Deleted!',
-      //         'Your file has been deleted.',
-      //         'success'
-      //       )
-      //     }
-      //   }
-      //   )
-    </script> --}}
+         {{$products->links('pagination::tailwind')}}
+      
+ 
    
   </div>
-    <div class="m-10">
-        {{$products->links('pagination::tailwind')}}
-        
-    </div>
+  
 @endsection

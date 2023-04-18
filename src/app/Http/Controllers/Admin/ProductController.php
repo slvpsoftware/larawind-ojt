@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
-
+use Illuminate\Database\Eloquent\Builder;
 
 class ProductController extends Controller
 {
@@ -63,17 +63,15 @@ class ProductController extends Controller
         $admin_id = Auth::guard('admin')->user()->id;
         $product = Product::where("admin_id", $admin_id)->orderByDesc("created_at")->paginate(4);
         
-        //Eloquent Relationship
-        // $admin = Auth::guard('admin')->user();
-        // $product = $admin->products()->orderByDesc("created_at")->get();
-        
-        // dd([
-        //     'product1' => $product1,
-        //     'product2' => $product2
-        // ]
-        // );
+        $category_list = [
+            'figures',
+            'funko',
+            'keychains',
+        ];
+   
         return view('pages.viewproduct', [
-            'product' => $product
+        'product' => $product,
+        'category_list' => $category_list
         ]);
     }
 
@@ -175,15 +173,11 @@ class ProductController extends Controller
             $filename = time() . '.' . $extension;
             $file->move('product_images', $filename);
             $editedProduct->prod_image = $filename;
-        }
-        
+        }       
             $editedProduct->update();
 
             // Delete Categories
             $editedProduct->categories()->delete();
-
-        
-        
         // Store Categories
         foreach($request->category ?? [] as $category
         )
@@ -215,5 +209,24 @@ class ProductController extends Controller
         $deleteImage->update();
         return redirect()->route('view_product');
     }
-    
+    public function filterCategory(Request $request)
+    { 
+        $admin_id = Auth::guard('admin')->user()->id;
+        $product = Product::where("admin_id", $admin_id)
+
+        ->whereHas('categories', function($query) use ($request){
+            $query->where('category', $request->category);
+        })->orderByDesc("created_at")->paginate(4);
+
+        $category_list = [
+                'figures',
+                'funko',
+                'keychains',
+            ];
+
+        return view('pages.viewproduct', [
+            'product' => $product,
+            'category_list' => $category_list
+        ]);
+    }
 }

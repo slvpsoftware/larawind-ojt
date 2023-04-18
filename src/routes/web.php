@@ -42,3 +42,6 @@ Route::post('/edited_product/{id}', [ProductController::class, 'edited_product']
 
 //delete image
 Route::get('/delete_image', [ProductController::class, 'delete_image'])->name('delete_image');
+
+//filter
+Route::get('/filterCategory', [ProductController::class, 'filterCategory'])->name('filterCategory');

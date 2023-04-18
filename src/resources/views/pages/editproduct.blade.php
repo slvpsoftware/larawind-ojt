@@ -122,6 +122,7 @@
 
                                 {{-- <input type="hidden" name="id" value="{{$product->id}}"> --}}
                                 <div class="ml-10">
+                               
                                 @if ($product->prod_image != "")
                                 <button name="submit" value="delete_image" x-data="{ tooltip: 'Delete' }" href="{{route('delete_image',$product->id)}}">
                         

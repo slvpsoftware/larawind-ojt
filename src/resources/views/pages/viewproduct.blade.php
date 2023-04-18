@@ -31,16 +31,87 @@
             </div>
 
         </header>
-            <div class="my-auto max-w-md ps-6">
-              <form action="" class="relative mx-auto me-8">
-              <input type="search" 
-               class="peer cursor-pointer relative z-10 h-9 w-12 rounded-full border bg-transparent pl-12 outline-none focus:w-full focus:cursor-text focus:border-violet-900 focus:pl-16 focus:pr-4 " />
-               <svg xmlns="http://www.w3.org/2000/svg" class="absolute inset-y-0 my-auto h-3 w-12 border-r border-transparent stroke-violet-900 px-3.5 peer-focus:border-violet-900 peer-focus:stroke-violet-900" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-               </svg>
-               </form>
-         </div>
+          
+          <!-- component -->
+<!-- This is an example component -->
+{{-- <div class="my-auto max-w-md ps-6 pe-9">
+    
+    <button class="text-white bg-violet-600 hover:bg-violet-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center" type="button" data-dropdown-toggle="dropdown">Categories 
+      <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+    </button>
 
+    <!-- Dropdown menu -->
+    <div class="hidden bg-white text-base z-50 list-none divide-y divide-gray-100 rounded shadow my-4" id="dropdown">
+        <ul class="py-1" aria-labelledby="dropdown" >
+        <li>
+            <a href="#" class="text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2">Dashboard</a>
+        </li>
+        <li>
+            <a href="#" class="text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2">Settings</a>
+        </li>
+        <li>
+            <a href="#" class="text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2">Earnings</a>
+        </li>
+        <li>
+            <a href="#" class="text-sm hover:bg-gray-100 text-gray-700 block px-4 py-2">Sign out</a>
+        </li>
+        </ul>
+    </div>
+    </div>
+
+<script src="https://unpkg.com/@themesberg/flowbite@latest/dist/flowbite.bundle.js"></script> --}}
+
+<!-- component -->
+<script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+<br>
+<div class="w-full text-gray-700 bg-white dark-mode:text-gray-200 dark-mode:bg-gray-800">
+   
+  <nav :class="{'flex': open, 'hidden': !open}" class="flex-col flex-grow pb-4 md:pb-0 hidden md:flex md:justify-end md:flex-row">
+     <div class="my-auto max-w-md ps-6">
+     
+      {{-- Search  --}}
+      <form action="" class="relative mx-auto me-8">
+      <input name="search" type="search" 
+      class="peer cursor-pointer relative z-10 h-9 w-12  bg-transparent pl-12 outline-none focus:w-full focus:cursor-text focus:border-violet-900 focus:pl-16 focus:pr-4 " />
+      <svg xmlns="http://www.w3.org/2000/svg" class="absolute inset-y-0 my-auto h-4 w-12 border-r border-transparent stroke-violet-900 px-3.5 peer-focus:border-violet-900 peer-focus:stroke-violet-900" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+      </svg>
+      </form>
+
+     </div>  
+
+     {{-- Categories --}}
+    <div @click.away="open = false" class="relative" x-data="{ open: false }">
+       
+        <button @click="open = !open" class="flex flex-row items-center w-full px-4 py-2 mt-2 text-sm font-semibold text-left bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:focus:bg-gray-600 dark-mode:hover:bg-gray-600 md:w-auto md:inline md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-violet-200 focus:bg-violet-200 focus:outline-none focus:shadow-outline">
+          <span class="text-violet-900 ">Categories</span>
+          <svg fill="violet" viewBox="0 0 20 20" :class="{'rotate-180': open, 'rotate-0': !open}" class="inline w-4 h-4 mt-1 ml-1 transition-transform duration-200 transform md:-mt-1"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+        </button>
+
+        <div x-show="open" x-transition:enter="transition ease-out duration-100" x-transition:enter-start="transform opacity-0 scale-95" x-transition:enter-end="transform opacity-100 scale-100" x-transition:leave="transition ease-in duration-75" x-transition:leave-start="transform opacity-100 scale-100" x-transition:leave-end="transform opacity-0 scale-95" class="absolute right-0 w-full mt-2 origin-top-right rounded-md shadow-lg md:w-48">
+          <div class="px-2 py-2 bg-white rounded-md shadow dark-mode:bg-gray-800">
+           {{-- from add product categories code --}}
+           
+           <form action="{{route('filterCategory')}}" method="GET">
+
+            @foreach($category_list as $key => $category)
+            <label for="category_{{ $key }}" class="cursor-pointer">
+                <div class=" px-4 ring-2 ring-gray-200 focus-within:ring-blue-400">
+                  <button class="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900
+                   hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"  type="submit" name="category" value="{{$key}}">{{$category}}</button>                     
+                </div>
+            </label>
+            @endforeach
+           </form>
+
+
+          </div>
+        </div>
+
+      </div>    
+    </nav>
+
+</div>
 
 <div class="overflow-hidden rounded-lg border border-gray-200 shadow-md m-5">
   <table class="w-full border-collapse bg-violet text-left text-sm text-white-500">

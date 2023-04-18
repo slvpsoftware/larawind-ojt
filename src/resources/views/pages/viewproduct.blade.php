@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<main class="relative min-h-screen w-full bg-gray-400">
+<main class="relative min-h-screen w-full bg-slate-200">
     <!-- component -->
     <div class="p-6" x-data="app">
 <header class="flex w-full justify-between">
@@ -44,9 +44,9 @@
         </a>
     </div>
 </header>
-        {{-- Search Bar --}}
+        {{-- Start of search Bar --}}
         <!-- component -->
-        <div class="relative flex h-5 flex-col-reverse justify-center overflow-hidden bg-gradient-to-br from-black to-black p-6 sm:py-12">
+        {{-- <div class="relative flex h-5 flex-col-reverse justify-center overflow-hidden bg-gradient-to-br from-black to-black p-6 sm:py-12">
           <div class="relative  flex rounded-2xl bg-transparent px-2 pt-2  shadow-xl ring-1 ring-gray-900/5 sm:my-auto sm:max-w-lg sm:px-10">
             <div class="my-auto max-w-md">
               <form action="" class="relative my-auto w-max">
@@ -58,7 +58,113 @@
               </form>
             </div>
           </div>
+        </div> --}}
+        {{-- end of search bar --}}
+        <!-- component -->
+        <!-- component -->
+<script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+<div class="w-full text-gray-700 bg-transparent mt-10 md-5 dark-mode:text-gray-200 dark-mode:bg-gray-800">
+  <div x-data="{ open: false }" class="flex flex-col max-w-screen-xl px-4 mx-auto md:items-center md:justify-between md:flex-row md:px-6 lg:px-8">
+    <div class="p-4 flex flex-row items-center justify-between">
+      {{-- <a href="#" class="text-lg font-semibold tracking-widest text-gray-900 uppercase rounded-lg dark-mode:text-white focus:outline-none focus:shadow-outline">Flowtrail UI</a> --}}
+      
+        {{-- <div class="relative  flex rounded-2xl bg-transparent px-2 pt-2  shadow-xl ring-1 ring-gray-900/5 sm:my-auto sm:max-w-lg sm:px-10">
+          <div class="my-auto max-w-md">
+            <form action="" class="relative my-auto w-max">
+              <input type="search" 
+                    class="peer cursor-pointer relative z-10 h-12 w-12 rounded-full border bg-transparent pl-12 outline-none focus:w-full focus:cursor-text focus:border-black focus:pl-16 focus:pr-4 text-black" />
+              <svg xmlns="http://www.w3.org/2000/svg" class="absolute inset-y-0 my-auto h-8 w-12 border-r border-transparent stroke-black px-3.5 peer-focus:border-black peer-focus:stroke-black" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
+            </form>
+          </div>
+        </div> --}}
+        {{--  --}}
+              <!-- component -->
+
+        {{--  --}}
+      <button class="md:hidden rounded-lg focus:outline-none focus:shadow-outline" @click="open = !open">
+        <svg fill="currentColor" viewBox="0 0 20 20" class="w-6 h-6">
+          <path x-show="!open" fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM9 15a1 1 0 011-1h6a1 1 0 110 2h-6a1 1 0 01-1-1z" clip-rule="evenodd"></path>
+          <path x-show="open" fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+        </svg>
+      </button>
+    </div>
+    <nav :class="{'flex': open, 'hidden': !open}" class="flex-col flex-grow pb-4 md:pb-0 hidden md:flex md:justify-end md:flex-row">
+      
+      {{-- Search bar --}}
+      <div class="relative   rounded-2xl bg-transparent pb-8  shadow-xl ring-1 ring-gray-900/5 sm:my-auto sm:max-w-lg sm:px-10">
+        <div class="my-auto max-w-md">
+          <form action="" class="relative my-auto w-max ">
+            <input type="search" 
+                  class="peer cursor-pointer relative z-10 h-10 w-8 rounded-full border bg-transparent pl-12 outline-none focus:w-full focus:cursor-text focus:border-black focus:pl-16 focus:pr-4 text-black" />
+            <svg xmlns="http://www.w3.org/2000/svg" class="absolute inset-y-0 my-auto h-8 w-12 border-r border-transparent stroke-black px-3.5 peer-focus:border-black peer-focus:stroke-black" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+          </form>
         </div>
+      </div> 
+      {{-- Price Range --}}
+      
+      <div class="">
+        <input type="number" placeholder="Minimum Price" class="[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none block h-10 mb-2 bg-gray-100 p-2 rounded-lg border-2 border-indigo-500 shadow-md focus:outline-none focus:border-indigo-600" />
+      </div>
+      <span class="m-2 uppercase font-bold">to</span>
+      <div class="">
+          <input type="number" placeholder="Maximum Price" class="[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none block h-10 mb-2 bg-gray-100 p-2 rounded-lg border-2 border-indigo-500 shadow-md focus:outline-none focus:border-indigo-600" />
+      </div>
+      
+      
+      {{-- Category --}}
+      <div @click.away="open = false" class="relative" x-data="{ open: false }">
+        <button @click="open = !open" class="flex flex-row items-center w-full px-4 py-2 mt-2 text-sm font-semibold text-left bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:focus:bg-gray-600 dark-mode:hover:bg-gray-600 md:w-auto md:inline md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline">
+          <span class="uppercase">Category </span>
+          <svg fill="currentColor" viewBox="0 0 20 20" :class="{'rotate-180': open, 'rotate-0': !open}" class="inline w-4 h-4 mt-1 ml-1 transition-transform duration-200 transform md:-mt-1"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+        </button>
+        <div x-show="open" x-transition:enter="transition ease-out duration-100" x-transition:enter-start="transform opacity-0 scale-95" x-transition:enter-end="transform opacity-100 scale-100" x-transition:leave="transition ease-in duration-75" x-transition:leave-start="transform opacity-100 scale-100" x-transition:leave-end="transform opacity-0 scale-95" class="absolute right-0 w-full mt-2 origin-top-right rounded-md shadow-lg md:w-48">
+          <div class="px-2 py-2 bg-white rounded-md shadow dark-mode:bg-gray-800">
+            {{-- @foreach($category as $categ)
+            
+              <a class="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" value="{{$category->name}}">{{$categ->name}}</a>
+            
+            @endforeach --}}
+            <form action="{{route('filtercategory')}}" method="GET">
+                    @foreach($category_list as $key => $category)
+                        <label for="category_{{ $key }}" class="cursor-pointer">
+                            <div class="content-center font-bold rounded-2xl bg-white text-black py-2 px-8 ring-2 ring-gray-200 focus-within:ring-blue-400">
+                                {{-- <input type="text" name="category[]" value="{{$key}}" id="category_{{ $key }}" placeholder=""
+                                class="my-3 border-none bg-transparent outline-none focus:outline-none " 
+                               /> --}}
+                                {{-- <a href="{{route('filtercategory')}}" name="categ" class="font-bold pb-8">{{$category}}</a> --}}
+                                <button type="submit" name="category" value="{{$key}}">{{$category}}</button>
+                               
+                            </div>
+                        </label>
+                    @endforeach
+            </form>
+            {{-- <a class="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg 
+            dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:
+            focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus
+            :text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="#">
+            Link #1</a>
+            <a class="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent 
+            dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:
+            text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 f
+            ocus:bg-gray-200 focus:outline-none focus:shadow-outline" href="#">
+            Link #2</a>
+            <a class="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent 
+            dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white
+             dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 
+             focus:outline-none focus:shadow-outline" href="#">
+              Link #3</a> --}}
+              
+          </div>
+        </div>
+      </div>    
+    </nav>
+  </div>
+</div>
+ 
 <!-- component -->
 <div class="overflow-hidden rounded-lg border border-gray-200 shadow-md m-5">
     <table class="w-full border-collapse bg-white text-left text-base text-gray-500">

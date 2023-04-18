@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
 //pagination
 use Illuminate\Pagination\Paginator;
+use Illuminate\Database\Eloquent\Builder;
 
 class ProductController extends Controller
 {
@@ -65,9 +66,20 @@ class ProductController extends Controller
         // $productad = new Product();
         $admin_id = Auth::guard('admin')->user()->id;
         $products = Product::where("admin_id", $admin_id)->orderByDesc("created_at")->paginate(5);
+        $category = Category::all();
         //eloquent
         // $product = $admin_id->products()->orderByDesc("created_at")->get();
-        return view('pages.viewproduct', ['products' => $products]);
+        $category_list = 
+        [
+            'figures',
+            'funko',
+            'keychains',
+        ];
+        return view('pages.viewproduct',
+        [
+            'products'      => $products,
+            'category_list' => $category_list
+        ]);
     }
     //delete product
     public function deleteProduct(Request $request)
@@ -176,6 +188,33 @@ class ProductController extends Controller
         $delImage->update();
         return redirect()->route('viewproduct');
     }
+
+    //filter category
+    public function filterCategory(Request $request)
+    {
+        // dd($request->category);
+       
+        $category = Category::all();
+        $admin_id = Auth::guard('admin')->user()->id;
+        $products = Product::where('admin_id', $admin_id)->whereHas('categories', function($query) use ($request)
+        {
+            $query->where('category',$request->category);
+        })->orderByDesc("created_at")->paginate(5);
+        
+        $category_list = 
+        [
+            'figures',
+            'funko',
+            'keychains',
+        ];
+        return view('pages.viewproduct',
+        [
+            'products'      => $products,
+            'category_list' => $category_list
+        ]);
+        
+    }
+
    
 }
 

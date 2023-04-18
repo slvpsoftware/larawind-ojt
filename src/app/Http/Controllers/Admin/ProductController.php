@@ -215,5 +215,21 @@ class ProductController extends Controller
         $deleteImage->update();
         return redirect()->route('view_product');
     }
+
+    public function search(Request $request)
+    {
+         $search = $request->get('search');
+         $admin_id = Auth::guard('admin')->user()->id;
+         $product = Product::where("admin_id", $admin_id)
+        ->where('prod_name', 'like', '%'.$search.'%')
+        ->orWhere('prod_description', 'like', '%'.$search.'%')
+        ->orderByDesc("created_at")
+        ->paginate(4);
+        return view('pages.viewproduct', [
+            'product' => $product
+        ]);
+
+        //dd($request->all());
+    }
     
 }

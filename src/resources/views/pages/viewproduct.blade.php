@@ -6,16 +6,6 @@
         <div class="p-6" x-data="app">
             <header class="flex w-full justify-between">
 
-                {{-- <!-- Latest compiled and minified CSS -->
-      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
-      <!-- Optional theme -->
-      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-
-      <!-- Latest compiled and minified JavaScript -->
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script> --}}
-
-
                 <a href="{{ route('login') }}">
                     <svg class="h-7 w-7 cursor-pointer text-gray-400 hover:text-gray-300" fill="currentColor"
                         viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" stroke="currentColor">
@@ -38,28 +28,12 @@
                     </a>
 
 
-                    <a href="" x-show="!isLoginPage"
+                    {{-- <a href="" x-show="!isLoginPage"
                         class="rounded-2xl border-b-2 border-b-gray-300 bg-white py-3 px-4 font-bold text-blue-500 ring-2 ring-gray-300 hover:bg-gray-200 active:translate-y-[0.125rem] active:border-b-gray-200">
                         SIGN UP
-                    </a>
+                    </a> --}}
                 </div>
             </header>
-            {{-- Start of search Bar --}}
-            <!-- component -->
-            {{-- <div class="relative flex h-5 flex-col-reverse justify-center overflow-hidden bg-gradient-to-br from-black to-black p-6 sm:py-12">
-          <div class="relative  flex rounded-2xl bg-transparent px-2 pt-2  shadow-xl ring-1 ring-gray-900/5 sm:my-auto sm:max-w-lg sm:px-10">
-            <div class="my-auto max-w-md">
-              <form action="" class="relative my-auto w-max">
-                <input type="search" 
-                      class="peer cursor-pointer relative z-10 h-12 w-12 rounded-full border bg-transparent pl-12 outline-none focus:w-full focus:cursor-text focus:border-black focus:pl-16 focus:pr-4 text-black" />
-                <svg xmlns="http://www.w3.org/2000/svg" class="absolute inset-y-0 my-auto h-8 w-12 border-r border-transparent stroke-black px-3.5 peer-focus:border-black peer-focus:stroke-black" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                </svg>
-              </form>
-            </div>
-          </div>
-        </div> --}}
-            {{-- end of search bar --}}
             <!-- component -->
             <!-- component -->
             <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
@@ -67,20 +41,7 @@
                 <div x-data="{ open: false }"
                     class="flex flex-col max-w-screen-xl px-4 mx-auto md:items-center md:justify-between md:flex-row md:px-6 lg:px-8">
                     <div class="p-4 flex flex-row items-center justify-between">
-                        {{-- <a href="#" class="text-lg font-semibold tracking-widest text-gray-900 uppercase rounded-lg dark-mode:text-white focus:outline-none focus:shadow-outline">Flowtrail UI</a> --}}
 
-                        {{-- <div class="relative  flex rounded-2xl bg-transparent px-2 pt-2  shadow-xl ring-1 ring-gray-900/5 sm:my-auto sm:max-w-lg sm:px-10">
-          <div class="my-auto max-w-md">
-            <form action="" class="relative my-auto w-max">
-              <input type="search" 
-                    class="peer cursor-pointer relative z-10 h-12 w-12 rounded-full border bg-transparent pl-12 outline-none focus:w-full focus:cursor-text focus:border-black focus:pl-16 focus:pr-4 text-black" />
-              <svg xmlns="http://www.w3.org/2000/svg" class="absolute inset-y-0 my-auto h-8 w-12 border-r border-transparent stroke-black px-3.5 peer-focus:border-black peer-focus:stroke-black" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-              </svg>
-            </form>
-          </div>
-        </div> --}}
-                        {{--  --}}
                         <!-- component -->
 
                         {{--  --}}
@@ -149,43 +110,29 @@
                                 x-transition:leave-end="transform opacity-0 scale-95"
                                 class="absolute right-0 w-full mt-2 origin-top-right rounded-md shadow-lg md:w-48">
                                 <div class="px-2 py-2 bg-white rounded-md shadow dark-mode:bg-gray-800">
-                                    {{-- @foreach ($category as $categ)
-            
-              <a class="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" value="{{$category->name}}">{{$categ->name}}</a>
-            
-            @endforeach --}}
+
                                     <form action="{{ route('filtercategory') }}" method="GET">
-                                        @foreach ($category_list as $key => $category)
-                                            <label for="category_{{ $key }}" class="cursor-pointer">
-                                                <div
-                                                    class="content-center font-bold rounded-2xl bg-white text-black py-2 px-8 ring-2 ring-gray-200 focus-within:ring-blue-400">
-                                                    {{-- <input type="text" name="category[]" value="{{$key}}" id="category_{{ $key }}" placeholder=""
-                                class="my-3 border-none bg-transparent outline-none focus:outline-none " 
-                               /> --}}
-                                                    {{-- <a href="{{route('filtercategory')}}" name="categ" class="font-bold pb-8">{{$category}}</a> --}}
-                                                    <button type="submit" name="category"
-                                                        value="{{ $key }}">{{ $category }}</button>
-
-                                                </div>
-                                            </label>
-                                        @endforeach
+                                        <div class="flex flex-col justify-between">
+                                            @foreach (config('const.CATEGORY_LIST') as $key => $category)
+                                                <label for="category_{{ $key }}" class="cursor-pointer">
+                                                    <div
+                                                        class="content-center font-bold rounded-2xl bg-white text-black py-2 px-8 ring-2 ring-gray-200 focus-within:ring-blue-400">
+                                                        <div
+                                                            class="rounded-2xl flex space-x-4 w-32 bg-white pr-6 ring-2 ring-gray-200 focus-within:ring-blue-400">
+                                                            <input type="checkbox" name="category[]"
+                                                                value="{{ $key }}"
+                                                                id="category_{{ $key }}" placeholder=""
+                                                                class="my-3 border-none bg-transparent outline-none focus:outline-none"
+                                                                {{ in_array($key, $category_filter ?? []) ? 'checked' : '' }} />
+                                                            <p class="pt-1"><span>{{ $category }}</span></p>
+                                                        </div>
+                                                    </div>
+                                                </label>
+                                            @endforeach
+                                            <input type="submit"
+                                                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" />
+                                        </div>
                                     </form>
-                                    {{-- <a class="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg 
-            dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:
-            focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus
-            :text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="#">
-            Link #1</a>
-            <a class="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent 
-            dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:
-            text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 f
-            ocus:bg-gray-200 focus:outline-none focus:shadow-outline" href="#">
-            Link #2</a>
-            <a class="block px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent 
-            dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white
-             dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 
-             focus:outline-none focus:shadow-outline" href="#">
-              Link #3</a> --}}
-
                                 </div>
                             </div>
                         </div>
@@ -298,52 +245,6 @@
             </tbody>
             @endforeach
             </table>
-
-            {{-- Sweetalert Delete --}}
-            {{-- <script>
-      window.addEventListener('delete-confirmation', event => {
-        Swal.fire(
-        {
-          title: 'Are you sure?',
-          text: "You won't be able to revert this!",
-          icon: 'warning',
-          showCancelButton: true,
-          confirmButtonColor: '#3085d6',
-          cancelButtonColor: '#d33',
-          confirmButtonText: 'Yes, delete it!'
-        }).then((result) => 
-        {
-          if (result.isConfirmed) 
-          {
-           Livewire.emit('deleteProduct');
-          }
-        })
-      });
-
-
-      // Swal.fire(
-      //   {
-      //     title: 'Are you sure?',
-      //     text: "You won't be able to revert this!",
-      //     icon: 'warning',
-      //     showCancelButton: true,
-      //     confirmButtonColor: '#3085d6',
-      //     cancelButtonColor: '#d33',
-      //     confirmButtonText: 'Yes, delete it!'
-      //   }).then((result) => 
-      //   {
-      //     if (result.isConfirmed) 
-      //     {
-      //       Swal.fire(
-      //         'Deleted!',
-      //         'Your file has been deleted.',
-      //         'success'
-      //       )
-      //     }
-      //   }
-      //   )
-    </script> --}}
-
         </div>
         <div class="m-10">
             {{ $products->links('pagination::tailwind') }}

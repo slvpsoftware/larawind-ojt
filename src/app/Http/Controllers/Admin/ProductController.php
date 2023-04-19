@@ -234,18 +234,12 @@ class ProductController extends Controller
         $product = Product::where("admin_id", $admin_id)
 
         ->whereHas('categories', function($query) use ($request){
-            $query->where('category', $request->category);
+            $query->whereIn('category', $request->category);
         })->orderByDesc("created_at")->paginate(4);
-
-        $category_list = [
-                'figures',
-                'funko',
-                'keychains',
-            ];
 
         return view('pages.viewproduct', [
             'product' => $product,
-            'category_list' => $category_list
+            'category_filter' => $request->category
         ]);
     }
 

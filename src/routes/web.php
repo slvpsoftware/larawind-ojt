@@ -47,3 +47,5 @@ Route::get('/search', [ProductController::class, 'search'])->name('search');
 
 //filter
 Route::get('/filterCategory', [ProductController::class, 'filterCategory'])->name('filterCategory');
+//filterPrice
+Route::get('/filterPrice', [ProductController::class, 'filterPrice'])->name('filterPrice');

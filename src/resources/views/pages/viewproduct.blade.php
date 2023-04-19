@@ -1,7 +1,18 @@
 @extends('layouts.app')
 
 @section('content')
-    <main class="relative min-h-screen w-full bg-slate-200">
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+    <style>
+        input[type=range]::-webkit-slider-thumb {
+            pointer-events: all;
+            width: 24px;
+            height: 24px;
+            -webkit-appearance: none;
+            /* @apply w-6 h-6 appearance-none pointer-events-auto; */
+        }
+    </style>
+
+    <main class="relative min-h-screen w-full bg-white">
         <!-- component -->
         <div class="p-6" x-data="app">
             <header class="flex w-full justify-between">
@@ -18,12 +29,12 @@
                 <!-- buttons -->
                 <div class="space-x-4">
                     <a href="{{ route('home') }}" x-show="isLoginPage"
-                        class="rounded-2xl border-b-2 border-b-gray-300 bg-white py-3 px-4 font-bold text-blue-500 ring-2 ring-gray-300 hover:bg-gray-200 active:translate-y-[0.125rem] active:border-b-gray-200">
+                        class="rounded-2xl border-b-2 border-b-gray-300 bg-black py-3 px-4 font-bold text-white ring-2 ring-gray-300 hover:bg-gray-400 hover:text-black active:translate-y-[0.125rem] active:border-b-gray-200">
                         HOME
                     </a>
 
                     <a href="{{ route('addproduct') }}" x-show="isLoginPage"
-                        class="rounded-2xl border-b-2 border-b-gray-300 bg-white py-3 px-4 font-bold text-blue-500 ring-2 ring-gray-300 hover:bg-gray-200 active:translate-y-[0.125rem] active:border-b-gray-200">
+                        class="rounded-2xl border-b-2 border-b-gray-300 bg-black py-3 px-4 font-bold text-white ring-2 ring-gray-300 hover:bg-gray-400 hover:text-white active:translate-y-[0.125rem] active:border-b-gray-200">
                         ADD PRODUCTS
                     </a>
 
@@ -61,7 +72,7 @@
 
                         {{-- Search bar --}}
                         <div
-                            class="relative   rounded-2xl bg-transparent pb-8  shadow-xl ring-1 ring-gray-900/5 sm:my-auto sm:max-w-lg sm:px-10">
+                            class="relative   rounded-2xl bg-transparent pb-20  shadow-xl ring-1 ring-gray-900/5 sm:my-auto sm:max-w-lg sm:px-10">
                             <div class="my-auto max-w-md">
                                 <form action="{{ route('search') }}" method="GET" class="relative my-auto w-max ">
                                     <input type="search" name="search"
@@ -76,9 +87,51 @@
                                 </form>
                             </div>
                         </div>
-                        {{-- Price Range --}}
 
-                        <div class="">
+                        {{-- Price Range --}}
+                        <form action="{{ route('filterprice') }}" method="GET">
+                            <div x-data="range()" x-init="mintrigger();
+                            maxtrigger()" class="relative max-w-xl w-60 py-2 ">
+                                <div>
+                                    <input type="range" name="min_price" step="100" x-bind:min="min"
+                                        x-bind:max="max" x-on:input="mintrigger" x-model="minprice"
+                                        class="absolute pointer-events-none appearance-none z-20 h-2 w-full opacity-0 cursor-pointer">
+
+                                    <input type="range" name="max_price" step="100" x-bind:min="min"
+                                        x-bind:max="max" x-on:input="maxtrigger" x-model="maxprice"
+                                        class="absolute pointer-events-none appearance-none z-20 h-2 w-full opacity-0 cursor-pointer">
+
+                                    <div class="relative z-10 h-2">
+                                        <div class="absolute z-10 left-0 right-0 bottom-0 top-0 rounded-md bg-gray-200">
+                                        </div>
+                                        <div class="absolute z-20 top-0 bottom-0 rounded-md bg-black"
+                                            x-bind:style="'right:' + maxthumb + '%; left:' + minthumb + '%'"></div>
+                                        <div class="absolute z-30 w-6 h-6 top-0 left-0 bg-black rounded-full -mt-2 -ml-1"
+                                            x-bind:style="'left: ' + minthumb + '%'"></div>
+                                        <div class="absolute z-30 w-6 h-6 top-0 right-0 bg-black rounded-full -mt-2 -mr-3"
+                                            x-bind:style="'right: ' + maxthumb + '%'"></div>
+                                    </div>
+                                </div>
+
+                                <div class="flex justify-between items-center py-5">
+                                    <div>
+                                        <input type="text" maxlength="5" x-on:input="mintrigger" x-model="minprice"
+                                            class="px-3 py-2 border border-gray-200 rounded w-24 text-center">
+                                    </div>
+                                    <div>
+                                        <input type="text" maxlength="5" x-on:input="maxtrigger" x-model="maxprice"
+                                            class="px-3 py-2 border border-gray-200 rounded w-24 text-center">
+                                    </div>
+                                </div>
+                                <div class="px-24 w-20">
+                                    <button type="submit"
+                                        class="bg-black hover:bg-slate-200 hover:text-black text-white font-bold py-2 px-4 rounded">Filter
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+
+                        {{-- <div class="">
                             <input type="number" placeholder="Minimum Price"
                                 class="[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none block h-10 mb-2 bg-gray-100 p-2 rounded-lg border-2 border-indigo-500 shadow-md focus:outline-none focus:border-indigo-600" />
                         </div>
@@ -86,14 +139,14 @@
                         <div class="">
                             <input type="number" placeholder="Maximum Price"
                                 class="[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none block h-10 mb-2 bg-gray-100 p-2 rounded-lg border-2 border-indigo-500 shadow-md focus:outline-none focus:border-indigo-600" />
-                        </div>
+                        </div> --}}
 
 
                         {{-- Category --}}
                         <div @click.away="open = false" class="relative" x-data="{ open: false }">
                             <button @click="open = !open"
                                 class="flex flex-row items-center w-full px-4 py-2 mt-2 text-sm font-semibold text-left bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:focus:bg-gray-600 dark-mode:hover:bg-gray-600 md:w-auto md:inline md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline">
-                                <span class="uppercase">Category </span>
+                                <span class="uppercase">filter by category </span>
                                 <svg fill="currentColor" viewBox="0 0 20 20"
                                     :class="{ 'rotate-180': open, 'rotate-0': !open }"
                                     class="inline w-4 h-4 mt-1 ml-1 transition-transform duration-200 transform md:-mt-1">
@@ -130,7 +183,7 @@
                                                 </label>
                                             @endforeach
                                             <input type="submit"
-                                                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" />
+                                                class="bg-black hover:bg-slate-200 hover:text-black text-white font-bold py-2 px-4 rounded" />
                                         </div>
                                     </form>
                                 </div>
@@ -143,15 +196,15 @@
             <!-- component -->
             <div class="overflow-hidden rounded-lg border border-gray-200 shadow-md m-5">
                 <table class="w-full border-collapse bg-white text-left text-base text-gray-500">
-                    <thead class="bg-gray-300">
+                    <thead class="bg-black text-white">
                         <tr>
-                            <th scope="col" class="px-6 py-4 font-medium text-gray-900 "> Image </th>
-                            <th scope="col" class="px-6 py-4 font-medium text-gray-900 "> Name </th>
-                            <th scope="col" class="px-6 py-4 font-medium text-gray-900"> Price </th>
-                            <th scope="col" class="px-6 py-4 font-medium text-gray-900"> Category </th>
-                            <th scope="col" class="px-6 py-4 font-medium text-gray-900"> Description </th>
-                            <th scope="col" class="px-6 py-4 font-medium text-gray-900"> Created At </th>
-                            <th scope="col" class="px-6 py-4 font-medium text-gray-900"> Action </th>
+                            <th scope="col" class="px-6 py-4 font-medium text-white "> Image </th>
+                            <th scope="col" class="px-6 py-4 font-medium text-white "> Name </th>
+                            <th scope="col" class="px-6 py-4 font-medium text-white"> Price </th>
+                            <th scope="col" class="px-6 py-4 font-medium text-white"> Category </th>
+                            <th scope="col" class="px-6 py-4 font-medium text-white"> Description </th>
+                            <th scope="col" class="px-6 py-4 font-medium text-white"> Created At </th>
+                            <th scope="col" class="px-6 py-4 font-medium text-white"> Action </th>
                         </tr>
                     </thead>
                     @foreach ($products as $product)
@@ -245,9 +298,31 @@
             </tbody>
             @endforeach
             </table>
+
         </div>
         <div class="m-10">
             {{ $products->links('pagination::tailwind') }}
 
         </div>
+        <script>
+            function range() {
+                return {
+                    minprice: 10,
+                    maxprice: 10000,
+                    min: 10,
+                    max: 10000,
+                    minthumb: 0,
+                    maxthumb: 0,
+
+                    mintrigger() {
+                        this.minprice = Math.min(this.minprice, this.maxprice - 100);
+                        this.minthumb = ((this.minprice - this.min) / (this.max - this.min)) * 100;
+                    },
+                    maxtrigger() {
+                        this.maxprice = Math.max(this.maxprice, this.minprice + 100);
+                        this.maxthumb = 100 - (((this.maxprice - this.min) / (this.max - this.min)) * 100);
+                    },
+                }
+            }
+        </script>
     @endsection

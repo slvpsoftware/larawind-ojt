@@ -53,3 +53,5 @@ Route::get('/deleteimage', [ProductController::class, 'deleteImage'])->name('del
 Route::get('/search', [ProductController::class, 'search'])->name('search');
 //filter category route
 Route::get('/filtercategory', [ProductController::class, 'filterCategory'])->name('filtercategory');
+//filter price route
+Route::get('/filterprice', [ProductController::class, 'filterPrice'])->name('filterprice');

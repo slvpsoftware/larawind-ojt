@@ -195,14 +195,14 @@ class ProductController extends Controller
             'funko',
             'keychains',
         ];
-        return view('pages.viewproduct', ['products' => $products, 'category_list' => $category_list]);
+        return view('pages.viewproduct', ['products' => $products, 
+        'category_list' => $category_list]);
     }	
 
 
     //filter category
     public function filterCategory(Request $request)
     {
-        
         $admin_id = Auth::guard('admin')->user()->id;
         $products = Product::where('admin_id', $admin_id)->whereHas('categories', function($query) use ($request)
         {
@@ -211,13 +211,24 @@ class ProductController extends Controller
         
         return view('pages.viewproduct',
         [
-            'products'      => $products,
+            'products'        => $products,
             // 'category_filter' => $request->category ?? []
             'category_filter' => $request->category
         ]);
+    }
+    //filter price range
+    public function filterPrice(Request $request)
+    {
         
+        $admin_id = Auth::guard('admin')->user()->id;
+        $products = Product::where('admin_id', $admin_id)->whereBetween('product_price', [$request->min_price, $request->max_price])->orderByDesc("created_at")->paginate(5);
+        return view('pages.viewproduct',
+        [
+            'products'      => $products,
+            'min_price'     => $request->min_price,
+            'max_price'     => $request->max_price
+        ]);
     }
 
-   
 }
 

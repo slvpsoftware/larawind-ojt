@@ -220,8 +220,6 @@ class ProductController extends Controller
         ->orWhere('prod_description', 'like', '%'.$search.'%')
         ->orderByDesc("created_at")
         ->paginate(4);
-        
-
         return view('pages.viewproduct', [
             'product' => $product
         ]);
@@ -236,15 +234,12 @@ class ProductController extends Controller
         $product = Product::where("admin_id", $admin_id)
 
         ->whereHas('categories', function($query) use ($request){
-
             $query->whereIn('category', $request->category);
         })->orderByDesc("created_at")->paginate(4);
 
         return view('pages.viewproduct', [
             'product' => $product,
             'category_filter' => $request->category
-
         ]);
-    }
-
+    }   
 }

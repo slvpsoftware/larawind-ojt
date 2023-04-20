@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-    <main class="relative min-h-screen w-full bg-gray-400">
+    <main class="relative min-h-screen w-full bg-white">
         <!-- component -->
         <div class="p-6" x-data="app">
             <!-- header -->
@@ -17,18 +17,18 @@
                 <!-- buttons -->
                 <div class="space-x-4">
                     <a href="{{ route('addproduct') }}" x-show="isLoginPage"
-                        class="rounded-2xl border-b-2 border-b-gray-300 bg-white py-3 px-4 font-bold text-blue-500 ring-2 ring-gray-300 hover:bg-gray-200 active:translate-y-[0.125rem] active:border-b-gray-200">
+                        class="rounded-2xl border-b-2 border-b-gray-200 bg-black py-3 px-4 font-bold text-white ring-2 ring-gray-300 hover:bg-white hover:text-black hover:border-b-black active:translate-y-[0.125rem] active:border-b-gray-200">
                         ADD PRODUCT
                     </a>
 
                     <a href="{{ route('viewproduct') }}" x-show="isLoginPage"
-                        class="rounded-2xl border-b-2 border-b-gray-300 bg-white py-3 px-4 font-bold text-blue-500 ring-2 ring-gray-300 hover:bg-gray-200 active:translate-y-[0.125rem] active:border-b-gray-200">
+                        class="rounded-2xl border-b-2 border-b-gray-200 bg-black py-3 px-4 font-bold text-white ring-2 ring-gray-300 hover:bg-white hover:text-black hover:border-b-black active:translate-y-[0.125rem] active:border-b-gray-200">
                         VIEW PRODUCTS
                     </a>
 
 
                     <a href="{{ route('logout') }}" x-show="!isLoginPage"
-                        class="rounded-2xl border-b-2 border-b-gray-300 bg-white py-3 px-4 font-bold text-blue-500 ring-2 ring-gray-300 hover:bg-gray-200 active:translate-y-[0.125rem] active:border-b-gray-200">
+                        class="rounded-2xl border-b-2 border-b-gray-200 bg-black py-3 px-4 font-bold text-white ring-2 ring-gray-300 hover:bg-white hover:text-black hover:border-b-black active:translate-y-[0.125rem] active:border-b-gray-200">
                         LOGOUT
                     </a>
                 </div>

@@ -1,5 +1,6 @@
 @extends('layouts.app')
 @section('content')
+    {{-- Style for Price Range --}}
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
     <style>
         input[type=range]::-webkit-slider-thumb {
@@ -67,7 +68,7 @@
 
                     </div>
 
-                    {{-- Categories --}}
+                    {{-- Filter --}}
                     <div @click.away="open = false" class="relative" x-data="{ open: false }">
 
                         <button @click="open = !open"
@@ -93,56 +94,65 @@
                             <div class="px-2 py-2 bg-white rounded-md shadow dark-mode:bg-gray-800">
 
                                 {{-- Price Range --}}
-                                <!-- component -->
+
                                 <div class="pb-2">
                                     <span class="text-violet-900 font-bold">Price Range</span>
                                 </div>
 
-                                <form action="{{route('filterPrice')}}" method="GET">
-                                <div x-data="range()" x-init="mintrigger();
-                                maxtrigger()" class="relative max-w-sm">
-                                    <div>
-                                        <input type="range" name="minprice" step="5" x-bind:min="min"
-                                            x-bind:max="max" x-on:input="mintrigger" x-model="minprice"
-                                            class="absolute pointer-events-none appearance-none z-20 h-2 w-full opacity-0 cursor-pointer">
+                                <form action="{{ route('filterPrice') }}" method="GET">
+                                    <div x-data="range()" x-init="mintrigger();
+                                    maxtrigger()" class="relative max-w-sm">
+                                        <div>
+                                            <input type="range" value="{{ $minprice ?? 0 }}" step="5"
+                                                x-bind:min="min" x-bind:max="max"
+                                                x-on:input="mintrigger" x-model="minprice"
+                                                class="absolute pointer-events-none appearance-none z-20 h-2 w-full opacity-0 cursor-pointer">
 
-                                        <input type="range" name="maxprice" step="5" x-bind:min="min"
-                                            x-bind:max="max" x-on:input="maxtrigger" x-model="maxprice"
-                                            class="absolute pointer-events-none appearance-none z-20 h-2 w-full opacity-0 cursor-pointer">
+                                            <input type="range" value="{{ $maxprice ?? 10000 }}" step="5"
+                                                x-bind:min="min" x-bind:max="max"
+                                                x-on:input="maxtrigger" x-model="maxprice"
+                                                class="absolute pointer-events-none appearance-none z-20 h-2 w-full opacity-0 cursor-pointer">
 
-                                        <div class="relative z-10 h-1">
+                                            <div class="relative z-10 h-1">
 
-                                            <div
-                                                class="absolute z-10 left-0 right-0 bottom-0 top-0 rounded-md bg-violet-200">
+                                                <div
+                                                    class="absolute z-10 left-0 right-0 bottom-0 top-0 rounded-md bg-violet-200">
+                                                </div>
+
+                                                <div class="absolute z-20 top-0 bottom-0 rounded-md bg-violet-500"
+                                                    x-bind:style="'right:' + maxthumb + '%; left:' + minthumb + '%'"></div>
+
+                                                <div class="absolute z-30 w-5 h-5 top-0 left-0 bg-violet-500 rounded-full -mt-2 -ml-1"
+                                                    x-bind:style="'left: ' + minthumb + '%'"></div>
+
+                                                <div class="absolute z-30 w-5 h-5 top-0 right-0 bg-violet-500 rounded-full -mt-2 -mr-3"
+                                                    x-bind:style="'right: ' + maxthumb + '%'"></div>
                                             </div>
-
-                                            <div class="absolute z-20 top-0 bottom-0 rounded-md bg-violet-500"
-                                                x-bind:style="'right:' + maxthumb + '%; left:' + minthumb + '%'"></div>
-
-                                            <div class="absolute z-30 w-5 h-5 top-0 left-0 bg-violet-500 rounded-full -mt-2 -ml-1"
-                                                x-bind:style="'left: ' + minthumb + '%'"></div>
-
-                                            <div class="absolute z-30 w-5 h-5 top-0 right-0 bg-violet-500 rounded-full -mt-2 -mr-3"
-                                                x-bind:style="'right: ' + maxthumb + '%'"></div>
                                         </div>
-                                    </div>
-                                    <div class="flex justify-between items-center py-5">
-                                        <div>
-                                            <input type="text" maxlength="5" x-on:input="mintrigger" x-model="minprice"
-                                                class=" border-gray-200 rounded w-20 text-center">
+                                        {{-- Input box for price range --}}
+                                        <div class="flex justify-between items-center py-5">
+
+
+                                            <div>
+                                                <input name="minprice" value="{{ $minprice ?? 0 }}" type="text"
+                                                    maxlength="5" x-on:input="mintrigger" x-model="minprice"
+                                                    class=" border-gray-200 rounded w-20 text-center">
+
+                                            </div>
+                                            <div>
+                                                <input type="text" value="{{ $maxprice ?? 10000 }}" name="maxprice"
+                                                    maxlength="5" x-on:input="maxtrigger" x-model="maxprice"
+                                                    class=" border-gray-200 rounded w-20 text-center">
+
+                                            </div>
                                         </div>
-                                        <div>
-                                            <input type="text" maxlength="5" x-on:input="maxtrigger" x-model="maxprice"
-                                                class=" border-gray-200 rounded w-20 text-center">
-                                        </div>
-                                    </div>
-                                    <div>
-                                       <button
-                                            class=" px-4 py-2  text-sm font-semibold bg-transparent rounded-lg md:mt-0 text-white
+                                        <div class="py-2 px-4">
+                                            <button
+                                                class=" px-4 py-2  text-sm font-semibold bg-transparent rounded-lg md:mt-0 text-white
                                   bg-violet-500 focus:outline-none focus:shadow-outline">Price
-                                        </button>
+                                            </button>
+                                        </div>
                                     </div>
-                                </div>
                                 </form>
                                 <form action="{{ route('filterCategory') }}" method="GET">
                                     <div class="pb-2">
@@ -161,23 +171,15 @@
                                     <div class="py-2 px-4">
                                         <button
                                             class=" px-4 py-2  text-sm font-semibold bg-transparent rounded-lg md:mt-0 text-white
-                                  bg-violet-500 focus:outline-none focus:shadow-outline">Filter
+                                        bg-violet-500 focus:outline-none focus:shadow-outline">Filter
                                         </button>
                                     </div>
                                 </form>
-
-
                             </div>
                         </div>
-
                     </div>
-
-
-
                 </nav>
-
             </div>
-
             <div class="overflow-hidden rounded-lg border border-gray-200 shadow-md m-5">
                 <table class="w-full border-collapse bg-violet text-left text-sm text-white-500">
                     <thead class="bg-violet-600">
@@ -213,7 +215,6 @@
                                         <span
                                             class="absolute right-0 bottom-0 h-2 w-2 rounded-full bg-violet-400 ring ring-white"></span>
                                     </div>
-
                                 </th>
                                 <td class="px-6 py-4 text-violet-900">
                                     <span> {{ $products->prod_name }}</span>
@@ -279,21 +280,24 @@
                     @endforeach
 
                 </table>
+                {{-- Pagination --}}
                 <div class="row">
                     <div class="col-md-12  border-b-violet-900 py-3 px-4 font-bold">
                         {{ $product->links('pagination::tailwind') }}
                     </div>
                 </div>
             </div>
+
+            {{-- Script for Price Range --}}
             <script>
                 function range() {
                     return {
-                        minprice: 100,
-                        maxprice: 10000,
+                        minprice: parseInt("{{ $minprice ?? 0 }}"),
+                        maxprice: parseInt("{{ $maxprice ?? 10000 }}"),
                         min: 100,
                         max: 10000,
-                        minthumb: 0,
-                        maxthumb: 0,
+                        minthumb: parseInt("{{ $minprice ?? 0 }}"),
+                        maxthumb: parseInt("{{ $maxprice ?? 10000 }}"),
 
                         mintrigger() {
                             this.minprice = Math.min(this.minprice, this.maxprice - 500);

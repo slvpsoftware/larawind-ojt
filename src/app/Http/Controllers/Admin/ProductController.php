@@ -229,20 +229,21 @@ class ProductController extends Controller
         //dd($request->all());
     }
     
+
     public function filterCategory(Request $request)
     { 
         $admin_id = Auth::guard('admin')->user()->id;
         $product = Product::where("admin_id", $admin_id)
 
         ->whereHas('categories', function($query) use ($request){
-            $query->where('category', $request->category);
+
+            $query->whereIn('category', $request->category);
         })->orderByDesc("created_at")->paginate(4);
 
-       
-
         return view('pages.viewproduct', [
-            'product' => $product
-            
+            'product' => $product,
+            'category_filter' => $request->category
+
         ]);
     }
 

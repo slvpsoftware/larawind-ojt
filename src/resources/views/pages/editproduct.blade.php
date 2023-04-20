@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-    <main class="relative min-h-screen w-full bg-gray-400">
+    <main class="relative min-h-screen w-full bg-white">
         <!-- component -->
         <div class="p-6" x-data="app">
             <!-- header -->
@@ -17,12 +17,12 @@
                 <!-- buttons -->
                 <div class="space-x-4">
                     <a href="{{ route('home') }}" x-show="isLoginPage"
-                        class="rounded-2xl border-b-2 border-b-gray-300 bg-white py-3 px-4 font-bold text-blue-500 ring-2 ring-gray-300 hover:bg-gray-200 active:translate-y-[0.125rem] active:border-b-gray-200">
+                        class="rounded-2xl border-b-2 border-b-gray-200 bg-black py-3 px-4 font-bold text-white ring-2 ring-gray-300 hover:bg-white hover:text-black hover:border-b-black active:translate-y-[0.125rem] active:border-b-gray-200">
                         HOME
                     </a>
 
                     <a href="" x-show="!isLoginPage"
-                        class="rounded-2xl border-b-2 border-b-gray-300 bg-white py-3 px-4 font-bold text-blue-500 ring-2 ring-gray-300 hover:bg-gray-200 active:translate-y-[0.125rem] active:border-b-gray-200">
+                        class="rounded-2xl border-b-2 border-b-gray-200 bg-black py-3 px-4 font-bold text-white ring-2 ring-gray-300 hover:bg-white hover:text-black hover:border-b-black active:translate-y-[0.125rem] active:border-b-gray-200">
                         SIGN UP
                     </a>
                 </div>
@@ -89,7 +89,7 @@
                                 <!-- Current Profile Photo -->
                                 <div class="mt-2" x-show="! photoPreview">
                                     <img id="productPreview" src="{{ asset('prod_images/' . $product->prod_image) }}"
-                                        class=" bg-violet-400 w-40 h-40 m-auto rounded-full shadow">
+                                        class=" bg-gray-400 w-40 h-40 m-auto rounded-full shadow">
 
                                 </div>
                                 <!-- New Profile Photo Preview -->
@@ -118,7 +118,7 @@
                         </div>
 
                         <button name="submit" value="editForm"
-                            class="w-48 rounded-2xl border-b-4 border-b-blue-700 bg-blue-600 py-3 font-bold text-white hover:bg-blue-400 active:translate-y-[0.125rem] active:border-b-blue-400">
+                            class="w-48 rounded-2xl border-b-4 border-b-gray-200 bg-black py-3 font-bold text-white hover:bg-gray-200 hover:border-b-black hover:text-black active:translate-y-[0.125rem] active:border-b-blue-400">
                             UPDATE
                         </button>
                     </div>

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-    <main class="relative min-h-screen w-full bg-gray-400">
+    <main class="relative min-h-screen w-full bg-white">
         <!-- component -->
         <div class="p-6" x-data="app">
             <!-- header -->
@@ -15,12 +15,12 @@
                 <!-- buttons -->
                 <div class="flex space-x-4">
                     <a href="#" x-show="isLoginPage"
-                        class="rounded-2xl border-b-2 border-black bg-blue-500 py-3 px-4 font-bold text-white-500 ring-2 ring-gray-300 hover:bg-gray-200 active:translate-y-[0.125rem] active:border-b-gray-200">
+                        class="rounded-2xl border-b-2 border-b-gray-200 bg-black py-3 px-4 font-bold text-white ring-2 ring-gray-300 hover:bg-white hover:text-black hover:border-b-black active:translate-y-[0.125rem] active:border-b-gray-200">
                         LOGIN
                     </a>
 
                     <a href="{{ route('signup') }}" x-show="!isLoginPage"
-                        class="rounded-2xl border-b-2 border-black bg-blue-500 py-3 px-4 font-bold text-white-500 ring-2 ring-gray-300 hover:bg-gray-200 active:translate-y-[0.125rem] active:border-b-gray-200">
+                        class="rounded-2xl border-b-2 border-b-gray-200 bg-black py-3 px-4 font-bold text-white ring-2 ring-gray-300 hover:bg-white hover:text-black hover:border-b-black active:translate-y-[0.125rem] active:border-b-gray-200">
                         SIGN UP
                     </a>
                 </div>
@@ -45,7 +45,7 @@
                             <a href="#" class="font-medium text-gray-400 hover:text-gray-500">FORGOT?</a>
                         </div>
                         <button
-                            class="w-48 rounded-2xl border-b-4 border-b-blue-600 bg-blue-500 py-3 font-bold text-white hover:bg-blue-400 active:translate-y-[0.125rem] active:border-b-blue-400">
+                            class="w-48 rounded-2xl border-b-4 border-b-gray-200 bg-black py-3 font-bold text-white hover:bg-gray-200 hover:border-b-black hover:text-black active:translate-y-[0.125rem] active:border-b-blue-400">
                             LOG IN
                         </button>
                     </div>

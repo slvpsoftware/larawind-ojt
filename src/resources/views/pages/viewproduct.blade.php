@@ -29,12 +29,12 @@
                 <!-- buttons -->
                 <div class="space-x-4">
                     <a href="{{ route('home') }}" x-show="isLoginPage"
-                        class="rounded-2xl border-b-2 border-b-gray-300 bg-black py-3 px-4 font-bold text-white ring-2 ring-gray-300 hover:bg-gray-400 hover:text-black active:translate-y-[0.125rem] active:border-b-gray-200">
+                        class="rounded-2xl border-b-2 border-b-gray-300 bg-black py-3 px-4 font-bold text-white ring-2 ring-gray-300 hover:bg-white hover:text-black hover:border-b-black active:translate-y-[0.125rem] active:border-b-gray-200">
                         HOME
                     </a>
 
                     <a href="{{ route('addproduct') }}" x-show="isLoginPage"
-                        class="rounded-2xl border-b-2 border-b-gray-300 bg-black py-3 px-4 font-bold text-white ring-2 ring-gray-300 hover:bg-gray-400 hover:text-white active:translate-y-[0.125rem] active:border-b-gray-200">
+                        class="rounded-2xl border-b-2 border-b-gray-300 bg-black py-3 px-4 font-bold text-white ring-2 ring-gray-300 hover:bg-white hover:text-black hover:border-b-black active:translate-y-[0.125rem] active:border-b-gray-200">
                         ADD PRODUCTS
                     </a>
 
@@ -93,12 +93,14 @@
                             <div x-data="range()" x-init="mintrigger();
                             maxtrigger()" class="relative max-w-xl w-60 py-2 ">
                                 <div>
-                                    <input type="range" name="min_price" step="100" x-bind:min="min"
-                                        x-bind:max="max" x-on:input="mintrigger" x-model="minprice"
+                                    <input type="range" name="" value="{{ $min_price ?? 0 }}" step="100"
+                                        x-bind:min="min" x-bind:max="max" x-on:input="mintrigger"
+                                        x-model="minprice"
                                         class="absolute pointer-events-none appearance-none z-20 h-2 w-full opacity-0 cursor-pointer">
 
-                                    <input type="range" name="max_price" step="100" x-bind:min="min"
-                                        x-bind:max="max" x-on:input="maxtrigger" x-model="maxprice"
+                                    <input type="range" name="" value="{{ $max_price ?? 10000 }}" step="100"
+                                        x-bind:min="min" x-bind:max="max" x-on:input="maxtrigger"
+                                        x-model="maxprice"
                                         class="absolute pointer-events-none appearance-none z-20 h-2 w-full opacity-0 cursor-pointer">
 
                                     <div class="relative z-10 h-2">
@@ -115,12 +117,18 @@
 
                                 <div class="flex justify-between items-center py-5">
                                     <div>
-                                        <input type="text" maxlength="5" x-on:input="mintrigger" x-model="minprice"
-                                            class="px-3 py-2 border border-gray-200 rounded w-24 text-center">
+                                        <p class="uppercase px-3 py-2 border border-none rounded w-24 text-center">from
+                                        </p>
+                                        <input type="text" name="min_price" value="{{ $min_price ?? 0 }}" maxlength="5"
+                                            x-on:input="mintrigger" x-model="minprice"
+                                            class="px-3 py-2 border border-black     rounded w-24 text-center">
                                     </div>
                                     <div>
-                                        <input type="text" maxlength="5" x-on:input="maxtrigger" x-model="maxprice"
-                                            class="px-3 py-2 border border-gray-200 rounded w-24 text-center">
+                                        <p class="uppercase px-3 py-2 border border-none rounded w-24 text-center">to
+                                        </p>
+                                        <input type="text" name="max_price" value="{{ $max_price ?? 10000 }}"
+                                            maxlength="5" x-on:input="maxtrigger" x-model="maxprice"
+                                            class="px-3 py-2 border border-black rounded w-24 text-center">
                                     </div>
                                 </div>
                                 <div class="px-24 w-20">
@@ -212,11 +220,6 @@
                             <tr class="hover:bg-gray-200">
                                 <th class="flex gap-3 px-6 py-4 font-normal text-gray-900">
                                     <div class="relative h-24 w-24 rounded-full bg-gray-400">
-                                        {{-- <img
-                class="h-full w-full rounded-full object-cover object-center"
-                src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                alt=""
-              /> --}}
                                         {{-- fetch image from database --}}
 
                                         @if ($product->prod_image != '')
@@ -224,12 +227,9 @@
                                                 src="{{ asset('prod_images/' . $product->prod_image) }}" alt="">
                                         @endif
 
-                                        {{-- <span class="absolute right-0 bottom-0 h-2 w-2 rounded-full bg-green-400 ring ring-white"></span> --}}
+
                                     </div>
-                                    {{-- <div class="text-base">
-              <div class="font-medium text-gray-700"></div>
-             
-            </div> --}}
+
                                 </th>
                                 <td class="px-6 py-4 ">
                                     <div class="text-base ">
@@ -307,12 +307,12 @@
         <script>
             function range() {
                 return {
-                    minprice: 10,
-                    maxprice: 10000,
+                    minprice: parseInt("{{ $min_price ?? 10 }}"),
+                    maxprice: parseInt("{{ $max_price ?? 10000 }}"),
                     min: 10,
                     max: 10000,
-                    minthumb: 0,
-                    maxthumb: 0,
+                    minthumb: parseInt("{{ $min_price ?? 10 }}"),
+                    maxthumb: parseInt("{{ $max_price ?? 10000 }}"),
 
                     mintrigger() {
                         this.minprice = Math.min(this.minprice, this.maxprice - 100);

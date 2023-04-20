@@ -230,16 +230,36 @@ class ProductController extends Controller
 
     public function filterCategory(Request $request)
     { 
+         if( $request->submit == "")
+          {
+              return redirect()->back();
+          }     
         $admin_id = Auth::guard('admin')->user()->id;
         $product = Product::where("admin_id", $admin_id)
 
         ->whereHas('categories', function($query) use ($request){
             $query->whereIn('category', $request->category);
         })->orderByDesc("created_at")->paginate(4);
-
+            
         return view('pages.viewproduct', [
             'product' => $product,
             'category_filter' => $request->category
         ]);
-    }   
+    }
+
+    //price filter
+    public function filterPrice(Request $request)
+    {
+       
+        $admin_id = Auth::guard('admin')->user()->id;
+        $product = Product::where("admin_id", $admin_id)
+         ->whereBetween('prod_price', [$request->minprice, $request->maxprice])
+         ->orderByDesc("created_at")->paginate(4);
+
+        return view('pages.viewproduct', [
+            'product' => $product,
+             'minprice' => $request->minprice,
+             'maxprice' => $request->maxprice
+        ]);
+}
 }

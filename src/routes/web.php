@@ -49,5 +49,7 @@ Route::post('/editproduct/{id}', [ProductController::class, 'updateProduct'])->n
 
 //route for deleting image using post
 Route::get('/deleteimage', [ProductController::class, 'deleteImage'])->name('deleteimage');
-//search route
+//search pruduct route
 Route::get('/search', [ProductController::class, 'search'])->name('search');
+//filter category route
+Route::get('/filtercategory', [ProductController::class, 'filterCategory'])->name('filtercategory');

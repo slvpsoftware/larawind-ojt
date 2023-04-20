@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
 //pagination
 use Illuminate\Pagination\Paginator;
+use Illuminate\Database\Eloquent\Builder;
 
 class ProductController extends Controller
 {
@@ -24,16 +25,18 @@ class ProductController extends Controller
             'funko',
             'keychains',
         ];
-         return view('pages.addproduct', ['category_list' => $category_list]);
+         return view('pages.addproduct', 
+         ['category_list' => $category_list]
+        );
     }
     //save product to database
     public function addProduct(Request $request)
     {
-        $product = new Product();
-        $product->product_name = $request->product_name;
+        $product                      = new Product();
+        $product->product_name        = $request->product_name;
         $product->product_description = $request->product_description;
-        $product->product_price = $request->product_price;
-        // $product->prod_image = $request->file('photo')->store('public/product_images');
+        $product->product_price       = $request->product_price;
+       
         $product->admin_id = Auth::guard('admin')->user()->id;
         if($request->hasFile('photo'))
         {
@@ -43,8 +46,6 @@ class ProductController extends Controller
             $image->move(public_path('prod_images'), $image_name);
             $product->prod_image = $image_name;
         }
-        
-        
           // Store Categories
           $product->save();
           foreach($request->category as $category)
@@ -58,8 +59,6 @@ class ProductController extends Controller
         return redirect()->route('viewproduct');
     }
 
-      
-
     public function viewProduct()
     {
         // $productad = new Product();
@@ -67,13 +66,17 @@ class ProductController extends Controller
         $products = Product::where("admin_id", $admin_id)->orderByDesc("created_at")->paginate(5);
         //eloquent
         // $product = $admin_id->products()->orderByDesc("created_at")->get();
-        return view('pages.viewproduct', ['products' => $products]);
+       
+        return view('pages.viewproduct',
+        [
+            'products'      => $products,
+        ]);
     }
     //delete product
     public function deleteProduct(Request $request)
     {
         $product = Product::find($request->id);
-        $dest = public_path('prod_images/'.$product->prod_image);
+        $dest    = public_path('prod_images/'.$product->prod_image);
         if(File::exists($dest))
         {
             File::delete($dest);
@@ -81,6 +84,7 @@ class ProductController extends Controller
         $product->delete();
         return redirect()->route('viewproduct');
     }
+
     public function editProduct(Request $request)
     {
         $admin_id = Auth::guard('admin')->user()->id;
@@ -179,13 +183,41 @@ class ProductController extends Controller
     //search product
     public function search(Request $request)
     {
+        // dd($request->all());
         $search = $request->search;
         $admin_id = Auth::guard('admin')->user()->id;
         $products = Product::where("admin_id", $admin_id)->where('product_name', 'like', '%'.$search.'%')
         ->orWhere('product_description', 'like', '%'.$search.'%')
         ->orderByDesc("created_at")->paginate(5);
-        return view('pages.viewproduct', ['products' => $products]);
+        $category_list = 
+        [
+            'figures',
+            'funko',
+            'keychains',
+        ];
+        return view('pages.viewproduct', ['products' => $products, 'category_list' => $category_list]);
+    }	
+
+
+    //filter category
+    public function filterCategory(Request $request)
+    {
+        
+        $admin_id = Auth::guard('admin')->user()->id;
+        $products = Product::where('admin_id', $admin_id)->whereHas('categories', function($query) use ($request)
+        {
+            $query->whereIn('category',$request->category);
+        })->orderByDesc("created_at")->paginate(5);
+        
+        return view('pages.viewproduct',
+        [
+            'products'      => $products,
+            // 'category_filter' => $request->category ?? []
+            'category_filter' => $request->category
+        ]);
+        
     }
+
    
 }
 

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Admin;
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\ProdStatus;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 //delete image
@@ -37,6 +38,8 @@ class ProductController extends Controller
         $product->product_description = $request->product_description;
         $product->product_price       = $request->product_price;
         $product->product_quantity    = $request->product_quantity;
+        $product->prod_status         = "Unpublished";
+        
         $product->admin_id = Auth::guard('admin')->user()->id;
         if($request->hasFile('photo'))
         {
@@ -55,6 +58,14 @@ class ProductController extends Controller
               $new_category->category   = $category;
               $new_category->save();
           }
+
+        //   foreach($request->status as $status)
+        //   {
+        //       $new_status             = new ProdStatus();
+        //       $new_status->product_id = $product->id;
+        //       $new_status->status     = $status;
+        //       $new_status->save();
+        //   }
         //   return view('pages.homepage' );
         return redirect()->route('viewproduct');
     }
@@ -145,7 +156,8 @@ class ProductController extends Controller
         $product->product_name          = $request->product_name;
         $product->product_description   = $request->product_description;
         $product->product_price         = $request->product_price;
-       
+        $product->product_quantity      = $request->product_quantity;
+        $product->prod_status           = $request->prod_status;
         if($request->hasFile('photo'))
         {
             $image          = $request->file('photo');
@@ -165,6 +177,7 @@ class ProductController extends Controller
             $new_category->category     = $category;
             $new_category->save();
         }
+        
         return redirect()->route('viewproduct');
     }
 

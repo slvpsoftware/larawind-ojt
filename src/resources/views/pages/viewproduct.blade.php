@@ -213,6 +213,7 @@
                             <th scope="col" class="px-6 py-4 font-medium text-white"> Category </th>
                             <th scope="col" class="px-6 py-4 font-medium text-white"> Description </th>
                             <th scope="col" class="px-6 py-4 font-medium text-white"> Created At </th>
+                            <th scope="col" class="px-6 py-4 font-medium text-white"> Status </th>
                             <th scope="col" class="px-6 py-4 font-medium text-white"> Action </th>
                         </tr>
                     </thead>
@@ -269,6 +270,11 @@
                                 <td class="px-6 py-4">
                                     <div class="text-base">
                                         <div class="font-medium text-gray-700">{{ $product->created_at }}</div>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <div class="text-base">
+                                        <div class="font-medium text-gray-700 uppercase ">{{ $product->prod_status }}</div>
                                     </div>
                                 </td>
                                 <td class="px-6 py-4">

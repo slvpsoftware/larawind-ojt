@@ -42,6 +42,11 @@
                         </div>
 
                         <div class="w-full rounded-2xl bg-gray-200 px-4 ring-2 ring-gray-200 focus-within:ring-blue-400">
+                            <input type="hidden" name="product_status" 
+                                class="my-3 w-96 border-none bg-transparent outline-none focus:outline-none" />
+                        </div>
+
+                        <div class="w-full rounded-2xl bg-gray-200 px-4 ring-2 ring-gray-200 focus-within:ring-blue-400">
                             <input type="number" name="product_price" placeholder="Price"
                                 class="my-3 w-96 border-none bg-transparent outline-none focus:outline-none" />
                         </div>

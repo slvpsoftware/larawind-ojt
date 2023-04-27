@@ -53,11 +53,43 @@
                                 placeholder="Price"
                                 class="my-3 w-96 border-none bg-transparent outline-none focus:outline-none" />
                         </div>
+                        <div class="w-full rounded-2xl bg-gray-200 px-4 ring-2 ring-gray-200 focus-within:ring-blue-400">
+                            <input type="number" value="{{ $product->product_quantity }}" name="product_quantity"
+                                placeholder="Price"
+                                class="my-3 w-96 border-none bg-transparent outline-none focus:outline-none" />
+                        </div>
 
                         <div class="w-full rounded-2xl bg-gray-200 px-4 ring-2 ring-gray-200 focus-within:ring-blue-400">
                             <textarea type="text" name="product_description" placeholder="Description"
                                 class="my-3 w-96 border-none bg-transparent outline-none focus:outline-none resize-none h-48">{{ $product->product_description }}</textarea>
                         </div>
+
+                        <div class="w-full rounded-2xl bg-transparent px-4 ring-2 ring-gray-200 focus-within:ring-blue-400">
+                            <label for="status">Status</label>
+
+                            <select name="prod_status" id="stats">
+                              @if($product->prod_status == 'Published')
+                              {
+                                <option class="capitalize" value="{{$product->prod_status}}">
+                                   <span class="capitalize"> {{$product->prod_status}} </span>
+                                 </option>
+                                <option value="Unpublished">Unpublished</option>
+                              }
+                              @endif
+                              @if($product->prod_status == 'Unpublished')
+                              {
+                                <option class="capitalize" value="{{$product->prod_status}}">{{$product->prod_status}} </option>
+                                <option value="Published">Published</option>
+                              }
+                              @endif
+                                
+                             
+                              
+                             
+                              
+                            </select>
+                        </div>
+
 
                         {{--  Category Select  --}}
                         <div class="flex justify-between">

@@ -209,6 +209,7 @@
                             <th scope="col" class="px-6 py-4 font-medium text-white "> Image </th>
                             <th scope="col" class="px-6 py-4 font-medium text-white "> Name </th>
                             <th scope="col" class="px-6 py-4 font-medium text-white"> Price </th>
+                            <th scope="col" class="px-6 py-4 font-medium text-white"> Quantity </th>
                             <th scope="col" class="px-6 py-4 font-medium text-white"> Category </th>
                             <th scope="col" class="px-6 py-4 font-medium text-white"> Description </th>
                             <th scope="col" class="px-6 py-4 font-medium text-white"> Created At </th>
@@ -242,6 +243,13 @@
                                         <div class="font-medium text-gray-700">{{ $product->product_price }}</div>
                                     </div>
                                 </td>
+
+                                <td class="px-6 py-4">
+                                    <div class="text-base">
+                                        <div class="font-medium text-gray-700">{{ $product->product_quantity }}</div>
+                                    </div>
+                                </td>
+
                                 <td class="px-6 py-4">
                                     <div class="text-base">
                                         <div class="font-medium text-gray-700">

@@ -38,7 +38,7 @@ class ProductController extends Controller
         $product->product_description = $request->product_description;
         $product->product_price       = $request->product_price;
         $product->product_quantity    = $request->product_quantity;
-        $product->prod_status         = "Published";
+        $product->prod_status         = "Unpublished";
         
         $product->admin_id = Auth::guard('admin')->user()->id;
         if($request->hasFile('photo'))

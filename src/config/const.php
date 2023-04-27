@@ -7,4 +7,8 @@ return [
         'funko',
         'keychains',
     ],
+    'PROD_STATUS_LIST' => [
+        'published',
+        'unpublished',
+    ],
 ];

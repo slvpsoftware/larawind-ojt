@@ -21,6 +21,7 @@ class CreateProductsTable extends Migration
             $table-> integer('product_quantity');
             $table->string('product_description');
             $table->string('prod_image');
+            $table->string('prod_status');
             $table->timestamps();
         });
     }

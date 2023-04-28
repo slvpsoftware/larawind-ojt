@@ -138,18 +138,6 @@
                                 </div>
                             </div>
                         </form>
-
-                        {{-- <div class="">
-                            <input type="number" placeholder="Minimum Price"
-                                class="[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none block h-10 mb-2 bg-gray-100 p-2 rounded-lg border-2 border-indigo-500 shadow-md focus:outline-none focus:border-indigo-600" />
-                        </div>
-                        <span class="m-2 uppercase font-bold">to</span>
-                        <div class="">
-                            <input type="number" placeholder="Maximum Price"
-                                class="[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none block h-10 mb-2 bg-gray-100 p-2 rounded-lg border-2 border-indigo-500 shadow-md focus:outline-none focus:border-indigo-600" />
-                        </div> --}}
-
-
                         {{-- Category --}}
                         <div @click.away="open = false" class="relative" x-data="{ open: false }">
                             <button @click="open = !open"
@@ -160,7 +148,8 @@
                                     class="inline w-4 h-4 mt-1 ml-1 transition-transform duration-200 transform md:-mt-1">
                                     <path fill-rule="evenodd"
                                         d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                        clip-rule="evenodd"></path>
+                                        clip-rule="evenodd">
+                                    </path>
                                 </svg>
                             </button>
                             <div x-show="open" x-transition:enter="transition ease-out duration-100"
@@ -190,8 +179,9 @@
                                                     </div>
                                                 </label>
                                             @endforeach
-                                            <input type="submit"
-                                                class="bg-black hover:bg-slate-200 hover:text-black text-white font-bold py-2 px-4 rounded" />
+                                            <button type="submit"
+                                                class="bg-black hover:bg-slate-200 hover:text-black text-white font-bold py-2 px-4 rounded">Filter
+                                            </button>
                                         </div>
                                     </form>
                                 </div>
@@ -252,15 +242,22 @@
                                 </td>
 
                                 <td class="px-6 py-4">
+                                    {{-- <div class="text-base">
+                                        <div class="font-medium text-gray-700">
+                                            {{ $product->categories->count() > 0 ? $product->categories->name() : 'No Category' }}
+                                        </div>
+                                    </div> --}}
+                                    {{-- category --}}
                                     <div class="text-base">
                                         <div class="font-medium text-gray-700">
-                                            {{ $product->categories->count() > 0 ? $product->categories->first()->name : 'No Category' }}
+                                           @if ($product->categories->count() > 0)
+                                                @foreach ($product->categories as $category)
+                                                    <span class="bg-gray-200 rounded-full px-2 py-1 text-sm font-semibold text-gray-700 mr-2">{{ $category->name }}</span>
+                                                @endforeach
+                                            @else
+                                                <span class="bg-gray-200 rounded-full px-2 py-1 text-sm font-semibold text-gray-700 mr-2">No Category</span>
+                                            @endif
                                         </div>
-                                    </div>
-                                    {{-- category --}}
-
-
-
                                 </td>
                                 <td class="px-6 py-4">
                                     <div class="text-base">
@@ -311,32 +308,32 @@
                             </tr>
                         </tbody>
                     @endforeach
-            </table>
+                </table>
 
-        </div>
-        <div class="m-10">
-            {{ $products->links('pagination::tailwind') }}
+            </div>
+            <div class="m-10">
+                {{ $products->links('pagination::tailwind') }}
 
-        </div>
-        <script>
-            function range() {
-                return {
-                    minprice: parseInt("{{ $min_price ?? 10 }}"),
-                    maxprice: parseInt("{{ $max_price ?? 10000 }}"),
-                    min: 10,
-                    max: 10000,
-                    minthumb: parseInt("{{ $min_price ?? 10 }}"),
-                    maxthumb: parseInt("{{ $max_price ?? 10000 }}"),
+            </div>
+            <script>
+                function range() {
+                    return {
+                        minprice: parseInt("{{ $min_price ?? 10 }}"),
+                        maxprice: parseInt("{{ $max_price ?? 10000 }}"),
+                        min: 10,
+                        max: 10000,
+                        minthumb: parseInt("{{ $min_price ?? 10 }}"),
+                        maxthumb: parseInt("{{ $max_price ?? 10000 }}"),
 
-                    mintrigger() {
-                        this.minprice = Math.min(this.minprice, this.maxprice - 100);
-                        this.minthumb = ((this.minprice - this.min) / (this.max - this.min)) * 100;
-                    },
-                    maxtrigger() {
-                        this.maxprice = Math.max(this.maxprice, this.minprice + 100);
-                        this.maxthumb = 100 - (((this.maxprice - this.min) / (this.max - this.min)) * 100);
-                    },
+                        mintrigger() {
+                            this.minprice = Math.min(this.minprice, this.maxprice - 100);
+                            this.minthumb = ((this.minprice - this.min) / (this.max - this.min)) * 100;
+                        },
+                        maxtrigger() {
+                            this.maxprice = Math.max(this.maxprice, this.minprice + 100);
+                            this.maxthumb = 100 - (((this.maxprice - this.min) / (this.max - this.min)) * 100);
+                        },
+                    }
                 }
-            }
-        </script>
-    @endsection
+            </script>
+        @endsection

@@ -13,6 +13,10 @@ class AdminController extends Controller
     public function adminlogin(Request $request)
     {
         // dd($request->all());
+        $request->validate([
+            'username' => 'required',
+            'password' => 'required',
+        ]);
         $credentials = 
         [
             'username' => $request->username,
@@ -25,11 +29,9 @@ class AdminController extends Controller
         }
         else
         {
-            dd('Invalid Credentials');
+            // dd('Invalid Credentials');
+            return redirect()->route('login')->with('error', 'Invalid Username or Password');
         }
-
-    //    dd($credentials);
-        
     }
     public function login()//display the log in page
     {
@@ -43,6 +45,12 @@ class AdminController extends Controller
 
     public function signup(Request $request)//form that accepts registration details
     {
+       
+        $request->validate([
+            'username' => 'required|unique:admins|max:255',
+            'password' => 'required',
+        ]);
+
        $admin           = new Admin();
        $admin->username = $request->username;
        $admin->password = Hash::make($request->password);

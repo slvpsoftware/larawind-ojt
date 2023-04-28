@@ -26,20 +26,27 @@
                 </div>
             </header>
 
-            <form action="{{ route('signup') }}" method="POST">
+            <form action="{{ route('signup') }}" method="POST" autocomplete="off">
                 @csrf
                 <section
                     class="absolute top-1/2 left-1/2 mx-auto max-w-sm -translate-x-1/2 -translate-y-1/2 transform space-y-4 text-center">
                     <!-- register content -->
                     <div x-show="isLoginPage" class="space-y-4">
                         <header class="mb-3 text-2xl font-bold">Create your profile</header>
+                        
+                        <div class="w-96 rounded-2xl bg-transparent px-4 ring-2 ring-gray-200 focus-within:ring-blue-400">
+                            <span class="text-red-500 w-24 border-black bg-pink-200 ">@error('username'){{$message}}@enderror</span>
+                        </div>
+                        <div class="w-96 rounded-2xl bg-transparent px-4 ring-2 ring-gray-200 focus-within:ring-blue-400">
+                            <span class="text-red-500 w-24 border-black bg-pink-200 ">@error('password'){{$message}}@enderror</span>
+                        </div>
 
                         <div class="w-96 rounded-2xl bg-slate-200 px-4 ring-2 ring-gray-200 focus-within:ring-blue-400">
-                            <input type="text" name="username" placeholder="Username"
+                            <input type="text" name="username" value="{{old('username')}}" placeholder="Username"
                                 class="my-3 w-full border-none bg-transparent outline-none focus:outline-none" />
                         </div>
                         <div class="w-96 rounded-2xl bg-slate-200 px-4 ring-2 ring-gray-200 focus-within:ring-blue-400">
-                            <input type="password" name="password" placeholder="Password"
+                            <input type="password" name="password" value="{{old('password')}}" placeholder="Password"
                                 class="my-3 w-full border-none bg-transparent outline-none focus:outline-none" />
                         </div>
                         <button

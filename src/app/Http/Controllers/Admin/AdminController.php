@@ -25,7 +25,12 @@ class AdminController extends Controller
         }
         else
         {
-            dd('Invalid Credentials');
+            $request->validate([
+                'username' => 'required',
+                'password' => 'required|min:8'
+            ]);
+     
+            return redirect()->route('login');
         }
 
     //    dd($credentials);
@@ -43,6 +48,11 @@ class AdminController extends Controller
 
     public function signup(Request $request)//form that accepts registration details
     {
+       $request->validate([
+           'username' => 'required|unique:admins',
+           'password' => 'required|min:8'
+       ]);
+
        $admin           = new Admin();
        $admin->username = $request->username;
        $admin->password = Hash::make($request->password);

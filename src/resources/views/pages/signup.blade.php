@@ -26,22 +26,25 @@
                 </div>
             </header>
 
-            <form action="{{ route('signup') }}" method="POST">
+            <form action="{{ route('signup') }}" method="POST" autocomplete="off">
                 @csrf
                 <section
                     class="absolute top-1/2 left-1/2 mx-auto max-w-sm -translate-x-1/2 -translate-y-1/2 transform space-y-4 text-center">
                     <!-- register content -->
                     <div x-show="isLoginPage" class="space-y-4">
+                        
                         <header class="mb-3 text-2xl font-bold">Create your profile</header>
 
                         <div class="w-96 rounded-2xl bg-slate-200 px-4 ring-2 ring-gray-200 focus-within:ring-blue-400">
                             <input type="text" name="username" placeholder="Username"
-                                class="my-3 w-full border-none bg-transparent outline-none focus:outline-none" />
-                        </div>
+                                class="my-3 w-full border-none bg-transparent outline-none focus:outline-none" />         
+                        </div>      
+                        <span class="flex items-left text-danger text-red-500">@error('username'){{ $message }}@enderror</span>                   
                         <div class="w-96 rounded-2xl bg-slate-200 px-4 ring-2 ring-gray-200 focus-within:ring-blue-400">
                             <input type="password" name="password" placeholder="Password"
                                 class="my-3 w-full border-none bg-transparent outline-none focus:outline-none" />
                         </div>
+                        <span class="flex items-left text-danger text-red-500">@error('password'){{ $message }}@enderror</span> 
                         <button
                             class="w-48 rounded-2xl border-b-4 border-b-gray-200 bg-black py-3 font-bold text-white hover:bg-gray-200 hover:border-b-black hover:text-black active:translate-y-[0.125rem] active:border-b-blue-400"">
                             CREATE ACCOUNT

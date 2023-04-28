@@ -35,15 +35,17 @@
                     <div x-show="!isLoginPage" class="space-y-4">
                         <header class="mb-3 text-4xl font-bold uppercase tracking-tight hover:tracking-wide">Log in</header>
                         <div class="w-full rounded-2xl bg-slate-200 px-4 ring-2 ring-gray-200 focus-within:ring-blue-400">
-                            <input type="text" name="username" placeholder="Username"
+                            <input type="text" name="username" placeholder="Username" value="{{ old('username') }}"
                                 class="my-3 w-96 border-none bg-transparent outline-none focus:outline-1" />
                         </div>
+                        <span class="flex items-left text-danger text-red-500">@error('username'){{ $message }}@enderror</span>
                         <div
                             class="flex w-full items-center space-x-2 rounded-2xl bg-slate-200 px-4 ring-2 ring-gray-200 focus-within:ring-blue-400">
-                            <input type="password" name="password" placeholder="Password"
+                            <input type="password" name="password" placeholder="Password" value="{{ old('password') }}"
                                 class="my-3 w-96 border-none bg-transparent outline-none" />
                             <a href="#" class="font-medium text-gray-400 hover:text-gray-500">FORGOT?</a>
                         </div>
+                        <span class="flex items-left text-danger text-red-500">@error('password'){{ $message }}@enderror</span>
                         <button
                             class="w-48 rounded-2xl border-b-4 border-b-gray-200 bg-black py-3 font-bold text-white hover:bg-gray-200 hover:border-b-black hover:text-black active:translate-y-[0.125rem] active:border-b-blue-400">
                             LOG IN

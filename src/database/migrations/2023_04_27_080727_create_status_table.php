@@ -13,10 +13,10 @@ class CreateStatusTable extends Migration
      */
     public function up()
     {
-        Schema::create('status', function (Blueprint $table) {
+        Schema::create('prod_statuses', function (Blueprint $table) {
             $table->id();
             $table->string('product_id');
-            $table->integer('prod_status');
+            $table->integer('status');
             $table->timestamps();
         });
     }

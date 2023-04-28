@@ -42,16 +42,28 @@
                                 class="my-3 w-96 border-none bg-transparent outline-none focus:outline-none" />
                         </div>
 
+                        <div class="flex -ml-0 w-48 h-1 rounded-2xl bg-transparent px-2 font-bold italic">
+                            <label for="product_name" class="ps-px place-items-start">Product Name</label>
+                        </div>
                         <div class="w-full rounded-2xl bg-gray-200 px-4 ring-2 ring-gray-200 focus-within:ring-blue-400">
                             <input type="text" value="{{ $product->product_name }}" name="product_name"
                                 placeholder="Product Name"
                                 class="my-3 w-96 border-none bg-transparent outline-none focus:outline-none" />
                         </div>
 
+                        
+                        <div class="flex -ml-0 w-48 h-1 rounded-2xl bg-transparent px-1 font-bold italic">
+                            <label for="product_price" class="ps-px place-items-start">Price</label>
+                        </div>
                         <div class="w-full rounded-2xl bg-gray-200 px-4 ring-2 ring-gray-200 focus-within:ring-blue-400">
                             <input type="number" value="{{ $product->product_price }}" name="product_price"
                                 placeholder="Price"
                                 class="my-3 w-96 border-none bg-transparent outline-none focus:outline-none" />
+                        </div>
+
+                        
+                        <div class="flex -ml-0 w-48 h-1 rounded-2xl bg-transparent px-1 font-bold italic">
+                            <label for="product_quantity" class="ps-px place-items-start">Quantity</label>
                         </div>
                         <div class="w-full rounded-2xl bg-gray-200 px-4 ring-2 ring-gray-200 focus-within:ring-blue-400">
                             <input type="number" value="{{ $product->product_quantity }}" name="product_quantity"
@@ -59,44 +71,50 @@
                                 class="my-3 w-96 border-none bg-transparent outline-none focus:outline-none" />
                         </div>
 
+
+                        
+                        <div class="flex -ml-0 w-48 h-1 rounded-2xl bg-transparent px-1 font-bold italic">
+                            <label for="product_description" class="ps-px place-items-start">Description</label>
+                        </div>
                         <div class="w-full rounded-2xl bg-gray-200 px-4 ring-2 ring-gray-200 focus-within:ring-blue-400">
                             <textarea type="text" name="product_description" placeholder="Description"
                                 class="my-3 w-96 border-none bg-transparent outline-none focus:outline-none resize-none h-48">{{ $product->product_description }}</textarea>
                         </div>
 
-                        <div class="w-full rounded-2xl bg-transparent px-4 ring-2 ring-gray-200 focus-within:ring-blue-400">
-                            <label for="status">Status</label>
 
+                        <div class="w-full rounded-2xl bg-transparent px-4 ring-2 ring-gray-200 focus-within:ring-blue-400">
+                            <label for="stats" class="font-bold italic">Status</label>
                             <select name="prod_status" id="stats">
-                              @if($product->prod_status == 'Published')
-                              {
-                                <option class="capitalize" value="{{$product->prod_status}}">
-                                   <span class="capitalize"> {{$product->prod_status}} </span>
-                                 </option>
-                                <option value="Unpublished">Unpublished</option>
-                              }
-                              @endif
-                              @if($product->prod_status == 'Unpublished')
-                              {
-                                <option class="capitalize" value="{{$product->prod_status}}">{{$product->prod_status}} </option>
-                                <option value="Published">Published</option>
-                              }
-                              @endif
-                                
-                             
-                              
-                             
-                              
+                                @if ($product->prod_status == 0)
+                                    {
+                                    <option class="capitalize" value="{{ $product->prod_status }}">
+                                        <span class="capitalize"> Unpublished </span>
+                                    </option>
+                                    <option value="1">Published</option>
+                                    }
+                                @endif
+                                @if ($product->prod_status == 1)
+                                    {
+                                    <option class="capitalize" value="{{ $product->prod_status }}">
+                                        <span class="capitalize"> Published </span>
+                                    </option>
+                                    <option value="0">Unpublished</option>
+                                    }
+                                @endif
                             </select>
                         </div>
 
 
                         {{--  Category Select  --}}
-                        <div class="flex justify-between">
+                        <div class="w-full h-1 rounded-2xl bg-transparent place-content-center py-5 px-30 font-bold italic">
+                            <label for="product_description" class="ps-px place-items-start">Category</label>
+                        </div>
+                        <div class="flex justify-between space-x-4 px-10">
+                    
                             @foreach ($category_list as $key => $category)
                                 <label for="category_{{ $key }}" class="cursor-pointer">
                                     <div
-                                        class="rounded-2xl bg-violet-50 px-4 ring-2 ring-gray-200 focus-within:ring-blue-400">
+                                        class="rounded-2xl bg-violet-50 px-5 ring-2 ring-gray-200 focus-within:ring-blue-400">
                                         <input type="checkbox" name="category[]" value="{{ $key }}"
                                             id="category_{{ $key }}" placeholder=""
                                             class="my-3 border-none bg-transparent outline-none focus:outline-none "

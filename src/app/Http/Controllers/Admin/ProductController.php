@@ -26,20 +26,28 @@ class ProductController extends Controller
             'funko',
             'keychains',
         ];
+        // $status_list =
+        // [
+        //     'unpublished',
+        //     'published',
+        // ];
          return view('pages.addproduct', 
-         ['category_list' => $category_list]
+         [
+            'category_list' => $category_list
+            
+         ]
         );
     }
     //save product to database
     public function addProduct(Request $request)
     {
+        // dd($request->all());
         $product                      = new Product();
         $product->product_name        = $request->product_name;
         $product->product_description = $request->product_description;
         $product->product_price       = $request->product_price;
         $product->product_quantity    = $request->product_quantity;
-        $product->prod_status         = "Unpublished";
-        
+        $product->prod_status         =$request->prod_status;
         $product->admin_id = Auth::guard('admin')->user()->id;
         if($request->hasFile('photo'))
         {
@@ -58,15 +66,7 @@ class ProductController extends Controller
               $new_category->category   = $category;
               $new_category->save();
           }
-
-        //   foreach($request->status as $status)
-        //   {
-        //       $new_status             = new ProdStatus();
-        //       $new_status->product_id = $product->id;
-        //       $new_status->status     = $status;
-        //       $new_status->save();
-        //   }
-        //   return view('pages.homepage' );
+        
         return redirect()->route('viewproduct');
     }
 

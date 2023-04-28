@@ -17,8 +17,8 @@ class ProdStatus extends Model
     {
         
         $status_list = [
-            'published',
             'unpublished',
+            'published',
             
         ];
         return $status_list[$this->status];

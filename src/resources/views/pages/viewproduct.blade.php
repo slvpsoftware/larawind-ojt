@@ -272,14 +272,16 @@
                                         <div class="font-medium text-gray-700">{{ $product->created_at }}</div>
                                     </div>
                                 </td>
+
                                 <td class="px-6 py-4">
                                     <div class="text-base">
-                                        <div class="font-medium text-gray-700 uppercase ">{{ $product->prod_status }}</div>
+                                        <div class="font-medium text-gray-700 uppercase ">
+                                            {{ $product->prod_status == 0 ? 'Unpublished' : 'Published' }}
+                                        </div>
                                     </div>
                                 </td>
+
                                 <td class="px-6 py-4">
-
-
                                     <form action="{{ route('deleteproduct') }}" method="POST"
                                         onsubmit="return confirm('Are you sure you want to delete this product?');"
                                         style="display: inline-block;">
@@ -297,7 +299,6 @@
                                             </button>
                                     </form>
 
-
                                     <a x-data="{ tooltip: 'Edite' }" href="{{ route('editproduct', $product->id) }}">
                                         {{-- <input type="hidden" name="id" value="{{$product->id}}"> --}}
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -306,11 +307,10 @@
                                                 d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125" />
                                         </svg>
                                     </a>
-            </div>
-            </td>
-            </tr>
-            </tbody>
-            @endforeach
+                                </td>
+                            </tr>
+                        </tbody>
+                    @endforeach
             </table>
 
         </div>

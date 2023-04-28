@@ -36,13 +36,9 @@
                     <div x-show="isLoginPage" class="space-y-4">
                         <header class="mb-5 text-4xl font-serif tracking-widest text-black">Add Product</header>
 
+                       
                         <div class="w-full rounded-2xl bg-gray-200 px-4 ring-2 ring-gray-200 focus-within:ring-blue-400">
                             <input type="text" name="product_name" placeholder="Product Name"
-                                class="my-3 w-96 border-none bg-transparent outline-none focus:outline-none" />
-                        </div>
-
-                        <div class="w-full rounded-2xl bg-gray-200 px-4 ring-2 ring-gray-200 focus-within:ring-blue-400">
-                            <input type="hidden" name="product_status" 
                                 class="my-3 w-96 border-none bg-transparent outline-none focus:outline-none" />
                         </div>
 
@@ -60,6 +56,11 @@
                             <textarea type="text" name="product_description" placeholder="Description"
                                 class="my-3 w-96 border-none bg-transparent outline-none focus:outline-none"></textarea>
                         </div>
+
+                        
+                       
+                         <input type="hidden" name="prod_status" value="0">
+                           
 
                         {{--  Category Select  --}}
                         <div class="flex justify-between">

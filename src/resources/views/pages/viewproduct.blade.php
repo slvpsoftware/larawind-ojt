@@ -254,10 +254,21 @@
                                 <td class="px-6 py-4">
                                     <div class="text-base">
                                         <div class="font-medium text-gray-700">
-                                            {{ $product->categories->count() > 0 ? $product->categories->first()->name : 'No Category' }}
+                                            @if ($product->categories->count() > 0)
+                                                @foreach ($product->categories as $category)
+                                                    <span
+                                                        class="font-medium text-gray-700 capitalize">{{ $category->name }}</span>
+                                                    @if (!$loop->last)
+                                                        <span class="font-medium text-gray-700">,<br></span>
+                                                    @endif
+                                                @endforeach
+                                            @else
+                                                <span class="font-medium text-gray-700 capitalize">No Category Found</span>
+                                            @endif
                                         </div>
-                                    </div>
-                                    {{-- category --}}
+
+                                        {{-- // {{ $product->prod_status == 0 ? 'Unpublished' : 'Published' }} --}}
+                                        {{-- category --}}
 
 
 
@@ -311,32 +322,32 @@
                             </tr>
                         </tbody>
                     @endforeach
-            </table>
+                </table>
 
-        </div>
-        <div class="m-10">
-            {{ $products->links('pagination::tailwind') }}
+            </div>
+            <div class="m-10">
+                {{ $products->links('pagination::tailwind') }}
 
-        </div>
-        <script>
-            function range() {
-                return {
-                    minprice: parseInt("{{ $min_price ?? 10 }}"),
-                    maxprice: parseInt("{{ $max_price ?? 10000 }}"),
-                    min: 10,
-                    max: 10000,
-                    minthumb: parseInt("{{ $min_price ?? 10 }}"),
-                    maxthumb: parseInt("{{ $max_price ?? 10000 }}"),
+            </div>
+            <script>
+                function range() {
+                    return {
+                        minprice: parseInt("{{ $min_price ?? 10 }}"),
+                        maxprice: parseInt("{{ $max_price ?? 10000 }}"),
+                        min: 10,
+                        max: 10000,
+                        minthumb: parseInt("{{ $min_price ?? 10 }}"),
+                        maxthumb: parseInt("{{ $max_price ?? 10000 }}"),
 
-                    mintrigger() {
-                        this.minprice = Math.min(this.minprice, this.maxprice - 100);
-                        this.minthumb = ((this.minprice - this.min) / (this.max - this.min)) * 100;
-                    },
-                    maxtrigger() {
-                        this.maxprice = Math.max(this.maxprice, this.minprice + 100);
-                        this.maxthumb = 100 - (((this.maxprice - this.min) / (this.max - this.min)) * 100);
-                    },
+                        mintrigger() {
+                            this.minprice = Math.min(this.minprice, this.maxprice - 100);
+                            this.minthumb = ((this.minprice - this.min) / (this.max - this.min)) * 100;
+                        },
+                        maxtrigger() {
+                            this.maxprice = Math.max(this.maxprice, this.minprice + 100);
+                            this.maxthumb = 100 - (((this.maxprice - this.min) / (this.max - this.min)) * 100);
+                        },
+                    }
                 }
-            }
-        </script>
-    @endsection
+            </script>
+        @endsection

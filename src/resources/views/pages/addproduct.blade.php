@@ -53,7 +53,7 @@
                         </div>
 
                         <div class="w-full rounded-2xl bg-gray-200 px-4 ring-2 ring-gray-200 focus-within:ring-blue-400">
-                            <textarea type="text" name="product_description" placeholder="Description"
+                            <textarea style="resize:none" type="text" name="product_description" placeholder="Description"
                                 class="my-3 w-96 border-none bg-transparent outline-none focus:outline-none"></textarea>
                         </div>
 

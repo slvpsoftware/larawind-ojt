@@ -8,6 +8,7 @@ use App\Models\Customer\Customer;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 
+
 class CustomerController extends Controller
 {
     public function customer_index()
@@ -38,5 +39,38 @@ class CustomerController extends Controller
         return view('customers.customerlogin');
     }
    
+    public function customerlogin(Request $request)
+    {
+       
+        $credentials = 
+        [
+            'username' => $request->username,
+            'password' => $request->password
+        ];
+        if (Auth::guard('customer')->attempt($credentials))//check the credentials
+         {
+          
+            return redirect()->route('welcome');
+        }
+        else
+        {
+            dd('Invalid Credentials');
+        }
+  
+    }
+        public function login()//display the log in page
+        {
+            return view('customers.customerlogin');
+        }
+    
+        public function welcome()//display the welcome page
+        {
+            return view('customers.welcome');
+        }
+        // public function logout()
+        // {
+        //     Auth::guard('customer')->logout();
+        //     return redirect()->route('login');
+        // }
             
 }

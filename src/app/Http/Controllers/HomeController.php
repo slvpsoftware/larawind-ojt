@@ -28,5 +28,10 @@ class HomeController extends Controller
     {
         return view('pages.exit');
     }
+
+    // public function customer_index()
+    // {
+    //     return view('customer.customer');
+    // }
     
 }

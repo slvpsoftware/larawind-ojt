@@ -26,21 +26,24 @@ class ProductController extends Controller
             'funko',
             'keychains',
         ];
-        // $status_list =
-        // [
-        //     'unpublished',
-        //     'published',
-        // ];
          return view('pages.addproduct', 
          [
             'category_list' => $category_list
-            
          ]
         );
     }
     //save product to database
     public function addProduct(Request $request)
     {
+        $request->validate([
+            'product_name'        => 'required|unique:products|max:255',
+            'product_description' => 'required',
+            'product_price'       => 'required',
+            'product_quantity'    => 'required',
+            'prod_status'         => 'required',
+            'photo'               => 'required',
+        ]);
+
         // dd($request->all());
         $product                      = new Product();
         $product->product_name        = $request->product_name;
@@ -126,7 +129,6 @@ class ProductController extends Controller
         ]);
     }
     
-
     public function updateProduct(Request $request)
     {
         if($request->submit == 'editForm')
@@ -151,7 +153,6 @@ class ProductController extends Controller
         {
             $product = $product->first();
         }
-
         $product                        = Product::find($request->id);
         $product->product_name          = $request->product_name;
         $product->product_description   = $request->product_description;
@@ -167,9 +168,7 @@ class ProductController extends Controller
             $product->prod_image = $image_name;
         }
          $product->update();
-        
          $product->categories()->delete();
-
         foreach($request->category ?? [] as $category)
         {
             $new_category               = new Category();
@@ -177,7 +176,6 @@ class ProductController extends Controller
             $new_category->category     = $category;
             $new_category->save();
         }
-        
         return redirect()->route('viewproduct');
     }
 
@@ -211,16 +209,13 @@ class ProductController extends Controller
         return view('pages.viewproduct', ['products' => $products, 
         'category_list' => $category_list]);
     }	
-
-
     //filter category
     public function filterCategory(Request $request)
     {
-        if($request->submit == null)
+        if($request->category == null)
         {
             return redirect()->route('viewproduct');
         }
-        
         $admin_id = Auth::guard('admin')->user()->id;
         $products = Product::where('admin_id', $admin_id)->whereHas('categories', function($query) use ($request)
         {
@@ -232,12 +227,10 @@ class ProductController extends Controller
             'products'        => $products,
             'category_filter' => $request->category
         ]);
-        
     }
     //filter price range
     public function filterPrice(Request $request)
     {
-        
         $admin_id = Auth::guard('admin')->user()->id;
         $products = Product::where('admin_id', $admin_id)->whereBetween('product_price', [$request->min_price, $request->max_price])->orderByDesc("created_at")->paginate(5);
         return view('pages.viewproduct',

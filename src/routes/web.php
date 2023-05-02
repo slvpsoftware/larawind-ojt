@@ -6,6 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Customer\CustomerController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -55,3 +56,6 @@ Route::get('/search', [ProductController::class, 'search'])->name('search');
 Route::get('/filtercategory', [ProductController::class, 'filterCategory'])->name('filtercategory');
 //filter price route
 Route::get('/filterprice', [ProductController::class, 'filterPrice'])->name('filterprice');
+
+
+// Route::get('/customer', [CustomerController::class, 'customer_index'])->name('customer');

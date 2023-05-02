@@ -58,7 +58,7 @@ class CustomerController extends Controller
         }
   
     }
-        public function login()//display the log in page
+        public function customer_login()//display the log in page
         {
             return view('customers.customerlogin');
         }

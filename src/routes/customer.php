@@ -21,8 +21,8 @@ Route::get('/register', [CustomerController::class, 'customer_reg'])->name('regi
 Route::post('/register', [CustomerController::class, 'customer_register'])->name('register');
 
 //login route
-Route::get('/customer/login', [CustomerController::class, 'login'])->name('login');
-Route::post('/customer/login', [CustomerController::class, 'customerlogin'])->name('login');
+Route::get('/customer', [CustomerController::class, 'customer_login'])->name('customer');
+Route::post('/customer', [CustomerController::class, 'customerlogin'])->name('customer');
 
 //welcome route
 Route::get('/welcome', [CustomerController::class, 'welcome'])->name('welcome');

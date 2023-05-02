@@ -41,15 +41,15 @@
                                 @endphp
                             </div>
                         @endif
-                        <div class="w-full rounded-2xl bg-slate-200 px-4 ring-2 ring-gray-200 focus-within:ring-blue-400">
+                        <div class="w-full rounded-2xl bg-slate-200 px-4 ring-2 ring-gray-200 focus-within:ring-blue-400 overflow-hidden">
                             <input type="text" name="username" value="{{old('username')}}" placeholder="Username"
-                                class="my-3 w-96 border-none bg-transparent outline-none focus:outline-1" />
+                                class="my-3 w-96 border-none bg-transparent outline-none focus:outline-1 truncate" />
                         </div>
                         <span class="text-red-500">@error('username'){{$message}}@enderror</span>
                         <div
-                            class="flex w-full items-center space-x-2 rounded-2xl bg-slate-200 px-4 ring-2 ring-gray-200 focus-within:ring-blue-400">
+                            class="flex w-full items-center space-x-2 rounded-2xl bg-slate-200 px-4 ring-2 ring-gray-200 focus-within:ring-blue-400 overflow-hidden">
                             <input type="password" name="password" value="{{old('password')}}" placeholder="Password"
-                                class="my-3 w-96 border-none bg-transparent outline-none" />
+                                class="my-3 w-96 border-none bg-transparent outline-none overflow-hidden" />
                             <a href="#" class="font-medium text-gray-400 hover:text-gray-500">FORGOT?</a>
                         </div>
                         <span class="text-red-500">@error('password'){{$message}}@enderror</span>

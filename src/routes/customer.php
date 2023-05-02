@@ -19,3 +19,10 @@ use App\Http\Controllers\Customer\CustomerController;
 Route::get('/customer', [CustomerController::class, 'customer_index'])->name('customer_index');
 Route::get('/register', [CustomerController::class, 'customer_reg'])->name('register');
 Route::post('/register', [CustomerController::class, 'customer_register'])->name('register');
+
+//login route
+Route::get('/customer/login', [CustomerController::class, 'login'])->name('login');
+Route::post('/customer/login', [CustomerController::class, 'customerlogin'])->name('login');
+
+//welcome route
+Route::get('/welcome', [CustomerController::class, 'welcome'])->name('welcome');

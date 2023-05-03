@@ -72,7 +72,7 @@ class ProductController extends Controller
               $new_category->save();
           }
         //$product_categories = $product->categories->pluck('category')->all();
-        return redirect()->route('admin.viewproduct')->withInput();
+        return redirect()->route('admin.viewproduct')->with('success', 'Product Added Successfully'); 
     }
 
     public function viewProduct()
@@ -178,7 +178,7 @@ class ProductController extends Controller
             $new_category->category     = $category;
             $new_category->save();
         }
-        return redirect()->route('admin.viewproduct');
+        return redirect()->route('admin.viewproduct')->with('success', 'Product Updated Successfully'); 
     }
 
     public function deleteImage(Request $request)

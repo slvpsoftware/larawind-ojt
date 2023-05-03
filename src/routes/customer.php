@@ -16,21 +16,22 @@ use App\Http\Controllers\Customer\CustomerController;
 */
 //homepage route
 //customer route
-Route::get('/customer', [CustomerController::class, 'customer_index'])->name('customer_index');
-Route::get('/register', [CustomerController::class, 'customer_reg'])->name('register');
-Route::post('/register', [CustomerController::class, 'customer_register'])->name('register');
+Route::prefix('customer')->name('customer.')->group(function(){
+     Route::middleware(['guest:customer','PreventBackHistory'])->group(function(){
+        Route::get('/', [CustomerController::class, 'customer_index'])->name('customer_index');
+        Route::get('/register', [CustomerController::class, 'customer_reg'])->name('register');
+        Route::post('/registers', [CustomerController::class, 'customer_register'])->name('registers');
+        //login route
+        Route::get('/login', [CustomerController::class, 'customer_login'])->name('login');
+        Route::post('/logins', [CustomerController::class, 'customerlogin'])->name('logins');
+        
 
-//login route
+    });
 
-Route::get('/', [CustomerController::class, 'customer_login'])->name('customer');
-Route::get('/mylogin', [CustomerController::class, 'customer_login'])->name('customer');
-Route::post('/customer', [CustomerController::class, 'customerlogin'])->name('customer');
-//logout route
-Route::get('/logout', [CustomerController::class, 'customer_logout'])->name('logout');
-
-Route::get('/customer', [CustomerController::class, 'customer_login'])->name('customer');
-Route::post('/customer', [CustomerController::class, 'customerlogin'])->name('customer');
+    Route::middleware(['auth:customer','PreventBackHistory'])->group(function(){
+        Route::get('/welcome', [CustomerController::class, 'welcome'])->name('welcome');
+        Route::get('/logout', [CustomerController::class, 'logout'])->name('logout');  
+    });
+});
 
 
-//welcome route
-Route::get('/welcome', [CustomerController::class, 'welcome'])->name('welcome');

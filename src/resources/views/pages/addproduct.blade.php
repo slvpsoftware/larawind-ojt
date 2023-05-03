@@ -60,11 +60,11 @@
 
                         <div class="w-full rounded-2xl bg-gray-200 px-4 ring-2 ring-gray-200 focus-within:ring-blue-400">
 
-                            <textarea type="text" name="product_description" value="{{old('product_description')}}" placeholder="Description"
+                            <textarea type="text" name="product_description" placeholder="Description"
 
-                            <textarea style="resize:none" type="text" name="product_description" placeholder="Description"
+                                style="resize:none" type="text" name="product_description" placeholder="Description"
 
-                                class="my-3 w-96 border-none bg-transparent outline-none focus:outline-none"></textarea>
+                                class="my-3 w-96 border-none bg-transparent outline-none focus:outline-none">{{old('product_description')}}</textarea>
                                 
                         </div>
                         <span class="text-red-500 w-24 border-black bg-pink-200 ">@error('product_description'){{$message}}@enderror</span>
@@ -74,20 +74,31 @@
                            
 
                         {{--  Category Select  --}}
+                        
                         <div class="flex justify-between">
                             @foreach ($category_list as $key => $category)
                                 <label for="category_{{ $key }}" class="cursor-pointer">
                                     <div
                                         class="rounded-2xl bg-violet-50 px-4 ring-2 ring-gray-200 focus-within:ring-blue-400">
-                                        <input type="checkbox" name="category[]" value="{{ $key }}"
+                                        {{-- <input type="checkbox" name="category[]" value="{{ $key }}"  --}}
+                                        <input type="checkbox" name="category[]" value="{{ $key }}" {{ (is_array(old('category')) && in_array($key, old('category'))) ? ' checked' : '' }}      
+                                            
                                             id="category_{{ $key }}" placeholder=""
                                             class="my-3 border-none bg-transparent outline-none focus:outline-none" />
+                                             {{-- {{ in_array($key, $product_categories) ? 'checked' : '' }} --}}
+                                    {{-- 
+    <input class="form-check-input" type="checkbox" name="hobby[]" value="1" {{ (is_array(old('hobby')) and in_array(1, old('hobby'))) ? ' checked' : '' }}> football
+ --}}
                                         {{ $category }}
                                     </div>
                                 </label>
+                              
                             @endforeach
+                           
                         </div>
-
+                        <div>
+                            <span class="text-red-500 w-24 border-black bg-pink-200 ">@error('category'){{$message}}@enderror</span>
+                        </div>
                         {{--  Image Upload  --}}
                         <div x-data="{ photoName: null, photoPreview: null }" class="col-span-6 ml-2 sm:col-span-4 md:mr-3">
                             <!-- Photo File Input -->
@@ -109,12 +120,16 @@
                                         photoPreview + '\');'"
                                         style="background-size: cover; background-repeat: no-repeat; background-position: center center; background-image: url('null');">
                                     </span>
+                                    
                                 </div>
+                              
                                 <button id="imageUpload" type="button"
                                     class="inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:text-gray-500 focus:outline-none focus:border-blue-400 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150 mt-2 ml-3">
                                     Add Photo
                                 </button>
+                               
                             </div>
+                            <span class="text-red-500 w-24 border-black bg-pink-200 ">@error('photo'){{$message}}@enderror</span>   
                         </div>
 
                         <button

@@ -37,11 +37,13 @@ class ProductController extends Controller
     {
         $request->validate([
             'product_name'        => 'required|unique:products|max:255',
-            'product_description' => 'required',
+            'product_description' => 'required|max:255',
             'product_price'       => 'required',
             'product_quantity'    => 'required',
             'prod_status'         => 'required',
             'photo'               => 'required',
+            'category'            => 'required',
+            //'category.*'          => 'required|distinct|min:3',
         ]);
 
         // dd($request->all());
@@ -69,8 +71,8 @@ class ProductController extends Controller
               $new_category->category   = $category;
               $new_category->save();
           }
-        
-        return redirect()->route('admin.viewproduct');
+        //$product_categories = $product->categories->pluck('category')->all();
+        return redirect()->route('admin.viewproduct')->withInput();
     }
 
     public function viewProduct()

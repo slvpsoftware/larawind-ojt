@@ -58,7 +58,7 @@ class CustomerController extends Controller
         }
   
     }
-        public function login()//display the log in page
+        public function customer_login()//display the log in page
         {
             return view('customers.customerlogin');
         }
@@ -67,10 +67,10 @@ class CustomerController extends Controller
         {
             return view('customers.welcome');
         }
-        // public function logout()
-        // {
-        //     Auth::guard('customer')->logout();
-        //     return redirect()->route('login');
-        // }
+       public function customer_logout()
+       {
+           Auth::guard('customer')->logout();
+           return redirect()->route('customer');
+       }
             
 }

@@ -10,7 +10,7 @@
       </div>
     </div>
     <div class="flex w-1/2 justify-center items-center bg-white">
-      <form action="{{route('login')}}" method="POST" class="bg-white">
+      <form action="{{route('customer')}}" method="POST" class="bg-white">
         @csrf
         <h1 class="text-gray-800 font-bold text-2xl mb-1">Hello My Friend!</h1>
         <p class="text-sm font-normal text-gray-600 mb-7">Welcome </p>

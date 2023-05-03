@@ -8,14 +8,15 @@ class HomeController extends Controller
 {
     public function index(Request $request)
     {
-       return redirect()->route('login');
+       return redirect()->route('admin.login');
     }
 
     // login page
     public function login(Request $request)
     {
 
-        return view('pages.login');
+        // return redirect()->rp=out('pages.login');
+        return redirect()->route('admin.login');
     }
 
     //homepage

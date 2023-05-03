@@ -70,7 +70,7 @@ class ProductController extends Controller
               $new_category->save();
           }
         
-        return redirect()->route('viewproduct');
+        return redirect()->route('admin.viewproduct');
     }
 
     public function viewProduct()
@@ -96,7 +96,7 @@ class ProductController extends Controller
             File::delete($dest);
         }
         $product->delete();
-        return redirect()->route('viewproduct');
+        return redirect()->route('admin.viewproduct');
     }
 
     public function editProduct(Request $request)
@@ -176,7 +176,7 @@ class ProductController extends Controller
             $new_category->category     = $category;
             $new_category->save();
         }
-        return redirect()->route('viewproduct');
+        return redirect()->route('admin.viewproduct');
     }
 
     public function deleteImage(Request $request)

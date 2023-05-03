@@ -7,14 +7,14 @@
             <header class="flex w-full justify-between">
                 <svg class="h-7 w-7 cursor-pointer text-2xl text-gray-400 hover:text-gray-300 font-bold" fill="white"
                     viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" stroke="currentColor">
-                    <path stroke-width="1" fill-rule="evenodd"
+                    {{-- <path stroke-width="1" fill-rule="evenodd"
                         d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                        clip-rule="evenodd"></path>
+                        clip-rule="evenodd"></path> --}}
                 </svg>
 
                 <!-- buttons -->
                 <div class="flex space-x-4">
-                    <a href="{{ route('login') }}" x-show="isLoginPage"
+                    <a href="{{ route('admin.login') }}" x-show="isLoginPage"
                         class="rounded-2xl border-b-2 border-b-gray-200 bg-black py-3 px-4 font-bold text-white ring-2 ring-gray-300 hover:bg-white hover:text-black hover:border-b-black active:translate-y-[0.125rem] active:border-b-gray-200">
                         LOGIN
                     </a>
@@ -26,19 +26,25 @@
                 </div>
             </header>
 
-            <form action="{{ route('signup') }}" method="POST" autocomplete="off">
+            <form action="{{ route('admin.signup') }}" method="POST" autocomplete="off">
                 @csrf
                 <section
                     class="absolute top-1/2 left-1/2 mx-auto max-w-sm -translate-x-1/2 -translate-y-1/2 transform space-y-4 text-center">
                     <!-- register content -->
                     <div x-show="isLoginPage" class="space-y-4">
                         <header class="mb-3 text-2xl font-bold">Create your profile</header>
-                        
+                        <div class="w-96 rounded-2xl bg-transparent px-4 ring-2 ring-gray-200 focus-within:ring-blue-400">
+                            <span class="text-red-500 w-24 border-black bg-pink-200 ">@error('username'){{$message}}@enderror</span>
+                        </div>
                         <div class="w-96 rounded-2xl bg-transparent px-4 ring-2 ring-gray-200 focus-within:ring-blue-400">
                             <span class="text-red-500 w-24 border-black bg-pink-200 ">@error('username'){{$message}}@enderror</span>
                         </div>
                         <div class="w-96 rounded-2xl bg-transparent px-4 ring-2 ring-gray-200 focus-within:ring-blue-400">
                             <span class="text-red-500 w-24 border-black bg-pink-200 ">@error('password'){{$message}}@enderror</span>
+                        </div>
+                        <div class="w-96 rounded-2xl bg-slate-200 px-4 ring-2 ring-gray-200 focus-within:ring-blue-400">
+                            <input type="text" name="store_name" value="{{old('store_name')}}" placeholder="Store Name"
+                                class="my-3 w-full border-none bg-transparent outline-none focus:outline-none" />
                         </div>
 
                         <div class="w-96 rounded-2xl bg-slate-200 px-4 ring-2 ring-gray-200 focus-within:ring-blue-400">

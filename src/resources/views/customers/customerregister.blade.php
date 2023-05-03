@@ -66,7 +66,8 @@
         
         <button type="submit" class="block w-full bg-black mt-4 py-2 rounded-2xl text-white font-semibold mb-2">
           Submit</button>
-        <span class="text-sm ml-2 hover:text-blue-500 cursor-pointer">Already have an account</span>
+        {{-- <span class="text-sm ml-2 hover:text-blue-500 cursor-pointer">Already have an account</span> --}}
+        <a href="{{ route('customer') }}" class="text-sm ml-2 hover:text-blue-500 cursor-pointer">Already have an account</a>
       </form>
     </div>
   </div>

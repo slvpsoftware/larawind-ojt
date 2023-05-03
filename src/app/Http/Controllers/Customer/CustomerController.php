@@ -67,10 +67,10 @@ class CustomerController extends Controller
         {
             return view('customers.welcome');
         }
-        // public function logout()
-        // {
-        //     Auth::guard('customer')->logout();
-        //     return redirect()->route('login');
-        // }
+       public function customer_logout()
+       {
+           Auth::guard('customer')->logout();
+           return redirect()->route('customer');
+       }
             
 }

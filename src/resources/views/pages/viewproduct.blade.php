@@ -20,20 +20,20 @@
                 <a href="{{ route('login') }}">
                     <svg class="h-7 w-7 cursor-pointer text-gray-400 hover:text-gray-300" fill="currentColor"
                         viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" stroke="currentColor">
-                        <path stroke-width="1" fill-rule="evenodd"
+                        {{-- <path stroke-width="1" fill-rule="evenodd"
                             d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                            clip-rule="evenodd"> </path>
+                            clip-rule="evenodd"> </path> --}}
                     </svg>
                 </a>
 
                 <!-- buttons -->
                 <div class="space-x-4">
-                    <a href="{{ route('home') }}" x-show="isLoginPage"
+                    <a href="{{ route('admin.home') }}" x-show="isLoginPage"
                         class="rounded-2xl border-b-2 border-b-gray-300 bg-black py-3 px-4 font-bold text-white ring-2 ring-gray-300 hover:bg-white hover:text-black hover:border-b-black active:translate-y-[0.125rem] active:border-b-gray-200">
                         HOME
                     </a>
 
-                    <a href="{{ route('addproduct') }}" x-show="isLoginPage"
+                    <a href="{{ route('admin.addproduct') }}" x-show="isLoginPage"
                         class="rounded-2xl border-b-2 border-b-gray-300 bg-black py-3 px-4 font-bold text-white ring-2 ring-gray-300 hover:bg-white hover:text-black hover:border-b-black active:translate-y-[0.125rem] active:border-b-gray-200">
                         ADD PRODUCTS
                     </a>
@@ -74,7 +74,7 @@
                         <div
                             class="relative   rounded-2xl bg-transparent pb-20  shadow-xl ring-1 ring-gray-900/5 sm:my-auto sm:max-w-lg sm:px-10">
                             <div class="my-auto max-w-md">
-                                <form action="{{ route('search') }}" method="GET" class="relative my-auto w-max ">
+                                <form action="{{ route('admin.search') }}" method="GET" class="relative my-auto w-max ">
                                     <input type="search" name="search"
                                         class="peer cursor-pointer relative z-10 h-10 w-8 rounded-full border bg-transparent pl-12 outline-none focus:w-full 
                   focus:cursor-text focus:border-black focus:pl-16 focus:pr-4 text-black" />
@@ -89,7 +89,7 @@
                         </div>
 
                         {{-- Price Range --}}
-                        <form action="{{ route('filterprice') }}" method="GET">
+                        <form action="{{ route('admin.filterprice') }}" method="GET">
                             <div x-data="range()" x-init="mintrigger();
                             maxtrigger()" class="relative max-w-xl w-60 py-2 ">
                                 <div>
@@ -161,7 +161,7 @@
                                 class="absolute right-0 w-full mt-2 origin-top-right rounded-md shadow-lg md:w-48">
                                 <div class="px-2 py-2 bg-white rounded-md shadow dark-mode:bg-gray-800">
 
-                                    <form action="{{ route('filtercategory') }}" method="GET">
+                                    <form action="{{ route('admin.filtercategory') }}" method="GET">
                                         <div class="flex flex-col justify-between">
                                             @foreach (config('const.CATEGORY_LIST') as $key => $category)
                                                 <label for="category_{{ $key }}" class="cursor-pointer">
@@ -279,7 +279,7 @@
                                 </td>
 
                                 <td class="px-6 py-4">
-                                    <form action="{{ route('deleteproduct') }}" method="POST"
+                                    <form action="{{ route('admin.deleteproduct') }}" method="POST"
                                         onsubmit="return confirm('Are you sure you want to delete this product?');"
                                         style="display: inline-block;">
                                         @csrf
@@ -296,7 +296,7 @@
                                             </button>
                                     </form>
 
-                                    <a x-data="{ tooltip: 'Edite' }" href="{{ route('editproduct', $product->id) }}">
+                                    <a x-data="{ tooltip: 'Edite' }" href="{{ route('admin.editproduct', $product->id) }}">
                                         {{-- <input type="hidden" name="id" value="{{$product->id}}"> --}}
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                             stroke-width="1.5" stroke="green" class="h-6 w-6" x-tooltip="tooltip">

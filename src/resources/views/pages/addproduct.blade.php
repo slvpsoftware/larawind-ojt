@@ -5,7 +5,7 @@
         <div class="p-6" x-data="app">
             <!-- header -->
             <header class="flex w-full justify-between">
-                <a href="{{ route('login') }}">
+                <a href="{{ route('admin.viewproduct') }}">
                     <svg class="h-7 w-7 cursor-pointer text-gray-400 hover:text-gray-300" fill="currentColor"
                         viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" stroke="currentColor">
                         <path stroke-width="1" fill-rule="evenodd"
@@ -16,19 +16,19 @@
 
                 <!-- buttons -->
                 <div class="space-x-4">
-                    <a href="{{ route('home') }}" x-show="isLoginPage"
+                    <a href="{{ route('admin.home') }}" x-show="isLoginPage"
                         class="rounded-2xl border-b-2 border-b-gray-200 bg-black py-3 px-4 font-bold text-white ring-2 ring-gray-300 hover:bg-white hover:text-black hover:border-b-black active:translate-y-[0.125rem] active:border-b-gray-200">
                         HOME
                     </a>
 
-                    <a href="{{ route('viewproduct') }}" x-show="!isLoginPage"
+                    <a href="{{ route('admin.viewproduct') }}" x-show="!isLoginPage"
                         class="rounded-2xl border-b-2 border-b-gray-200 bg-black py-3 px-4 font-bold text-white ring-2 ring-gray-300 hover:bg-white hover:text-black hover:border-b-black active:translate-y-[0.125rem] active:border-b-gray-200">
                         VIEW PRODUCT
                     </a>
                 </div>
             </header>
 
-            <form action="{{ route('addproduct') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('admin.addproduct') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <section
                     class="absolute top-1/2 left-1/2 mx-auto max-w-sm -translate-x-1/2 -translate-y-1/2 transform space-y-4 text-center">

@@ -25,7 +25,8 @@ class AdminController extends Controller
         if (Auth::guard('admin')->attempt($credentials))//check the credentials
          {
             // dd(Auth::guard('admin')->user()->id);//display the user id if successfully logged in
-            return redirect()->route('home');
+            // dd('Successfully Logged In');
+            return redirect()->route('admin.home');
         }
         else
         {
@@ -49,11 +50,13 @@ class AdminController extends Controller
         $request->validate([
             'username' => 'required|unique:admins|max:255',
             'password' => 'required',
+            'store_name' => 'required|max:255',
         ]);
 
        $admin           = new Admin();
        $admin->username = $request->username;
        $admin->password = Hash::make($request->password);
+       $admin->store_name = $request->store_name;
     //    $isGoods =
         $admin->save();//save to database
     
@@ -68,6 +71,6 @@ class AdminController extends Controller
     public function logout()
     {
         Auth::guard('admin')->logout();
-        return redirect()->route('login');
+        return redirect()->route('admin.login');
     }
 }

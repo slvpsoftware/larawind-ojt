@@ -10,7 +10,7 @@
       </div>
     </div>
     <div class="flex w-1/2 justify-center items-center bg-white">
-      <form action="{{route('register')}}" method="POST" class="bg-white w-1/2">
+      <form action="{{route('customer.registers')}}" method="POST" class="bg-white w-1/2">
         @csrf
         <h1 class="text-gray-800 font-bold text-2xl mb-1">Please Register</h1>
         {{-- <p class="text-sm font-normal text-gray-600 mb-7">Welcome Back</p> --}}
@@ -66,8 +66,7 @@
         
         <button type="submit" class="block w-full bg-black mt-4 py-2 rounded-2xl text-white font-semibold mb-2">
           Submit</button>
-        {{-- <span class="text-sm ml-2 hover:text-blue-500 cursor-pointer">Already have an account</span> --}}
-        <a href="{{ route('customer') }}" class="text-sm ml-2 hover:text-blue-500 cursor-pointer">Already have an account</a>
+        <a href="{{route('customer.login')}}" class="text-sm text-center ml-2 hover:text-blue-500 cursor-pointer">Already have an account</a>
       </form>
     </div>
   </div>

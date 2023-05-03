@@ -29,7 +29,7 @@ class RedirectIfAuthenticated
                 }
                 if($guard === 'customer')
                 {
-                    return redirect()->route('welcome');
+                    return redirect()->route('customer.welcome');
                 }
                 // return redirect(RouteServiceProvider::HOME);
             }

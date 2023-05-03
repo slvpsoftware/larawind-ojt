@@ -22,10 +22,16 @@ class CustomerController extends Controller
     //save the customer registration details
     public function customer_register(Request $request)
     {
-        $request->validate([
-            'username' => 'required|unique:customers|max:255',
-            'password' => 'required',
-        ]);
+        
+        // $request->validate([
+        //     'fname' => 'required|max:255',
+        //     'lname' => 'required|max:255',
+        //     'email' => 'required|max:255',
+        //     'address' => 'required|max:255',
+        //     'contact' => 'required|max:255',
+        //     'username' => 'required|unique:customers|max:255',
+        //     'password' => 'required|min:8|confirmed',
+        // ]);
 
         $customer           = new Customer();
         $customer->customer_fname = $request->fname;
@@ -35,12 +41,18 @@ class CustomerController extends Controller
         $customer->customer_contact = $request->contact;
         $customer->username = $request->username;
         $customer->password = Hash::make($request->password);
+      
         $customer->save();//save to database
+       // dd('Customer Registration Successful');
         return view('customers.customerlogin');
     }
    
     public function customerlogin(Request $request)
     {
+        $request->validate([
+            'username' => 'required',
+            'password' => 'required',
+        ]);
        
         $credentials = 
         [
@@ -50,7 +62,7 @@ class CustomerController extends Controller
         if (Auth::guard('customer')->attempt($credentials))//check the credentials
          {
           
-            return redirect()->route('welcome');
+            return redirect()->route('customer.welcome');
         }
         else
         {
@@ -66,11 +78,12 @@ class CustomerController extends Controller
         public function welcome()//display the welcome page
         {
             return view('customers.welcome');
+           
         }
-       public function customer_logout()
-       {
-           Auth::guard('customer')->logout();
-           return redirect()->route('customer');
-       }
+        public function logout()
+        {
+            Auth::guard('customer')->logout();
+            return redirect()->route('customer.login');
+        }
             
 }

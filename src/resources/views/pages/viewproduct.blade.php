@@ -192,7 +192,33 @@
             </div>
 
             <!-- component -->
+{{-- 
+            <div class="flex flex-wrap bg-green-100 py-4 mx-4 place-content-center w-100">
+                @if (session()->has('success'))
+                   <strong class="font-bold text-green" >Success!</strong> 
+                    <span class="block sm:inline">{{ session()->get('success') }}</span>
+                
+                @endif
+                
+
+            </div> --}}
+            @if (session()->has('success'))
+            <div class="max-w-lg mx-auto">
+                <div class="flex bg-green-200 rounded-lg p-4 mb-4 text-sm text-green-700 place-content-center" role="alert">
+                    <svg class="w-5 h-5 inline mr-3" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
+                    <div class="">
+                        <span class="font-bold">Success!</span> {{ session()->get('success') }}
+                    </div>
+                </div>
+            </div>
+            @endif
+
+
+
             <div class="overflow-hidden rounded-lg border border-gray-200 shadow-md m-5">
+
+
+
                 <table class="w-full border-collapse bg-white text-left text-base text-gray-500">
                     <thead class="bg-black text-white">
                         <tr>
@@ -250,12 +276,15 @@
                                     {{-- category --}}
                                     <div class="text-base">
                                         <div class="font-medium text-gray-700">
-                                           @if ($product->categories->count() > 0)
+                                            @if ($product->categories->count() > 0)
                                                 @foreach ($product->categories as $category)
-                                                    <span class="bg-gray-200 rounded-full px-2 py-1 text-sm font-semibold text-gray-700 mr-2">{{ $category->name }}</span>
+                                                    <span
+                                                        class="bg-gray-200 rounded-full px-2 py-1 text-sm font-semibold text-gray-700 mr-2">{{ $category->name }}</span>
                                                 @endforeach
                                             @else
-                                                <span class="bg-gray-200 rounded-full px-2 py-1 text-sm font-semibold text-gray-700 mr-2">No Category</span>
+                                                <span
+                                                    class="bg-gray-200 rounded-full px-2 py-1 text-sm font-semibold text-gray-700 mr-2">No
+                                                    Category</span>
                                             @endif
                                         </div>
                                 </td>

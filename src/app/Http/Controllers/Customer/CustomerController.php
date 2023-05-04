@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\Customer\Customer;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Admin;
+use App\Models\Product;
 
 
 class CustomerController extends Controller
@@ -85,5 +87,11 @@ class CustomerController extends Controller
             Auth::guard('customer')->logout();
             return redirect()->route('customer.login');
         }
+        //function that display all store admins to the customer page
+       public function list()
+       {
+           $admins = Admin::all();
+           return view('customers.listofstores', compact('admins'));
+       }
             
 }

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Customer\Customer;
 use App\Models\Product;
 use App\Models\Admin;
+use App\Models\Customer\Cart;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 
@@ -110,6 +111,26 @@ class CustomerController extends Controller
             'store' => $store,
         ]);
        
+    }
+    public function addtocart(Request $request, $id)
+    {
+        //add selected cart to database
+        $product = Product::find($id);
+        $cart = new Cart();
+        $cart->product_id = $product->id;
+        $cart->customer_id = Auth::guard('customer')->user()->id;
+        $cart->save();
+      
+        return view('customers.mycart',[
+            'product' => $product,
+          
+        ]);
+
+    }
+
+    public function viewcart()
+    {
+
     }
 
 }

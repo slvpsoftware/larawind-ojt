@@ -34,6 +34,8 @@ Route::prefix('customer')->name('customer.')->group(function(){
         Route::get('/logout', [CustomerController::class, 'logout'])->name('logout');  
         Route::get('/listofstores', [CustomerController::class, 'list'])->name('listofstores');
         Route::get('/viewproductbystore/{id}', [CustomerController::class, 'viewproductbystore'])->name('viewproductbystore');
+        Route::post('/addtocart/{id}', [CustomerController::class, 'addtocart'])->name('addtocart');
+        Route::get('/mycart', [CustomerController::class, 'viewcart'])->name('mycart');
     });
 });
 

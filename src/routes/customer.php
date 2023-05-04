@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 // use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Customer\CustomerController;
+use App\Http\Controllers\Admin\AdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,6 +32,8 @@ Route::prefix('customer')->name('customer.')->group(function(){
     Route::middleware(['auth:customer','PreventBackHistory'])->group(function(){
         Route::get('/welcome', [CustomerController::class, 'welcome'])->name('welcome');
         Route::get('/logout', [CustomerController::class, 'logout'])->name('logout');  
+        Route::get('/listofstores', [CustomerController::class, 'list'])->name('listofstores');
+        Route::get('/viewproductbystore/{id}', [CustomerController::class, 'viewproductbystore'])->name('viewproductbystore');
     });
 });
 

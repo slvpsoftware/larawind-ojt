@@ -31,8 +31,9 @@ Route::prefix('customer')->name('customer.')->group(function(){
 
     Route::middleware(['auth:customer','PreventBackHistory'])->group(function(){
         Route::get('/welcome', [CustomerController::class, 'welcome'])->name('welcome');
-        Route::get('/logout', [CustomerController::class, 'logout'])->name('logout'); 
+        Route::get('/logout', [CustomerController::class, 'logout'])->name('logout');  
         Route::get('/listofstores', [CustomerController::class, 'list'])->name('listofstores');
+        Route::get('/viewproductbystore/{id}', [CustomerController::class, 'viewproductbystore'])->name('viewproductbystore');
     });
 });
 

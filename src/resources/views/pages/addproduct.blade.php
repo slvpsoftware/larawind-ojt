@@ -98,7 +98,7 @@
                            
                         </div>
                         <div>
-                            <span class="text-red-500 w-24 border-black bg-pink-200 ">@error('category'){{$message}}@enderror</span>
+                            <span class="text-red-500 w-24 border-black">@error('category'){{$message}}@enderror</span>
                         </div>
                         {{--  Image Upload  --}}
                         <div x-data="{ photoName: null, photoPreview: null }" class="col-span-6 ml-2 sm:col-span-4 md:mr-3">
@@ -130,7 +130,7 @@
                                 </button>
                                
                             </div>
-                            <span class="text-red-500 w-24 border-black bg-pink-200 ">@error('photo'){{$message}}@enderror</span>   
+                            <span class="text-red-500 w-24 border-black">@error('photo'){{$message}}@enderror</span>   
                         </div>
 
                         <button

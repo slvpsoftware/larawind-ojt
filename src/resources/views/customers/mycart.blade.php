@@ -38,7 +38,7 @@
                         <a class="transform text-gray-700 transition-colors duration-300 hover:text-blue-500 dark:text-gray-200 dark:hover:text-blue-400 lg:mx-8"
                             href="{{ route('customer.welcome') }}">Home</a>
                         <a class="transform text-gray-700 transition-colors duration-300 hover:text-blue-500 dark:text-gray-200 dark:hover:text-blue-400 lg:mx-8"
-                            href="#">Stores</a>
+                            href="{{route('customer.listofstores')}}">Stores</a>
                         <a class="transform text-gray-700 transition-colors duration-300 hover:text-blue-500 dark:text-gray-200 dark:hover:text-blue-400 lg:mx-8"
                             href="#">Pricing</a>
                         <a class="transform text-gray-700 transition-colors duration-300 hover:text-blue-500 dark:text-gray-200 dark:hover:text-blue-400 lg:mx-8"
@@ -66,6 +66,15 @@
                     <div class="mx-auto max-w-5xl justify-center px-6 md:flex md:space-x-6 xl:px-0">
 
                         <div class="rounded-lg md:w-2/3">
+                            @if($myproduct->isEmpty())
+                            {{-- <div class="flex justify-center">
+                                <h1 class="text-2xl font-bold">No Items in Cart</h1>
+                            </div> --}}
+                            <div class="bg-red-100 border-t border-b border-red-500 text-red-700 px-8 py-24" role="alert">
+                                <p class="font-bold">Your cart is empty</p>
+                                <p class="text-sm">You can select many items in different stores.</p>
+                            </div>
+                            @endif
 
                             @foreach ($myproduct as $item)
                                 <div
@@ -79,7 +88,7 @@
                                             <p class="mt-1 text-xs text-gray-700">{{ $item->product_description }}S</p>
                                         </div>
                                         <div class="mt-4 flex justify-between sm:space-y-6 sm:mt-0 sm:block sm:space-x-6">
-                                            <label for="qty" class="mb-2   ">Quantity</label>
+                                            <label for="qty" class="mb-2">Quantity</label>
                                             <div class="flex items-center border-gray-100">
 
                                                 <span
@@ -135,7 +144,7 @@
                             <div class="flex justify-between">
                                 <p class="text-lg font-bold">Total</p>
                                 <div class="">
-                                    <p class="mb-1 text-lg font-bold"></p>
+                                    <p class="mb-1 text-lg font-bold">$ {{$total}}</p>
                                     <p class="text-sm text-gray-700">including VAT</p>
                                 </div>
                             </div>
@@ -145,13 +154,11 @@
                         </div>
                     </div>
                 </div>
-                <div class="m-10">
-                    {{ $myproduct->links('pagination::tailwind') }}
-
-                </div>
+            </div>
+            <div class="m-10">
+                {{ $myproduct->links('pagination::tailwind') }}
 
             </div>
-
         </section>
 
         <section class="bg-white dark:bg-gray-900">

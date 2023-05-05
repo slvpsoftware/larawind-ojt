@@ -38,7 +38,7 @@
                         <a class="transform text-gray-700 transition-colors duration-300 hover:text-blue-500 dark:text-gray-200 dark:hover:text-blue-400 lg:mx-8"
                             href="{{ route('customer.welcome') }}">Home</a>
                         <a class="transform text-gray-700 transition-colors duration-300 hover:text-blue-500 dark:text-gray-200 dark:hover:text-blue-400 lg:mx-8"
-                            href="#">Stores</a>
+                            href="{{route('customer.listofstores')}}">Stores</a>
                         <a class="transform text-gray-700 transition-colors duration-300 hover:text-blue-500 dark:text-gray-200 dark:hover:text-blue-400 lg:mx-8"
                             href="#">Pricing</a>
                         <a class="transform text-gray-700 transition-colors duration-300 hover:text-blue-500 dark:text-gray-200 dark:hover:text-blue-400 lg:mx-8"
@@ -66,6 +66,15 @@
                     <div class="mx-auto max-w-5xl justify-center px-6 md:flex md:space-x-6 xl:px-0">
 
                         <div class="rounded-lg md:w-2/3">
+                            @if($myproduct->isEmpty())
+                            {{-- <div class="flex justify-center">
+                                <h1 class="text-2xl font-bold">No Items in Cart</h1>
+                            </div> --}}
+                            <div class="bg-red-100 border-t border-b border-red-500 text-red-700 px-8 py-24" role="alert">
+                                <p class="font-bold">Your cart is empty</p>
+                                <p class="text-sm">You can select many items in different stores.</p>
+                            </div>
+                            @endif
 
                             @foreach ($myproduct as $item)
                                 <div
@@ -76,32 +85,42 @@
 
                                         <div class="mt-5 sm:mt-0">
                                             <h2 class="text-lg font-bold text-gray-900">{{ $item->product_name }}</h2>
-                                            <p class="mt-1 text-xs text-gray-700">{{$item->product_description}}S</p>
+                                            <p class="mt-1 text-xs text-gray-700">{{ $item->product_description }}S</p>
                                         </div>
                                         <div class="mt-4 flex justify-between sm:space-y-6 sm:mt-0 sm:block sm:space-x-6">
-                                            <label for="qty" class="mb-2   ">Quantity</label>
+                                            <label for="qty" class="mb-2">Quantity</label>
                                             <div class="flex items-center border-gray-100">
-                                                
+
                                                 <span
                                                     class="cursor-pointer rounded-l bg-gray-100 py-1 px-3.5 duration-100 hover:bg-blue-500 hover:text-blue-50">
                                                     - </span>
-                                                   
-                                                <input class="h-8 w-8 border bg-white text-center text-xs outline-none text-decoration-none"
-                                                    type="number" value="0" id="qty" min="1"  />
+
+                                                <input
+                                                    class="h-8 w-8 border bg-white text-center text-xs outline-none text-decoration-none"
+                                                    type="number" value="0" id="qty" min="1" />
                                                 <span
                                                     class="cursor-pointer rounded-r bg-gray-100 py-1 px-3 duration-100 hover:bg-blue-500 hover:text-blue-50">
                                                     + </span>
                                             </div>
                                             <div class="flex items-center space-x-4">
                                                 <p class="text-sm">$ {{ $item->product_price }}</p>
-                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                                                    fill="currentColor"
-                                                    class="h-5 w-5 cursor-pointer duration-150 hover:text-red-500">>
-                                                    <path fill-rule="evenodd"
-                                                        d="M16.5 4.478v.227a48.816 48.816 0 013.878.512.75.75 0 11-.256 1.478l-.209-.035-1.005 13.07a3 3 0 01-2.991 2.77H8.084a3 3 0 01-2.991-2.77L4.087 6.66l-.209.035a.75.75 0 01-.256-1.478A48.567 48.567 0 017.5 4.705v-.227c0-1.564 1.213-2.9 2.816-2.951a52.662 52.662 0 013.369 0c1.603.051 2.815 1.387 2.815 2.951zm-6.136-1.452a51.196 51.196 0 013.273 0C14.39 3.05 15 3.684 15 4.478v.113a49.488 49.488 0 00-6 0v-.113c0-.794.609-1.428 1.364-1.452zm-.355 5.945a.75.75 0 10-1.5.058l.347 9a.75.75 0 101.499-.058l-.346-9zm5.48.058a.75.75 0 10-1.498-.058l-.347 9a.75.75 0 001.5.058l.345-9z"
-                                                        clip-rule="evenodd" />
-                                                </svg>
 
+                                                <form action="{{ route('customer.deleteproduct') }}" method="POST"
+                                                    onsubmit="return confirm('Are you sure you want to delete this product?');"
+                                                    style="display: inline-block;">
+                                                    @csrf
+                                                    <button x-data="{ tooltip: 'Delete' }" type="submit">
+                                                    <input type="hidden" name="id" value="{{ $item->id }}">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                                        fill="currentColor"
+                                                        class="h-5 w-5 cursor-pointer duration-150 hover:text-red-500">>
+                                                        <path fill-rule="evenodd"
+                                                            d="M16.5 4.478v.227a48.816 48.816 0 013.878.512.75.75 0 11-.256 1.478l-.209-.035-1.005 13.07a3 3 0 01-2.991 2.77H8.084a3 3 0 01-2.991-2.77L4.087 6.66l-.209.035a.75.75 0 01-.256-1.478A48.567 48.567 0 017.5 4.705v-.227c0-1.564 1.213-2.9 2.816-2.951a52.662 52.662 0 013.369 0c1.603.051 2.815 1.387 2.815 2.951zm-6.136-1.452a51.196 51.196 0 013.273 0C14.39 3.05 15 3.684 15 4.478v.113a49.488 49.488 0 00-6 0v-.113c0-.794.609-1.428 1.364-1.452zm-.355 5.945a.75.75 0 10-1.5.058l.347 9a.75.75 0 101.499-.058l-.346-9zm5.48.058a.75.75 0 10-1.498-.058l-.347 9a.75.75 0 001.5.058l.345-9z"
+                                                            clip-rule="evenodd" />
+                                                    </svg>
+                                                    </button>
+
+                                                </form>
 
                                             </div>
                                         </div>
@@ -125,7 +144,7 @@
                             <div class="flex justify-between">
                                 <p class="text-lg font-bold">Total</p>
                                 <div class="">
-                                    <p class="mb-1 text-lg font-bold">$134.98 USD</p>
+                                    <p class="mb-1 text-lg font-bold">$ {{$total}}</p>
                                     <p class="text-sm text-gray-700">including VAT</p>
                                 </div>
                             </div>
@@ -135,13 +154,11 @@
                         </div>
                     </div>
                 </div>
-                <div class="m-10">
-                    {{ $myproduct->links('pagination::tailwind') }}
-
-                </div>
+            </div>
+            <div class="m-10">
+                {{ $myproduct->links('pagination::tailwind') }}
 
             </div>
-
         </section>
 
         <section class="bg-white dark:bg-gray-900">

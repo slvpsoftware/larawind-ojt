@@ -44,6 +44,8 @@
                         <a class="transform text-gray-700 transition-colors duration-300 hover:text-blue-500 dark:text-gray-200 dark:hover:text-blue-400 lg:mx-8"
                             href="#">Contact</a>
                         <a class="transform text-gray-700 transition-colors duration-300 hover:text-blue-500 dark:text-gray-200 dark:hover:text-blue-400 lg:mx-8"
+                            href="{{ route('customer.mycart') }}">My Cart</a>
+                        <a class="transform text-gray-700 transition-colors duration-300 hover:text-blue-500 dark:text-gray-200 dark:hover:text-blue-400 lg:mx-8"
                             href="#">Profile</a>
                         <a class="transform text-gray-700 transition-colors duration-300 hover:text-blue-500 dark:text-gray-200 dark:hover:text-blue-400 lg:mx-8"
                             href="{{ route('customer.logout') }}">Logout</a>
@@ -54,35 +56,39 @@
 
             <div class="container mx-auto px-6 py-16 text-center ">
                 <div class="mx-auto max-w-lg">
-                    <h1 class="text-3xl font-bold text-gray-800 dark:text-white lg:text-4xl mb-8 uppercase">List of Stores</h1>
-                 
+                    <h1 class="text-3xl font-bold text-gray-800 dark:text-white lg:text-4xl mb-8 uppercase">List of Stores
+                    </h1>
+
                     <table class="flex flex-col space-x-4 w-full">
-                        @foreach($admins as $key => $store)
-                            @if($key % 3 == 0) <!-- if index % 3 is 0 then create tr -->
-                            <tr>
+                        @foreach ($admins as $key => $store)
+                            @if ($key % 3 == 0)
+                                <!-- if index % 3 is 0 then create tr -->
+                                <tr>
                             @endif
-                                <td>
-                                    <div class="grid justify-items-center mx-2 mt-4">
-                                        <img class="h-full w-full rounded-lg object-cover"
-                                            src="https://resizing.flixster.com/wZjUa7-xZ3B--Ts4OqkDdrNol0o=/300x300/v2/https://flxt.tmsimg.com/assets/p18329599_e_h9_aa.jpg"
-                                            alt="" />
-                                        <h2 >
-                                            
-                                        </h2>
-                                        {{-- <form method="GET" action="{{route('customer.viewproductbystore')}}"    >
-                                        <input value="{{$store->id}}" name="store_id" type="hidden" />
-                                        <button type="submit" class="mt-4 text-xl font-semibold capitalize text-gray-800 dark:text-white">
-                                            View Store
-                                        </button>
-                                        </form> --}}
-                                        <a class="mt-4 text-xl font-semibold capitalize text-gray-800 dark:text-white" href={{ route('customer.viewproductbystore', $store->id) }}>{{$store->store_name}} </a>
-                                    </div>
-                                </td>
-                            @if(($key+1) % 3 == 0) <!-- if index + 1 % 3 is 0 then close tr -->
-                            </tr>
+                            <td>
+                                <div class="grid justify-items-center mx-2 mt-4">
+                                    <img class="h-full w-full rounded-lg object-cover"
+                                        src="https://resizing.flixster.com/wZjUa7-xZ3B--Ts4OqkDdrNol0o=/300x300/v2/https://flxt.tmsimg.com/assets/p18329599_e_h9_aa.jpg"
+                                        alt="" />
+                                    <h2>
+
+                                    </h2>
+                                    
+                                    <div class="mt-4 text-xl bg-black px-4 py-2 hover:bg-slate-400 rounded-lg font-semibold capitalize text-white dark:text-white">
+                                    <a 
+                                        href={{ route('customer.viewproductbystore', $store->id) }}>{{ $store->store_name }}
+                                    </a>
+                                </div>
+                                    
+
+                                </div>
+                            </td>
+                            @if (($key + 1) % 3 == 0)
+                                <!-- if index + 1 % 3 is 0 then close tr -->
+                                </tr>
                             @endif
                         @endforeach
-                        
+
                     </table>
                 </div>
 
@@ -99,10 +105,10 @@
         <p class="mt-4 text-center text-gray-500 dark:text-gray-300">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nostrum quam voluptatibus</p> --}}
 
                 <div class="mt-8 grid grid-cols-1 gap-8 md:grid-cols-2 xl:mt-12 xl:grid-cols-3 xl:gap-12">
-                   
+
                 </div>
             </div>
-            
+
         </section>
 
         <footer class="bg-white dark:bg-gray-900">
@@ -112,7 +118,7 @@
                         Subscribe our newsletter to get update.</h1> --}}
 
                     <div class="mt-6 shrink-0 md:mx-3 md:mt-0 md:w-auto">
-                      
+
                     </div>
                 </div>
 

@@ -36,6 +36,7 @@ Route::prefix('customer')->name('customer.')->group(function(){
         Route::get('/viewproductbystore/{id}', [CustomerController::class, 'viewproductbystore'])->name('viewproductbystore');
         Route::post('/addtocart/{id}', [CustomerController::class, 'addtocart'])->name('addtocart');
         Route::get('/mycart', [CustomerController::class, 'viewcart'])->name('mycart');
+        Route::post('/deleteproduct', [CustomerController::class, 'deleteProduct'])->name('deleteproduct');
     });
 });
 

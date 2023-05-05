@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 
 class CustomerController extends Controller
 {
@@ -138,6 +139,7 @@ class CustomerController extends Controller
                     'products.product_description',
                     'products.product_quantity',
                     'carts.created_at',
+                    'carts.id',
 
                     // 'products.product_category',
                     )
@@ -150,10 +152,18 @@ class CustomerController extends Controller
     //    dd($cart);
        
       //dd($product);
+      
        return view('customers.mycart',[
            'myproduct' => $myproduct,
        ]);
        
+    }
+
+    public function deleteProduct(Request $request)
+    {
+        $cart= Cart::find($request->id);  
+        $cart->delete();
+        return redirect()->route('customer.mycart')->with('deleted', 'Product deleted successfully');
     }
 
 }

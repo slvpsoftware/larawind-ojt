@@ -139,25 +139,27 @@ class CustomerController extends Controller
                     'products.product_description',
                     'products.product_quantity',
                     'carts.created_at',
-                    'carts.id',
-
-                    // 'products.product_category',
-                    )
-                ->orderByDesc('created_at')->paginate(3);
-    //    return response()->json($myproduct);
-    //    $carts = Cart::all();
-    //    $product = Product::find($carts);
-    //    dd($product);
-    //    $cart = Cart::where('customer_id', $customer_id)->where('product_id', $product_id)->get();
-    //    dd($cart);
-       
+                    'carts.id'
+                    ) 
+                ->orderByDesc('carts.created_at')->paginate(3);
+               
+    
+            $total = DB::table('carts')
+            ->leftjoin('products', 'carts.product_id', '=', 'products.id')
+            ->where('carts.customer_id', $customer_id)
+            ->selectRaw('SUM(products.product_price) as total')
+            ->first()
+            ->total;
+            // dd($total);
       //dd($product);
       
        return view('customers.mycart',[
            'myproduct' => $myproduct,
+              'total' => $total,
        ]);
        
     }
+    
 
     public function deleteProduct(Request $request)
     {

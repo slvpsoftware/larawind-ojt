@@ -43,6 +43,8 @@
                             href="#">Pricing</a>
                         <a class="transform text-gray-700 transition-colors duration-300 hover:text-blue-500 dark:text-gray-200 dark:hover:text-blue-400 lg:mx-8"
                             href="#">Contact</a>
+                            <a class="transform text-gray-700 transition-colors duration-300 hover:text-blue-500 dark:text-gray-200 dark:hover:text-blue-400 lg:mx-8"
+                            href="{{route('customer.mycart')}}">MyCart</a>
                         <a class="transform text-gray-700 transition-colors duration-300 hover:text-blue-500 dark:text-gray-200 dark:hover:text-blue-400 lg:mx-8"
                             href="#">Profile</a>
                         <a class="transform text-gray-700 transition-colors duration-300 hover:text-blue-500 dark:text-gray-200 dark:hover:text-blue-400 lg:mx-8"
@@ -61,11 +63,22 @@
                 </div>
             </div>
         </section>
+        @if (session()->has('added'))
+        <div class="max-w-lg mx-auto">
+            <div class="flex bg-green-200 rounded-lg p-4 mb-4 text-sm text-green-700 place-content-center" role="alert">
+                <svg class="w-5 h-5 inline mr-3" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
+                <div class="">
+                    <span class="font-bold">Success!</span> {{ session()->get('added') }}
+                </div>
+            </div>
+        </div>
+        @endif
+
 
         <section class="bg-white dark:bg-gray-900">
             <div class="container mx-auto px-6 py-10">
                 <div class="mt-8 grid grid-cols-1 gap-8 md:grid-cols-2 xl:mt-12 xl:grid-cols-3 xl:gap-12">
-                    @foreach ($products as $product)
+                    @foreach ($products as $key => $product)
                         <div>
                             <img class="h-96 w-96 border-2 border-black rounded-lg object-cover"
                                 src="{{ asset('prod_images/' . $product->prod_image) }}" alt="" />
@@ -75,11 +88,26 @@
                                     <h1
                                         class=" text-center text-2xl font-semibold capitalize text-gray-800 dark:text-white">
                                         {{ $product->product_name }}</h1>
-                                    <svg href="" xmlns="http://www.w3.org/2000/svg" color="red" viewBox="0 0 24 24"
-                                        fill="currentColor" class="w-6 h-6">
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                            d="M2.25 2.25a.75.75 0 000 1.5h1.386c.17 0 .318.114.362.278l2.558 9.592a3.752 3.752 0 00-2.806 3.63c0 .414.336.75.75.75h15.75a.75.75 0 000-1.5H5.378A2.25 2.25 0 017.5 15h11.218a.75.75 0 00.674-.421 60.358 60.358 0 002.96-7.228.75.75 0 00-.525-.965A60.864 60.864 0 005.68 4.509l-.232-.867A1.875 1.875 0 003.636 2.25H2.25zM3.75 20.25a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zM16.5 20.25a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0z" />
-                                    </svg>
+                                    <form action="{{ route('customer.addtocart', $product->id) }}" method="POST" onsubmit="return confirm('Are you sure to add {{$product->product_name}} to cart?');"">
+                                        @csrf
+                                        <input type="hidden" name="product_id" value="{{ $product->product_id }}">
+                                        <button type="submit"
+                                            class="bg-transparent hover:bg-transparent text-white font-bold py-2 px-4 rounded"> 
+                                            <svg href="" xmlns="http://www.w3.org/2000/svg" color="red"
+                                            viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M2.25 2.25a.75.75 0 000 1.5h1.386c.17 0 .318.114.362.278l2.558 9.592a3.752 3.752 0 00-2.806 3.63c0 .414.336.75.75.75h15.75a.75.75 0 000-1.5H5.378A2.25 2.25 0 017.5 15h11.218a.75.75 0 00.674-.421 60.358 60.358 0 002.96-7.228.75.75 0 00-.525-.965A60.864 60.864 0 005.68 4.509l-.232-.867A1.875 1.875 0 003.636 2.25H2.25zM3.75 20.25a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zM16.5 20.25a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0z" />
+                                        </svg>
+                                        </button>
+                                    </form>
+                                    {{-- <a href="#" class="text-red-500 hover:text-red-600">
+                                        <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                        <svg href="" xmlns="http://www.w3.org/2000/svg" color="red"
+                                            viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M2.25 2.25a.75.75 0 000 1.5h1.386c.17 0 .318.114.362.278l2.558 9.592a3.752 3.752 0 00-2.806 3.63c0 .414.336.75.75.75h15.75a.75.75 0 000-1.5H5.378A2.25 2.25 0 017.5 15h11.218a.75.75 0 00.674-.421 60.358 60.358 0 002.96-7.228.75.75 0 00-.525-.965A60.864 60.864 0 005.68 4.509l-.232-.867A1.875 1.875 0 003.636 2.25H2.25zM3.75 20.25a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zM16.5 20.25a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0z" />
+                                        </svg>
+                                    </a> --}}
                                 </div>
                                 <p class="mt-2 text-sm">
                                     {{-- <span>Product Description:</span> --}}

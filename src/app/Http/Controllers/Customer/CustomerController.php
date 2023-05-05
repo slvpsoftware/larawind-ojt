@@ -10,8 +10,8 @@ use App\Models\Admin;
 use App\Models\Customer\Cart;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
-
-
+use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\DB;
 
 class CustomerController extends Controller
 {
@@ -121,16 +121,39 @@ class CustomerController extends Controller
         $cart->customer_id = Auth::guard('customer')->user()->id;
         $cart->save();
       
-        return view('customers.mycart',[
-            'product' => $product,
-          
-        ]);
+         return redirect()->back()->with('added', 'Product added to cart successfully');
 
     }
 
-    public function viewcart()
+    public function viewcart(Request $request)
     {
+       $customer_id = Auth::guard('customer')->user()->id;
+       $myproduct = DB::table('carts')
+                ->leftjoin('products', 'carts.product_id', '=', 'products.id')
+                ->where('carts.customer_id', $customer_id)
+                ->select(
+                    'products.product_name',
+                    'products.product_price',
+                    'products.prod_image',
+                    'products.product_description',
+                    'products.product_quantity',
+                    'carts.created_at',
 
+                    // 'products.product_category',
+                    )
+                ->orderByDesc('created_at')->paginate(3);
+    //    return response()->json($myproduct);
+    //    $carts = Cart::all();
+    //    $product = Product::find($carts);
+    //    dd($product);
+    //    $cart = Cart::where('customer_id', $customer_id)->where('product_id', $product_id)->get();
+    //    dd($cart);
+       
+      //dd($product);
+       return view('customers.mycart',[
+           'myproduct' => $myproduct,
+       ]);
+       
     }
 
 }

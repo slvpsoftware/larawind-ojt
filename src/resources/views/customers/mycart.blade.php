@@ -53,66 +53,113 @@
             </nav>
 
             <div class="container mx-auto px-6 py-16 text-center ">
-                <div class="mx-auto max-w-lg">
+                {{-- <div class="mx-auto max-w-lg">
                     <h1 class="text-3xl font-bold text-gray-800 dark:text-white lg:text-4xl mb-8 uppercase">My Cart</h1>
                  
                     <table class="flex flex-col space-x-4 w-full">
-                        {{-- @foreach($admins as $key => $store)
-                            @if($key % 3 == 0) <!-- if index % 3 is 0 then create tr -->
-                            <tr> --}}
-                            {{-- @endif --}}
-                                {{-- <td>
-                                    <div class="grid justify-items-center mx-2 mt-4">
-                                        <img class="h-full w-full rounded-lg object-cover"
-                                            src="https://resizing.flixster.com/wZjUa7-xZ3B--Ts4OqkDdrNol0o=/300x300/v2/https://flxt.tmsimg.com/assets/p18329599_e_h9_aa.jpg"
-                                            alt="" />
-                                        <h2 >
-                                            
-                                        </h2> --}}
-                                        {{-- <form method="GET" action="{{route('customer.viewproductbystore')}}"    >
-                                        <input value="{{$store->id}}" name="store_id" type="hidden" />
-                                        <button type="submit" class="mt-4 text-xl font-semibold capitalize text-gray-800 dark:text-white">
-                                            View Store
-                                        </button>
-                                        </form> --}}
-                                        {{-- <a class="mt-4 text-xl font-semibold capitalize text-gray-800 dark:text-white" href={{ route('customer.viewproductbystore', $store->id) }}>{{$store->store_name}} </a>
-                                    </div> --}}
-                                {{-- </td>
-                            @if(($key+1) % 3 == 0) <!-- if index + 1 % 3 is 0 then close tr -->
-                            </tr>
-                            @endif
-                        @endforeach --}}
+                      
                         
                     </table>
+                </div> --}}
+                <div class="h-screen bg-white pt-20">
+                    <h1 class="mb-10 text-center text-2xl font-bold">Cart Items</h1>
+                    <div class="mx-auto max-w-5xl justify-center px-6 md:flex md:space-x-6 xl:px-0">
+
+                        <div class="rounded-lg md:w-2/3">
+
+                            @foreach ($myproduct as $item)
+                                <div
+                                    class="justify-between mb-6 rounded-lg bg-gray-200 p-6 shadow-md sm:flex sm:justify-start">
+                                    <img src="{{ asset('prod_images/' . $item->prod_image) }}" alt="product-image"
+                                        class="w-full rounded-lg sm:w-40" />
+                                    <div class="sm:ml-4 sm:flex sm:w-full sm:justify-between">
+
+                                        <div class="mt-5 sm:mt-0">
+                                            <h2 class="text-lg font-bold text-gray-900">{{ $item->product_name }}</h2>
+                                            <p class="mt-1 text-xs text-gray-700">{{$item->product_description}}S</p>
+                                        </div>
+                                        <div class="mt-4 flex justify-between sm:space-y-6 sm:mt-0 sm:block sm:space-x-6">
+                                            <label for="qty" class="mb-2   ">Quantity</label>
+                                            <div class="flex items-center border-gray-100">
+                                                
+                                                <span
+                                                    class="cursor-pointer rounded-l bg-gray-100 py-1 px-3.5 duration-100 hover:bg-blue-500 hover:text-blue-50">
+                                                    - </span>
+                                                   
+                                                <input class="h-8 w-8 border bg-white text-center text-xs outline-none text-decoration-none"
+                                                    type="number" value="0" id="qty" min="1"  />
+                                                <span
+                                                    class="cursor-pointer rounded-r bg-gray-100 py-1 px-3 duration-100 hover:bg-blue-500 hover:text-blue-50">
+                                                    + </span>
+                                            </div>
+                                            <div class="flex items-center space-x-4">
+                                                <p class="text-sm">$ {{ $item->product_price }}</p>
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                                    fill="currentColor"
+                                                    class="h-5 w-5 cursor-pointer duration-150 hover:text-red-500">>
+                                                    <path fill-rule="evenodd"
+                                                        d="M16.5 4.478v.227a48.816 48.816 0 013.878.512.75.75 0 11-.256 1.478l-.209-.035-1.005 13.07a3 3 0 01-2.991 2.77H8.084a3 3 0 01-2.991-2.77L4.087 6.66l-.209.035a.75.75 0 01-.256-1.478A48.567 48.567 0 017.5 4.705v-.227c0-1.564 1.213-2.9 2.816-2.951a52.662 52.662 0 013.369 0c1.603.051 2.815 1.387 2.815 2.951zm-6.136-1.452a51.196 51.196 0 013.273 0C14.39 3.05 15 3.684 15 4.478v.113a49.488 49.488 0 00-6 0v-.113c0-.794.609-1.428 1.364-1.452zm-.355 5.945a.75.75 0 10-1.5.058l.347 9a.75.75 0 101.499-.058l-.346-9zm5.48.058a.75.75 0 10-1.498-.058l-.347 9a.75.75 0 001.5.058l.345-9z"
+                                                        clip-rule="evenodd" />
+                                                </svg>
+
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+
+                        <!-- Sub total -->
+                        <div class="mt-6 h-full rounded-lg border bg-white p-6 shadow-md md:mt-0 md:w-1/3">
+                            <div class="mb-2 flex justify-between">
+                                <p class="text-gray-700">Subtotal</p>
+                                <p class="text-gray-700">$129.99</p>
+                            </div>
+                            <div class="flex justify-between">
+                                <p class="text-gray-700">Shipping</p>
+                                <p class="text-gray-700">$4.99</p>
+                            </div>
+                            <hr class="my-4" />
+                            <div class="flex justify-between">
+                                <p class="text-lg font-bold">Total</p>
+                                <div class="">
+                                    <p class="mb-1 text-lg font-bold">$134.98 USD</p>
+                                    <p class="text-sm text-gray-700">including VAT</p>
+                                </div>
+                            </div>
+                            <button
+                                class="mt-6 w-full rounded-md bg-blue-500 py-1.5 font-medium text-blue-50 hover:bg-blue-600">Check
+                                out</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="m-10">
+                    {{ $myproduct->links('pagination::tailwind') }}
+
                 </div>
 
-                {{-- <div class="mt-10 flex justify-center">
-        <img class="h-3/4 w-full rounded-xl object-cover lg:w-4/5" src="https://live.staticflickr.com/7400/9206713573_1360304d1d_b.jpg" />
-        </div> --}}
             </div>
+
         </section>
 
         <section class="bg-white dark:bg-gray-900">
             <div class="container mx-auto px-6 py-10">
-                {{-- <h1 class="text-center text-3xl font-semibold capitalize text-gray-800 dark:text-white lg:text-4xl">Store</h1>
-
-        <p class="mt-4 text-center text-gray-500 dark:text-gray-300">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nostrum quam voluptatibus</p> --}}
 
                 <div class="mt-8 grid grid-cols-1 gap-8 md:grid-cols-2 xl:mt-12 xl:grid-cols-3 xl:gap-12">
-                   
+
                 </div>
             </div>
-            
+
         </section>
 
         <footer class="bg-white dark:bg-gray-900">
             <div class="container mx-auto px-6 py-12">
                 <div class="md:-mx-3 md:flex md:items-center md:justify-between">
-                    {{-- <h1 class="text-3xl font-semibold tracking-tight text-gray-800 dark:text-white md:mx-3 xl:text-4xl">
-                        Subscribe our newsletter to get update.</h1> --}}
 
                     <div class="mt-6 shrink-0 md:mx-3 md:mt-0 md:w-auto">
-                      
+
                     </div>
                 </div>
 

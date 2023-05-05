@@ -43,6 +43,8 @@
                             href="#">Pricing</a>
                         <a class="transform text-gray-700 transition-colors duration-300 hover:text-blue-500 dark:text-gray-200 dark:hover:text-blue-400 lg:mx-8"
                             href="#">Contact</a>
+                            <a class="transform text-gray-700 transition-colors duration-300 hover:text-blue-500 dark:text-gray-200 dark:hover:text-blue-400 lg:mx-8"
+                            href="{{route('customer.mycart')}}">MyCart</a>
                         <a class="transform text-gray-700 transition-colors duration-300 hover:text-blue-500 dark:text-gray-200 dark:hover:text-blue-400 lg:mx-8"
                             href="#">Profile</a>
                         <a class="transform text-gray-700 transition-colors duration-300 hover:text-blue-500 dark:text-gray-200 dark:hover:text-blue-400 lg:mx-8"
@@ -61,6 +63,17 @@
                 </div>
             </div>
         </section>
+        @if (session()->has('added'))
+        <div class="max-w-lg mx-auto">
+            <div class="flex bg-green-200 rounded-lg p-4 mb-4 text-sm text-green-700 place-content-center" role="alert">
+                <svg class="w-5 h-5 inline mr-3" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
+                <div class="">
+                    <span class="font-bold">Success!</span> {{ session()->get('added') }}
+                </div>
+            </div>
+        </div>
+        @endif
+
 
         <section class="bg-white dark:bg-gray-900">
             <div class="container mx-auto px-6 py-10">
@@ -75,11 +88,11 @@
                                     <h1
                                         class=" text-center text-2xl font-semibold capitalize text-gray-800 dark:text-white">
                                         {{ $product->product_name }}</h1>
-                                    <form action="{{ route('customer.addtocart', $product->id) }}" method="POST">
+                                    <form action="{{ route('customer.addtocart', $product->id) }}" method="POST" onsubmit="return confirm('Are you sure to add {{$product->product_name}} to cart?');"">
                                         @csrf
                                         <input type="hidden" name="product_id" value="{{ $product->product_id }}">
                                         <button type="submit"
-                                            class="bg-transparent hover:bg-transparent text-white font-bold py-2 px-4 rounded">
+                                            class="bg-transparent hover:bg-transparent text-white font-bold py-2 px-4 rounded"> 
                                             <svg href="" xmlns="http://www.w3.org/2000/svg" color="red"
                                             viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
                                             <path stroke-linecap="round" stroke-linejoin="round"

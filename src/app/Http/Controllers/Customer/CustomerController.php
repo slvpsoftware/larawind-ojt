@@ -139,7 +139,8 @@ class CustomerController extends Controller
                     'products.product_description',
                     'products.product_quantity',
                     'carts.created_at',
-                    'carts.id'
+                    'carts.id',
+                    'products.id as product_id'
                     ) 
                 ->orderByDesc('carts.created_at')->paginate(3);
                
@@ -152,10 +153,14 @@ class CustomerController extends Controller
             ->total;
             // dd($total);
       //dd($product);
+            $qty=1;
+
+            //dd($qty);
       
        return view('customers.mycart',[
            'myproduct' => $myproduct,
               'total' => $total,
+                'qty' => $qty,
        ]);
        
     }

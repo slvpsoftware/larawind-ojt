@@ -121,7 +121,7 @@
                                         </p>
                                         <input type="text" name="min_price" value="{{ $min_price ?? 0 }}" maxlength="5"
                                             x-on:input="mintrigger" x-model="minprice"
-                                            class="px-3 py-2 border border-black     rounded w-24 text-center">
+                                            class="px-3 py-2 border border-black rounded w-24 text-center">
                                     </div>
                                     <div>
                                         <p class="uppercase px-3 py-2 border border-none rounded w-24 text-center">to

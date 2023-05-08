@@ -139,7 +139,8 @@ class CustomerController extends Controller
                     'products.product_description',
                     'products.product_quantity',
                     'carts.created_at',
-                    'carts.id'
+                    'carts.id',
+                    'products.id as product_id'
                     ) 
                 ->orderByDesc('carts.created_at')->paginate(3);
                
@@ -152,10 +153,14 @@ class CustomerController extends Controller
             ->total;
             // dd($total);
       //dd($product);
+            $qty=1;
+
+            //dd($qty);
       
        return view('customers.mycart',[
            'myproduct' => $myproduct,
               'total' => $total,
+                'qty' => $qty,
        ]);
        
     }
@@ -167,5 +172,14 @@ class CustomerController extends Controller
         $cart->delete();
         return redirect()->route('customer.mycart')->with('deleted', 'Product deleted successfully');
     }
+    //view product details 
+    public function productDetails(Request $request, $id)
+    {
+        $product = Product::find($id);
+        return view('customers.productDetails',[
+            'product' => $product,
+        ])->with('added', 'This product added to cart successfully');
+    }
+    
 
 }

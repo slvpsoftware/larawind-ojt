@@ -37,6 +37,7 @@ Route::prefix('customer')->name('customer.')->group(function(){
         Route::post('/addtocart/{id}', [CustomerController::class, 'addtocart'])->name('addtocart');
         Route::get('/mycart', [CustomerController::class, 'viewcart'])->name('mycart');
         Route::post('/deleteproduct', [CustomerController::class, 'deleteProduct'])->name('deleteproduct');
+        Route::get('/productDetails/{id}', [CustomerController::class, 'productDetails'])->name('productDetails');
     });
 });
 

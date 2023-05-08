@@ -167,5 +167,14 @@ class CustomerController extends Controller
         $cart->delete();
         return redirect()->route('customer.mycart')->with('deleted', 'Product deleted successfully');
     }
+    //view product details 
+    public function productDetails(Request $request, $id)
+    {
+        $product = Product::find($id);
+        return view('customers.productDetails',[
+            'product' => $product,
+        ])->with('added', 'This product added to cart successfully');
+    }
+    
 
 }

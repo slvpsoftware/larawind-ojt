@@ -105,70 +105,82 @@ class CustomerController extends Controller
         $products = Product::where("admin_id", $id)->get();
         // dd($products);
         // $products = Product::all()->where("admin_id", $request->id);
-        
 
-        return view('customers.viewproductbystore',[
+
+        return view('customers.viewproductbystore', [
             'products' => $products,
             'store' => $store,
         ]);
-       
+
     }
     public function addtocart(Request $request, $id)
     {
-        //add selected cart to database
-        $product = Product::find($id);
+    //add selected cart to database
+    $product = Product::find($id);
+
+    $customer_id = Auth::guard('customer')->user()->id;
+
+    //check if the product is already in the cart
+    $cart = Cart::where('customer_id', $customer_id)->where('product_id', $product->id)->exists();
+
+    if ($cart) {
+        return redirect()->back()->with('error', 'Product is already in cart');
+    } else {
+        //add product to cart
         $cart = new Cart();
         $cart->product_id = $product->id;
-        $cart->customer_id = Auth::guard('customer')->user()->id;
+        $cart->customer_id = $customer_id;
         $cart->save();
-      
-         return redirect()->back()->with('added', 'Product added to cart successfully');
+
+        return redirect()->back()->with('added', 'Product added to cart successfully');
+    
+}
+       
 
     }
 
     public function viewcart(Request $request)
     {
-       $customer_id = Auth::guard('customer')->user()->id;
-       $myproduct = DB::table('carts')
-                ->leftjoin('products', 'carts.product_id', '=', 'products.id')
-                ->where('carts.customer_id', $customer_id)
-                ->select(
-                    'products.product_name',
-                    'products.product_price',
-                    'products.prod_image',
-                    'products.product_description',
-                    'products.product_quantity',
-                    'carts.created_at',
-                    'carts.id',
-                    'products.id as product_id'
-                    ) 
-                ->orderByDesc('carts.created_at')->paginate(3);
-               
-    
-            $total = DB::table('carts')
+        $customer_id = Auth::guard('customer')->user()->id;
+        $myproduct = DB::table('carts')
+            ->leftjoin('products', 'carts.product_id', '=', 'products.id')
+            ->where('carts.customer_id', $customer_id)
+            ->select(
+                'products.product_name',
+                'products.product_price',
+                'products.prod_image',
+                'products.product_description',
+                'products.product_quantity',
+                'carts.created_at',
+                'carts.id',
+               // 'carts.product_id as cart_prod_id',
+                //'products.id as prod_id'    
+            )
+           // ->groupBy('cart_prod.id', 'carts.created_at');
+            ->orderByDesc('carts.created_at')->paginate(3);
+            
+
+        $total = DB::table('carts')
             ->leftjoin('products', 'carts.product_id', '=', 'products.id')
             ->where('carts.customer_id', $customer_id)
             ->selectRaw('SUM(products.product_price) as total')
             ->first()
             ->total;
-            // dd($total);
-      //dd($product);
-            $qty=1;
 
-            //dd($qty);
-      
-       return view('customers.mycart',[
-           'myproduct' => $myproduct,
-              'total' => $total,
-                'qty' => $qty,
-       ]);
-       
+        $qty = 1;
+
+        return view('customers.mycart', [
+            'myproduct' => $myproduct,
+            'total' => $total,
+            'qty' => $qty,
+        ]);
+
     }
-    
+
 
     public function deleteProduct(Request $request)
     {
-        $cart= Cart::find($request->id);  
+        $cart = Cart::find($request->id);
         $cart->delete();
         return redirect()->route('customer.mycart')->with('deleted', 'Product deleted successfully');
     }
@@ -176,10 +188,10 @@ class CustomerController extends Controller
     public function productDetails(Request $request, $id)
     {
         $product = Product::find($id);
-        return view('customers.productDetails',[
+        return view('customers.productDetails', [
             'product' => $product,
         ])->with('added', 'This product added to cart successfully');
     }
-    
+
 
 }

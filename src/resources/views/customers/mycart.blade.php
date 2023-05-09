@@ -15,7 +15,7 @@
 
                     <!-- Mobile menu button -->
                     <div class="flex lg:hidden">
-                        <button x-cloak @click="isOpen = !isOpen" type="button"
+                        <button x-cloak @click="isOpen  !isOpen" type="button"
                             class="text-gray-500 hover:text-gray-600 focus:text-gray-600 focus:outline-none dark:text-gray-200 dark:hover:text-gray-400 dark:focus:text-gray-400"
                             aria-label="toggle menu">
                             <svg x-show="!isOpen" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
@@ -76,7 +76,7 @@
                                     <p class="text-sm">You can select many items in different stores.</p>
                                 </div>
                             @endif
-
+                                
                             @foreach ($myproduct as $item)
                                 <div
                                     class="justify-between mb-6 rounded-lg bg-gray-200 p-6 shadow-md sm:flex sm:justify-start">
@@ -98,12 +98,12 @@
                                                 <div>
                                                     <label for="qty-{{ $item->id }}">Quantity:</label>
                                                     <div>
-                                                        {{-- <button type="button" onclick="decrementQty({{ $item->id }})">-</button> --}}
+                                                        {{-- <button type="button" onclick="decrementQty({{ $item->id }})">-</button>
+                                                        <button type="button" onclick="incrementQty({{ $item->id }})">+</button> --}}
                                                         <input class="w-16 py-1 text-center border border-gray-400 rounded-none appearance-none focus:outline-none" type="number" id="qty-{{ $item->id }}"
                                                             name="qty-{{ $item->id }}" value="1" min="1"
                                                             onchange="calculateTotal({{ $item->id }}, {{ $item->product_price }})">
-                                                        {{-- <button type="button" onclick="incrementQty({{ $item->id }})">+</button> --}}
-                                                        {{-- <input type="number" name="quantity" id="quantity" value="1" min="1" > --}}
+                                                      
                                                     </div>
                                                     <p>Total: $<span
                                                             id="total-{{ $item->id }}">{{ $item->product_price }}</span>

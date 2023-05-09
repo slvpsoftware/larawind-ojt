@@ -17,5 +17,9 @@ class Cart extends Model
     {
         return $this->belongsTo(Customer::class);
     }
+    public function checkouts()
+    {
+        return $this->hasMany(Checkout::class);
+    }
     
 }

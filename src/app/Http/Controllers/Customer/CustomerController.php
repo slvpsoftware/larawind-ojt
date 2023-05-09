@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Customer;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Customer\Customer;
+use App\Models\Customer\Checkout;
 use App\Models\Product;
 use App\Models\Admin;
 use App\Models\Customer\Cart;
@@ -115,27 +116,27 @@ class CustomerController extends Controller
     }
     public function addtocart(Request $request, $id)
     {
-    //add selected cart to database
-    $product = Product::find($id);
+        //add selected cart to database
+        $product = Product::find($id);
 
-    $customer_id = Auth::guard('customer')->user()->id;
+        $customer_id = Auth::guard('customer')->user()->id;
 
-    //check if the product is already in the cart
-    $cart = Cart::where('customer_id', $customer_id)->where('product_id', $product->id)->exists();
+        //check if the product is already in the cart
+        $cart = Cart::where('customer_id', $customer_id)->where('product_id', $product->id)->exists();
 
-    if ($cart) {
-        return redirect()->back()->with('error', 'Product is already in cart');
-    } else {
-        //add product to cart
-        $cart = new Cart();
-        $cart->product_id = $product->id;
-        $cart->customer_id = $customer_id;
-        $cart->save();
+        if ($cart) {
+            return redirect()->back()->with('error', 'Product is already in cart');
+        } else {
+            //add product to cart
+            $cart = new Cart();
+            $cart->product_id = $product->id;
+            $cart->customer_id = $customer_id;
+            $cart->save();
 
-        return redirect()->back()->with('added', 'Product added to cart successfully');
-    
-}
-       
+            return redirect()->back()->with('added', 'Product added to cart successfully');
+
+        }
+
 
     }
 
@@ -153,12 +154,12 @@ class CustomerController extends Controller
                 'products.product_quantity',
                 'carts.created_at',
                 'carts.id',
-               // 'carts.product_id as cart_prod_id',
+                // 'carts.product_id as cart_prod_id',
                 //'products.id as prod_id'    
             )
-           // ->groupBy('cart_prod.id', 'carts.created_at');
+            // ->groupBy('cart_prod.id', 'carts.created_at');
             ->orderByDesc('carts.created_at')->paginate(3);
-            
+
 
         $total = DB::table('carts')
             ->leftjoin('products', 'carts.product_id', '=', 'products.id')
@@ -177,6 +178,14 @@ class CustomerController extends Controller
 
     }
 
+    public function submitMyCart(Request $request)
+    {
+        if ($request->submit == 'deleteCart') {
+            return $this->deleteProduct($request);
+        } else if ($request->submit == 'checkoutCart') {
+            return $this->checkout($request);
+        }
+    }
 
     public function deleteProduct(Request $request)
     {
@@ -193,5 +202,19 @@ class CustomerController extends Controller
         ])->with('added', 'This product added to cart successfully');
     }
 
-
+    //checkout
+    public function checkout(Request $request)
+    {
+        //create count of cart
+        $cart_id = $request->product_id;
+        $price = $request->price_total;
+        $finalqty = $request->finalqty;
+        foreach ($cart_id as $key => $value) {
+            $checkout = new Checkout();
+            $checkout->cart_id = $key;
+            $checkout->total = $price[$key];
+            $checkout->quantity = $finalqty[$key];
+            $checkout->save();
+        }
+    }
 }

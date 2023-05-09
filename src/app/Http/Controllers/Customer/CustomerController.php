@@ -216,5 +216,35 @@ class CustomerController extends Controller
             $checkout->quantity = $finalqty[$key];
             $checkout->save();
         }
+        // return redirect()->route('customer.checkoutdetails')->with('checkout', 'Checkout successfully');
+        return redirect()->route('customer.checkoutdetails')->with('checkout', 'Checkout successfully');
+        
     }
+
+    //view checkout
+    public function viewcheckout(Request $request)
+    {
+        $customer_id = Auth::guard('customer')->user()->id;
+        $mycheckout = DB::table('checkouts')
+            ->leftjoin('carts', 'checkouts.cart_id', '=', 'carts.id')
+            ->leftjoin('products', 'carts.product_id', '=', 'products.id')
+            ->where('carts.customer_id', $customer_id)
+            ->select(
+                'products.product_name',
+                'products.product_price',
+                'products.prod_image',
+                'products.product_description',
+                'products.product_quantity',
+                'checkouts.created_at',
+                'checkouts.id',
+                'checkouts.total',
+                'checkouts.quantity',
+                // 'carts.product_id as cart_prod_id',
+                //'products.id as prod_id'    
+            )
+            // ->groupBy('cart_prod.id', 'carts.created_at');
+            ->orderByDesc('checkouts.created_at')->paginate(3);
+            return view('customers.checkoutdetails');
+    }   
 }
+    

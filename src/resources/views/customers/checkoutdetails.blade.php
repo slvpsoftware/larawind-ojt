@@ -104,7 +104,7 @@
                                                                         min="1" step="1" inputmode="numeric"
                                                                         pattern="\\d*"
                                                                         readonly
-                                                                        onchange=")">
+                                                                        onchange="">
                                                                         <input type="hidden" name="" value="">
                                                                         <input type="hidden" name="p" value="">
                                                                         {{-- Final Quantity --}}

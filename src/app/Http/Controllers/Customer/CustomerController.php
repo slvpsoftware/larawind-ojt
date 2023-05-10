@@ -283,5 +283,11 @@ class CustomerController extends Controller
                 'finaltotal' => $finaltotal,
             ]);
     }   
+
+    //payment
+    public function payment(Request $request)
+    { 
+        return view('customers.payment');
+    }
 }
     

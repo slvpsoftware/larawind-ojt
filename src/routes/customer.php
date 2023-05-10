@@ -40,6 +40,8 @@ Route::prefix('customer')->name('customer.')->group(function(){
         Route::get('/productDetails/{id}', [CustomerController::class, 'productDetails'])->name('productDetails');
         Route::get('/checkoutdetails', [CustomerController::class, 'viewcheckout'])->name('checkoutdetails');
         Route::post('/submitMyCart', [CustomerController::class, 'submitMyCart'])->name('submitMyCart');
+        Route::get('/payment', [CustomerController::class, 'payment'])->name('payment');
+        // Route::post('/payment', [CustomerController::class, 'postpayment'])->name('payment');
     });
 });
 

@@ -71,7 +71,7 @@
                         <div class="rounded-lg md:w-2/3">
                            
 
-                            <form action="" method="POST">
+                            <form action="{{route('customer.payment')}}" method="GET">
                                 @csrf
                                @foreach($mycheckout as $checkoutitem)
                                     {{-- @php dd($item)@endphp --}}
@@ -150,7 +150,7 @@
                                     <p class="text-sm text-gray-700">including VAT</p>
                                 </div>
                             </div>
-                            <button name="submit" value="checkoutCart"
+                            <button type="submit"
                                 class="mt-6 w-full rounded-md bg-blue-500 py-1.5 font-medium text-blue-50 hover:bg-blue-600">
                                 <i class="mdi mdi-credit-card -ml-2 mr-2"></i>Pay Now</button>
                         </div>

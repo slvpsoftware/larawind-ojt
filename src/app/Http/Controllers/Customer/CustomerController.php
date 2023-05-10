@@ -161,20 +161,30 @@ class CustomerController extends Controller
             )
             // ->groupBy('cart_prod.id', 'carts.created_at');
             ->orderByDesc('carts.created_at')->paginate(3);
+            // dd($myproduct);
 
-        $total = DB::table('carts')
-            ->leftjoin('products', 'carts.product_id', '=', 'products.id')
-            ->where('carts.customer_id', $customer_id)
-            ->selectRaw('SUM(products.product_price) as total')
-            ->first()
-            ->total;
+        // $total = DB::table('carts')
+        //     ->leftjoin('products', 'carts.product_id', '=', 'products.id')
+        //     ->where('carts.customer_id', $customer_id)
+        //     ->selectRaw('SUM(products.product_price) as total')
+        //     ->first()
+        //     ->total;
+       
+        // $qty = 1;
+        $total = DB::table('checkouts')
+        ->select(DB::raw('total * quantity as total'))
+        ->get();
+        
+        $finaltotal = 0;
+            foreach ($total as $key => $value) {
+                $finaltotal += $value->total;
+            }
 
-        $qty = 1;
 
         return view('customers.mycart', [
             'myproduct' => $myproduct,
-            'total'     => $total,
-            'qty'       => $qty,
+            // 'total'     => $total,
+            'finaltotal' => $finaltotal,
         ]);
 
     }
@@ -225,7 +235,9 @@ class CustomerController extends Controller
             $existingCheckout::find($cart_id);
             $existingCheckout->quantity = $finalqty[$cart_id];
             // $existingCheckout->quantity += $finalqty[$cart_id];
-            $existingCheckout->total += $price[$cart_id];
+            //check if total has existing value
+            
+            $existingCheckout->total = $price[$cart_id];
             $existingCheckout->update();
         } else {
             // dump('wala ni add');
@@ -270,23 +282,25 @@ class CustomerController extends Controller
                 ->select(DB::raw('total * quantity as total'))
                 ->get();
                 // dd($total);
+           
                 
             $finaltotal = 0;
             foreach ($total as $key => $value) {
                 $finaltotal += $value->total;
             }
-            
+            // dd($finaltotal);
             return view('customers.checkoutdetails',
             [
                 'mycheckout' => $mycheckout,
                 'total'      => $total,
                 'finaltotal' => $finaltotal,
             ]);
+            
     }   
-
+    
     //payment
-    public function payment(Request $request)
-    { 
+    public function payment()
+    {
         return view('customers.payment');
     }
 }

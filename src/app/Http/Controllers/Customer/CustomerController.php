@@ -145,6 +145,7 @@ class CustomerController extends Controller
         $customer_id = Auth::guard('customer')->user()->id;
         $myproduct = DB::table('carts')
             ->leftjoin('products', 'carts.product_id', '=', 'products.id')
+            ->leftjoin('checkouts', 'checkouts.cart_id', '=', 'carts.id')
             ->where('carts.customer_id', $customer_id)
             ->select(
                 'products.product_name',
@@ -154,12 +155,12 @@ class CustomerController extends Controller
                 'products.product_quantity',
                 'carts.created_at',
                 'carts.id',
+                'checkouts.quantity'
                 // 'carts.product_id as cart_prod_id',
                 //'products.id as prod_id'    
             )
             // ->groupBy('cart_prod.id', 'carts.created_at');
             ->orderByDesc('carts.created_at')->paginate(3);
-
 
         $total = DB::table('carts')
             ->leftjoin('products', 'carts.product_id', '=', 'products.id')
@@ -204,22 +205,42 @@ class CustomerController extends Controller
 
     //checkout
     public function checkout(Request $request)
-    {
-        //create count of cart
-        $cart_id    = $request->product_id;
-        $price      = $request->price_total;
-        $finalqty   = $request->finalqty;
-        foreach ($cart_id as $key => $value) {
+{
+    $customer_id = Auth::guard('customer')->user()->id;
+    $cart_ids = $request->product_id;
+    $price = $request->price_total;
+    $finalqty = $request->finalqty;
+    $qty = $request->qty;
+    // dd($finalqty);
+
+    foreach ($cart_ids as $cart_id) {
+        $existingCheckout = Checkout::where('cart_id', $cart_id)->first();
+
+        if ($existingCheckout) {
+            // dd('ni add');
+            $quantity = $qty[$cart_id] + $finalqty[$cart_id];
+            // dd($quantity);
+            // dd($qty[$cart_id]);
+            // Update the quantity and total of existing checkout item
+            $existingCheckout::find($cart_id);
+            $existingCheckout->quantity = $finalqty[$cart_id];
+            // $existingCheckout->quantity += $finalqty[$cart_id];
+            $existingCheckout->total += $price[$cart_id];
+            $existingCheckout->update();
+        } else {
+            // dump('wala ni add');
+            // Create a new checkout item
             $checkout = new Checkout();
-            $checkout->cart_id = $key;
-            $checkout->total = $price[$key];
-            $checkout->quantity = $finalqty[$key];
+            $checkout->cart_id = $cart_id;
+            $checkout->total = $price[$cart_id];
+            $checkout->quantity = $finalqty[$cart_id];
             $checkout->save();
         }
-        // return redirect()->route('customer.checkoutdetails')->with('checkout', 'Checkout successfully');
-        return redirect()->route('customer.checkoutdetails')->with('checkout', 'Checkout successfully');
-        
     }
+
+    return redirect()->route('customer.checkoutdetails')->with('checkout', 'Checkout successful');
+}
+
 
     //view checkout
     public function viewcheckout(Request $request)

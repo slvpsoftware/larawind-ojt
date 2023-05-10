@@ -40,13 +40,13 @@ class CustomerController extends Controller
         // ]);
 
         $customer = new Customer();
-        $customer->customer_fname = $request->fname;
-        $customer->customer_lname = $request->lname;
-        $customer->customer_email = $request->email;
-        $customer->customer_address = $request->address;
-        $customer->customer_contact = $request->contact;
-        $customer->username = $request->username;
-        $customer->password = Hash::make($request->password);
+        $customer->customer_fname       = $request->fname;
+        $customer->customer_lname       = $request->lname;
+        $customer->customer_email       = $request->email;
+        $customer->customer_address     = $request->address;
+        $customer->customer_contact     = $request->contact;
+        $customer->username             = $request->username;
+        $customer->password             = Hash::make($request->password);
 
         $customer->save(); //save to database
         // dd('Customer Registration Successful');
@@ -110,7 +110,7 @@ class CustomerController extends Controller
 
         return view('customers.viewproductbystore', [
             'products' => $products,
-            'store' => $store,
+            'store'    => $store,
         ]);
 
     }
@@ -128,9 +128,9 @@ class CustomerController extends Controller
             return redirect()->back()->with('error', 'Product is already in cart');
         } else {
             //add product to cart
-            $cart = new Cart();
-            $cart->product_id = $product->id;
-            $cart->customer_id = $customer_id;
+            $cart               = new Cart();
+            $cart->product_id   = $product->id;
+            $cart->customer_id  = $customer_id;
             $cart->save();
 
             return redirect()->back()->with('added', 'Product added to cart successfully');
@@ -172,8 +172,8 @@ class CustomerController extends Controller
 
         return view('customers.mycart', [
             'myproduct' => $myproduct,
-            'total' => $total,
-            'qty' => $qty,
+            'total'     => $total,
+            'qty'       => $qty,
         ]);
 
     }
@@ -206,9 +206,9 @@ class CustomerController extends Controller
     public function checkout(Request $request)
     {
         //create count of cart
-        $cart_id = $request->product_id;
-        $price = $request->price_total;
-        $finalqty = $request->finalqty;
+        $cart_id    = $request->product_id;
+        $price      = $request->price_total;
+        $finalqty   = $request->finalqty;
         foreach ($cart_id as $key => $value) {
             $checkout = new Checkout();
             $checkout->cart_id = $key;
@@ -216,5 +216,51 @@ class CustomerController extends Controller
             $checkout->quantity = $finalqty[$key];
             $checkout->save();
         }
+        // return redirect()->route('customer.checkoutdetails')->with('checkout', 'Checkout successfully');
+        return redirect()->route('customer.checkoutdetails')->with('checkout', 'Checkout successfully');
+        
     }
+
+    //view checkout
+    public function viewcheckout(Request $request)
+    {
+        $customer_id = Auth::guard('customer')->user()->id;
+        $mycheckout = DB::table('checkouts')
+            ->leftjoin('carts', 'checkouts.cart_id', '=', 'carts.id')
+            ->leftjoin('products', 'carts.product_id', '=', 'products.id')
+            ->where('carts.customer_id', $customer_id)
+            ->select(
+                'products.product_name',
+                'products.product_price',
+                'products.prod_image',
+                'products.product_description',
+                'products.product_quantity',
+                'checkouts.created_at',
+                'checkouts.id',
+                'checkouts.total',
+                'checkouts.quantity',
+                // 'carts.product_id as cart_prod_id',
+                //'products.id as prod_id'    
+            )
+            // ->groupBy('cart_prod.id', 'carts.created_at');
+            ->orderByDesc('checkouts.created_at')->paginate(3);
+
+            $total = DB::table('checkouts')
+                ->select(DB::raw('total * quantity as total'))
+                ->get();
+                // dd($total);
+                
+            $finaltotal = 0;
+            foreach ($total as $key => $value) {
+                $finaltotal += $value->total;
+            }
+            
+            return view('customers.checkoutdetails',
+            [
+                'mycheckout' => $mycheckout,
+                'total'      => $total,
+                'finaltotal' => $finaltotal,
+            ]);
+    }   
 }
+    

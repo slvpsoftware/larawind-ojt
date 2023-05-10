@@ -38,7 +38,7 @@ Route::prefix('customer')->name('customer.')->group(function(){
         Route::get('/mycart', [CustomerController::class, 'viewcart'])->name('mycart');
         Route::get('/deleteproduct', [CustomerController::class, 'deleteProduct'])->name('deleteproduct');
         Route::get('/productDetails/{id}', [CustomerController::class, 'productDetails'])->name('productDetails');
-        Route::get('/checkout', [CustomerController::class, 'checkout'])->name('checkout');
+        Route::get('/checkoutdetails', [CustomerController::class, 'viewcheckout'])->name('checkoutdetails');
         Route::post('/submitMyCart', [CustomerController::class, 'submitMyCart'])->name('submitMyCart');
     });
 });

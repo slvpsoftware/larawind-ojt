@@ -210,12 +210,17 @@ class CustomerController extends Controller
         $price      = $request->price_total;
         $finalqty   = $request->finalqty;
         foreach ($cart_id as $key => $value) {
+            $checkout = Checkout::where('cart_id', $key)->exists();
+            if($checkout){
+                return redirect()->back()->with('error', 'Product is already in checkout');
+            }
             $checkout = new Checkout();
             $checkout->cart_id = $key;
             $checkout->total = $price[$key];
             $checkout->quantity = $finalqty[$key];
             $checkout->save();
         }
+
         // return redirect()->route('customer.checkoutdetails')->with('checkout', 'Checkout successfully');
         return redirect()->route('customer.checkoutdetails')->with('checkout', 'Checkout successfully');
         
@@ -249,7 +254,7 @@ class CustomerController extends Controller
                 ->select(DB::raw('total * quantity as total'))
                 ->get();
                 // dd($total);
-                
+
             $finaltotal = 0;
             foreach ($total as $key => $value) {
                 $finaltotal += $value->total;

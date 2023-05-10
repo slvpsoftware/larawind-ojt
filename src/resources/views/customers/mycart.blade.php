@@ -77,7 +77,7 @@
                                     <p class="text-sm">You can select many items in different stores.</p>
                                 </div>
                             @endif
-                            @if (session()->has('error'))
+                            @if (session()->has('checkout'))
                             <div class="max-w-lg mx-auto">
                                 <div class="flex bg-red-200 rounded-lg p-4 mb-4 text-sm text-red-700 place-content-center"
                                     role="alert">
@@ -88,7 +88,7 @@
                                             clip-rule="evenodd"></path>
                                     </svg>
                                     <div class="">
-                                        <span class="font-bold">Error!</span> {{ session()->get('error') }}
+                                        <span class="font-bold">Success!</span> {{ session()->get('checkout') }}
                                     </div>
                                 </div>
                             </div>
@@ -98,7 +98,8 @@
                                 @csrf
                                 @foreach ($myproduct as $item)
                                     {{-- @php dd($item)@endphp --}}
-                                    <input type="hidden" name="cart_id" value="{{$item->id}}">
+                                    <input type="hidden" name="cart_id" value="{{$item->prod_id}}">
+                                    <input type="hidden" name="product_id[{{$item->prod_id}}]" value="{{$item->id}}">
                                     <div
                                         class="justify-between mb-6 rounded-lg bg-gray-200 p-6 shadow-md sm:flex sm:justify-start">
                                         <img src="{{ asset('prod_images/' . $item->prod_image) }}" alt="product-image"
@@ -109,8 +110,9 @@
                                                 <h2 class="text-lg font-bold text-gray-900">
                                                     {{ $item->product_name }}{{ "( $" }}{{ $item->product_price }}{{ ')' }}
                                                 </h2>
-                                                <input type="hidden" name="product_id[{{$item->id}}]" value="{{ $item->id }}">
-                                                <input type="hidden" name="price_total[{{$item->id}}]" value="{{ $item->product_price }}">
+                                                <input type="hidden" name="product_id[{{$item->prod_id}}]" value="{{ $item->prod_id }}">
+                                                <input type="hidden" name="cutomer_id" value="{{ $item->customer_id }}">
+                                                <input type="hidden" name="price_total[{{$item->prod_id}}]" value="{{ $item->product_price }}">
 
                                                 <p class="mt-1 text-xs text-gray-700">{{ $item->product_description }}S</p>
                                             </div>
@@ -134,7 +136,7 @@
                                                                         <input type="hidden" name="cart_id[{{$item->id}}]" value="{{ $item->id }}">
                                                                         <input type="hidden" name="product_base_price" value="{{ $item->product_price }}">
                                                                         {{-- Final Quantity --}}
-                                                                        <input type="hidden" name="finalqty[{{$item->id}}]" value="1"
+                                                                        <input type="hidden" name="finalqty[{{$item->prod_id}}]" value="1"
                                                                         id="final-qty-{{ $item->id }}">
                                                                 </div>
                                                                 <p>Total: $<span

@@ -45,7 +45,7 @@
                         <a class="transform text-gray-700 transition-colors duration-300 hover:text-blue-500 dark:text-gray-200 dark:hover:text-blue-400 lg:mx-8"
                             href="#">Pricing</a>
                         <a class="transform text-gray-700 transition-colors duration-300 hover:text-blue-500 dark:text-gray-200 dark:hover:text-blue-400 lg:mx-8"
-                            href="#">Contact</a>
+                            href="{{ route('customer.mycart') }}">My Cart</a>
                         <a class="transform text-gray-700 transition-colors duration-300 hover:text-blue-500 dark:text-gray-200 dark:hover:text-blue-400 lg:mx-8"
                             href="#">Profile</a>
                         <a class="transform text-gray-700 transition-colors duration-300 hover:text-blue-500 dark:text-gray-200 dark:hover:text-blue-400 lg:mx-8"
@@ -69,71 +69,79 @@
                     <div class="mx-auto max-w-5xl justify-center px-6 md:flex md:space-x-6 xl:px-0">
 
                         <div class="rounded-lg md:w-2/3">
-                           
+
 
                             <form action="" method="POST">
                                 @csrf
-                               @foreach($mycheckout as $checkoutitem)
-                                    {{-- @php dd($item)@endphp --}}
-                                    <input type="hidden" name="cart_id" value="">
-                                    <div
-                                        class="justify-between mb-6 rounded-lg bg-gray-200 p-6 shadow-md sm:flex sm:justify-start">
-                                        <img src="{{ asset('prod_images/' . $checkoutitem->prod_image) }}" alt="product-image"
-                                            class="w-full rounded-lg sm:w-40" />
-                                        <div class="sm:ml-4 sm:flex sm:w-full sm:justify-between">
+                                @if ($mycheckout->isEmpty())
+                                    <p>No checkout items found.</p>
+                                @else
+                                    @foreach ($mycheckout as $checkoutitem)
+                                        {{-- @php dd($checkoutitem)@endphp --}}
+                                        <input type="hidden" name="cart_id" value="{{ $checkoutitem->cart_id }}">
+                                        
+                                        <div
+                                            class="justify-between mb-6 rounded-lg bg-gray-200 p-6 shadow-md sm:flex sm:justify-start">
+                                            <img src="{{ asset('prod_images/' . $checkoutitem->prod_image) }}"
+                                                alt="product-image" class="w-full rounded-lg sm:w-40" />
+                                            <div class="sm:ml-4 sm:flex sm:w-full sm:justify-between">
 
-                                            <div class="mt-5 sm:mt-0">
-                                                <h2 class="text-lg font-bold text-gray-900">
-                                                    
-                                                </h2>
-                                                <input type="hidden" name="" value="">
-                                                <input type="hidden" name="" value="">
+                                                <div class="mt-5 sm:mt-0">
+                                                    <h2 class="text-lg font-bold text-gray-900">
 
-                                                <p class="mt-1 text-xs text-gray-700"></p>
-                                            </div>
-                                            <div
-                                                class="mt-4 flex justify-between sm:space-y-6 sm:mt-0 sm:block sm:space-x-6">
-                                                <div>
+                                                    </h2>
+                                                    <h3>{{ $checkoutitem->product_name }}</h3>
+                                                    <p class="italic">{{ $checkoutitem->product_description }}</p>
+                                                        <input type="hidden" name="" value="">
 
-                                                    <div
-                                                        class="mt-4 flex justify-between sm:space-y-6 sm:mt-0 sm:block sm:space-x-6">
-                                                        <div>
+                                                    <p class="mt-1 text-xs text-gray-700"></p>
+                                                </div>
+                                                <div
+                                                    class="mt-4 flex justify-between sm:space-y-6 sm:mt-0 sm:block sm:space-x-6">
+                                                    <div>
+
+                                                        <div
+                                                            class="mt-4 flex justify-between sm:space-y-6 sm:mt-0 sm:block sm:space-x-6">
                                                             <div>
-                                                                <label for="">Quantity:</label>
                                                                 <div>
-                                                                    <input
-                                                                        class="w-10 bg-slate-200 py-1 text-center border border-gray-400 rounded-none appearance-none focus:outline-none"
-                                                                        type="text" id=""
-                                                                        name="" value="{{ $checkoutitem->quantity }}"
-                                                                        min="1" step="1" inputmode="numeric"
-                                                                        pattern="\\d*"
-                                                                        readonly
-                                                                        onchange="">
+                                                                    <label for="">Quantity:</label>
+                                                                    <div>
+                                                                        <input
+                                                                            class="w-10 bg-slate-200 py-1 text-center border border-gray-400 rounded-none appearance-none focus:outline-none"
+                                                                            type="text" id="" name=""
+                                                                            value="{{ $checkoutitem->quantity }}"
+                                                                            min="1" step="1"
+                                                                            inputmode="numeric" pattern="\\d*" readonly
+                                                                            onchange="">
                                                                         <input type="hidden" name="" value="">
                                                                         <input type="hidden" name="p" value="">
                                                                         {{-- Final Quantity --}}
                                                                         <input type="hidden" name="}]" value="1"
-                                                                        id="">
+                                                                            id="">
+                                                                    </div>
+                                                                    <p>Total: $
+                                                                        {{ $checkoutitem->total * $checkoutitem->quantity }}
+                                                                    </p>
+                                                                    </p>
                                                                 </div>
-                                                                <p>Total: $ {{ $checkoutitem->total * $checkoutitem->quantity }}</p>
-                                                                </p>
                                                             </div>
                                                         </div>
+
                                                     </div>
 
+                                                    <div class="flex items-center space-x-4">
+
+
+
+
+                                                    </div>
                                                 </div>
 
-                                                <div class="flex items-center space-x-4">
-                                                  
-                                                      
-                                                  
-
-                                                </div>
                                             </div>
-
                                         </div>
-                                    </div>
-                               @endforeach
+                                       
+                                    @endforeach
+                                    @endif
                         </div>
 
                         <!-- Sub total -->
@@ -141,8 +149,8 @@
                             <div class="flex justify-between">
                                 <p class="text-lg font-bold">Total</p>
                                 <div class="">
-                                    <p id="final-total">${{" "}}{{$finaltotal}}</p>
-                                    
+                                    <p id="final-total">${{ ' ' }}{{ $finaltotal }}</p>
+
                                     {{-- Final total input --}}
                                     <input type="hidden" name="final_total_input" id="final-total-input">
                                     <p id="demo"></p>
@@ -154,7 +162,7 @@
                                 class="mt-6 w-full rounded-md bg-blue-500 py-1.5 font-medium text-blue-50 hover:bg-blue-600">
                                 <i class="mdi mdi-credit-card -ml-2 mr-2"></i>Pay Now</button>
                         </div>
-                    </form>
+                        </form>
                     </div>
                 </div>
             </div>

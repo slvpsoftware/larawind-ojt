@@ -2,6 +2,9 @@
 @section('content')
     <!-- component -->
     <script src="//unpkg.com/alpinejs" defer></script>
+    <style>
+        @import url(https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/5.3.45/css/materialdesignicons.min.css);
+    </style>
 
     <main>
         <section class="bg-white dark:bg-gray-900">
@@ -62,19 +65,20 @@
                     </table>
                 </div> --}}
                 <div class="h-screen bg-white pt-20">
-                    <h1 class="mb-10 text-center text-2xl font-bold">Cart Items</h1>
+                    <h1 class="mb-10 text-center text-2xl font-bold">Checked Out Items</h1>
                     <div class="mx-auto max-w-5xl justify-center px-6 md:flex md:space-x-6 xl:px-0">
 
                         <div class="rounded-lg md:w-2/3">
                            
 
                             <form action="" method="POST">
-                               
+                                @csrf
+                               @foreach($mycheckout as $checkoutitem)
                                     {{-- @php dd($item)@endphp --}}
                                     <input type="hidden" name="cart_id" value="">
                                     <div
                                         class="justify-between mb-6 rounded-lg bg-gray-200 p-6 shadow-md sm:flex sm:justify-start">
-                                        <img src="" alt="product-image"
+                                        <img src="{{ asset('prod_images/' . $checkoutitem->prod_image) }}" alt="product-image"
                                             class="w-full rounded-lg sm:w-40" />
                                         <div class="sm:ml-4 sm:flex sm:w-full sm:justify-between">
 
@@ -98,9 +102,9 @@
                                                                 <label for="">Quantity:</label>
                                                                 <div>
                                                                     <input
-                                                                        class="w-16 py-1 text-center border border-gray-400 rounded-none appearance-none focus:outline-none"
-                                                                        type="number" id=""
-                                                                        name="" value="1"
+                                                                        class="w-10 bg-slate-200 py-1 text-center border border-gray-400 rounded-none appearance-none focus:outline-none"
+                                                                        type="text" id=""
+                                                                        name="" value="{{ $checkoutitem->quantity }}"
                                                                         min="1" step="1" inputmode="numeric"
                                                                         pattern="\\d*"
                                                                         readonly
@@ -111,8 +115,7 @@
                                                                         <input type="hidden" name="}]" value="1"
                                                                         id="">
                                                                 </div>
-                                                                <p>Total: $<span
-                                                                        id=""></span>
+                                                                <p>Total: $ {{ $checkoutitem->total * $checkoutitem->quantity }}</p>
                                                                 </p>
                                                             </div>
                                                         </div>
@@ -122,18 +125,7 @@
 
                                                 <div class="flex items-center space-x-4">
                                                   
-                                                        <button x-data="{ tooltip: 'Delete' }" value="deleteCart" name="submit">
-                                                            <input type="hidden" name="id"
-                                                                value="">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                                                                fill="currentColor"
-                                                                class="h-5 w-5 cursor-pointer duration-150 hover:text-red-500">>
-                                                                <path fill-rule="evenodd"
-                                                                    d="M16.5 4.478v.227a48.816 48.816 0 013.878.512.75.75 0 11-.256 1.478l-.209-.035-1.005 13.07a3 3 0 01-2.991 2.77H8.084a3 3 0 01-2.991-2.77L4.087 6.66l-.209.035a.75.75 0 01-.256-1.478A48.567 48.567 0 017.5 4.705v-.227c0-1.564 1.213-2.9 2.816-2.951a52.662 52.662 0 013.369 0c1.603.051 2.815 1.387 2.815 2.951zm-6.136-1.452a51.196 51.196 0 013.273 0C14.39 3.05 15 3.684 15 4.478v.113a49.488 49.488 0 00-6 0v-.113c0-.794.609-1.428 1.364-1.452zm-.355 5.945a.75.75 0 10-1.5.058l.347 9a.75.75 0 101.499-.058l-.346-9zm5.48.058a.75.75 0 10-1.498-.058l-.347 9a.75.75 0 001.5.058l.345-9z"
-                                                                    clip-rule="evenodd" />
-                                                            </svg>
-                                                        </button>
-
+                                                      
                                                   
 
                                                 </div>
@@ -141,7 +133,7 @@
 
                                         </div>
                                     </div>
-                               
+                               @endforeach
                         </div>
 
                         <!-- Sub total -->
@@ -149,7 +141,7 @@
                             <div class="flex justify-between">
                                 <p class="text-lg font-bold">Total</p>
                                 <div class="">
-                                    <p id="final-total">Final Total: $</p>
+                                    <p id="final-total">${{" "}}{{$finaltotal}}</p>
                                     
                                     {{-- Final total input --}}
                                     <input type="hidden" name="final_total_input" id="final-total-input">
@@ -159,15 +151,15 @@
                                 </div>
                             </div>
                             <button name="submit" value="checkoutCart"
-                                class="mt-6 w-full rounded-md bg-blue-500 py-1.5 font-medium text-blue-50 hover:bg-blue-600">Check
-                                out</button>
+                                class="mt-6 w-full rounded-md bg-blue-500 py-1.5 font-medium text-blue-50 hover:bg-blue-600">
+                                <i class="mdi mdi-credit-card -ml-2 mr-2"></i>Pay Now</button>
                         </div>
                     </form>
                     </div>
                 </div>
             </div>
             <div class="m-10">
-                {{-- {{ $checkout->links('pagination::tailwind') }} --}}
+                {{ $mycheckout->links('pagination::tailwind') }}
 
             </div>
         </section>

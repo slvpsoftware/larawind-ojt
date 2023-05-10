@@ -40,13 +40,13 @@ class CustomerController extends Controller
         // ]);
 
         $customer = new Customer();
-        $customer->customer_fname = $request->fname;
-        $customer->customer_lname = $request->lname;
-        $customer->customer_email = $request->email;
-        $customer->customer_address = $request->address;
-        $customer->customer_contact = $request->contact;
-        $customer->username = $request->username;
-        $customer->password = Hash::make($request->password);
+        $customer->customer_fname       = $request->fname;
+        $customer->customer_lname       = $request->lname;
+        $customer->customer_email       = $request->email;
+        $customer->customer_address     = $request->address;
+        $customer->customer_contact     = $request->contact;
+        $customer->username             = $request->username;
+        $customer->password             = Hash::make($request->password);
 
         $customer->save(); //save to database
         // dd('Customer Registration Successful');
@@ -110,7 +110,7 @@ class CustomerController extends Controller
 
         return view('customers.viewproductbystore', [
             'products' => $products,
-            'store' => $store,
+            'store'    => $store,
         ]);
 
     }
@@ -128,9 +128,9 @@ class CustomerController extends Controller
             return redirect()->back()->with('error', 'Product is already in cart');
         } else {
             //add product to cart
-            $cart = new Cart();
-            $cart->product_id = $product->id;
-            $cart->customer_id = $customer_id;
+            $cart               = new Cart();
+            $cart->product_id   = $product->id;
+            $cart->customer_id  = $customer_id;
             $cart->save();
 
             return redirect()->back()->with('added', 'Product added to cart successfully');
@@ -172,8 +172,8 @@ class CustomerController extends Controller
 
         return view('customers.mycart', [
             'myproduct' => $myproduct,
-            'total' => $total,
-            'qty' => $qty,
+            'total'     => $total,
+            'qty'       => $qty,
         ]);
 
     }
@@ -206,9 +206,9 @@ class CustomerController extends Controller
     public function checkout(Request $request)
     {
         //create count of cart
-        $cart_id = $request->product_id;
-        $price = $request->price_total;
-        $finalqty = $request->finalqty;
+        $cart_id    = $request->product_id;
+        $price      = $request->price_total;
+        $finalqty   = $request->finalqty;
         foreach ($cart_id as $key => $value) {
             $checkout = new Checkout();
             $checkout->cart_id = $key;
@@ -244,7 +244,23 @@ class CustomerController extends Controller
             )
             // ->groupBy('cart_prod.id', 'carts.created_at');
             ->orderByDesc('checkouts.created_at')->paginate(3);
-            return view('customers.checkoutdetails');
+
+            $total = DB::table('checkouts')
+                ->select(DB::raw('total * quantity as total'))
+                ->get();
+                // dd($total);
+                
+            $finaltotal = 0;
+            foreach ($total as $key => $value) {
+                $finaltotal += $value->total;
+            }
+            
+            return view('customers.checkoutdetails',
+            [
+                'mycheckout' => $mycheckout,
+                'total'      => $total,
+                'finaltotal' => $finaltotal,
+            ]);
     }   
 }
     

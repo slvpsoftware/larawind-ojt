@@ -4,6 +4,7 @@ namespace App\Models\Customer;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Customer\Checkout;
 
 class Cart extends Model
 {

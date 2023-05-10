@@ -110,14 +110,14 @@
                                                                     <input
                                                                         class="w-16 py-1 text-center border border-gray-400 rounded-none appearance-none focus:outline-none"
                                                                         type="number" id="qty-{{ $item->id }}"
-                                                                        name="qty[{{ $item->id }}]" value="1"
+                                                                        name="qty[{{ $item->id }}]" value="{{$item->quantity ?? 1}}"
                                                                         min="1" step="1" inputmode="numeric"
                                                                         pattern="\\d*"
                                                                         onchange="calculateTotal({{ $item->id }}, {{ $item->product_price }})">
                                                                         <input type="hidden" name="cart_id[{{$item->id}}]" value="{{ $item->id }}">
                                                                         <input type="hidden" name="product_base_price" value="{{ $item->product_price }}">
                                                                         {{-- Final Quantity --}}
-                                                                        <input type="hidden" name="finalqty[{{$item->id}}]" value="1"
+                                                                        <input type="hidden" name="finalqty[{{$item->id}}]" value="{{$item->quantity ?? 1}}"
                                                                         id="final-qty-{{ $item->id }}">
                                                                 </div>
                                                                 <p>Total: $<span

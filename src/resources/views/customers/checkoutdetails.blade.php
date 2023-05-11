@@ -45,7 +45,7 @@
                         <a class="transform text-gray-700 transition-colors duration-300 hover:text-blue-500 dark:text-gray-200 dark:hover:text-blue-400 lg:mx-8"
                             href="#">Pricing</a>
                         <a class="transform text-gray-700 transition-colors duration-300 hover:text-blue-500 dark:text-gray-200 dark:hover:text-blue-400 lg:mx-8"
-                            href="#">Contact</a>
+                            href="{{route('customer.mycart')}}">My Cart</a>
                         <a class="transform text-gray-700 transition-colors duration-300 hover:text-blue-500 dark:text-gray-200 dark:hover:text-blue-400 lg:mx-8"
                             href="#">Profile</a>
                         <a class="transform text-gray-700 transition-colors duration-300 hover:text-blue-500 dark:text-gray-200 dark:hover:text-blue-400 lg:mx-8"
@@ -71,7 +71,7 @@
                         <div class="rounded-lg md:w-2/3">
                            
 
-                            <form action="{{route('customer.payment')}}" method="GET">
+                            <form action="{{route('customer.paymentinfo')}}" method="GET">
                                 @csrf
                                @foreach($mycheckout as $checkoutitem)
                                     {{-- @php dd($item)@endphp --}}

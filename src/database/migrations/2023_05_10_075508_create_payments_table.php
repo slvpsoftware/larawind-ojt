@@ -20,7 +20,8 @@ class CreatePaymentsTable extends Migration
             $table->string("product_id");
             $table->string("name_of_card");
             $table->string("card_number");
-            $table->string("expiry_date");
+            $table->string("expiry_month");
+            $table->string("expiry_year");
             $table->string("cvv");
             $table->timestamps();
         });

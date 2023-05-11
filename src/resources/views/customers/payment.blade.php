@@ -2,7 +2,9 @@
 @section('content')
 
 <!-- component -->
-<style>@import url('https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/5.3.45/css/materialdesignicons.min.css')</style>
+<style>
+@import url('https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/5.3.45/css/materialdesignicons.min.css')
+</style>
 <style>
 /*
 module.exports = {
@@ -88,6 +90,19 @@ module.exports = {
 <style>
     @import url(https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/5.3.45/css/materialdesignicons.min.css);
 </style>
+{{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      $('#credit-card-number').on('input', function() {
+        var value = $(this).val();
+        value = value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
+        var matches = value.match(/\d{4,16}/g);
+        var result = matches ? matches.join(' ') : '';
+        $(this).val(result);
+      });
+    });
+  </script> --}}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <div>
     <section class="bg-white dark:bg-gray-900">
         <nav x-data="{ isOpen: false }" class="container mx-auto p-6 lg:flex lg:items-center lg:justify-between">
@@ -147,25 +162,28 @@ module.exports = {
         </div>
        
     </div>
+    
     <div class="w-full bg-white border-t border-b border-gray-200 px-5 py-10 text-gray-800">
         <div class="w-full">
             <div class="-mx-3 md:flex items-start">
+                
                 <div class="px-3 md:w-7/12 lg:pr-10">
+                    @foreach($payment_s as $payment)
                     <div class="w-full mx-auto text-gray-800 font-light mb-6 border-b border-gray-200 pb-6">
                         <div class="w-full flex items-center">
                             <div class="overflow-hidden rounded-lg w-24 h-24 bg-gray-50 border border-gray-200">
-                                <img src="https://images.unsplash.com/photo-1572635196237-14b3f281503f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1160&q=80" alt="">
+                                <img src="{{ asset('prod_images/' . $payment->prod_image) }}" alt="">
                             </div>
                             <div class="flex-grow pl-3">
-                                <h6 class="font-semibold uppercase text-gray-600">Ray Ban Sunglasses.</h6>
-                                <p class="text-gray-400">x 1</p>
+                                <h6 class="font-semibold uppercase text-gray-600">{{$payment->product_name}}</h6>
+                                <p class="text-gray-400 font-bold">x{{$payment->quantity}}</p>
                             </div>
                             <div>
-                                <span class="font-semibold text-gray-600 text-xl">$210</span><span class="font-semibold text-gray-600 text-sm">.00</span>
+                                <span class="font-semibold text-gray-600 text-xl">${{$payment->quantity * $payment->total}}</span><span class="font-semibold text-gray-600 text-sm">.00</span>
                             </div>
                         </div>
                     </div>
-                    
+                    @endforeach
                    
                     <div class="mb-6 pb-6 border-b border-gray-200 md:border-none text-gray-800 text-xl">
                         <div class="w-full flex items-center">
@@ -173,19 +191,31 @@ module.exports = {
                                 <span class="text-gray-600">Total</span>
                             </div>
                             <div class="pl-3">
-                                <span class="font-semibold text-gray-400 text-sm">AUD</span> <span class="font-semibold">$210.00</span>
+                                <span class="font-semibold text-gray-400 text-sm">AUD</span> <span class="font-semibold">$ {{$finaltotal}}</span>
                             </div>
                         </div>
                     </div>
                 </div>
+               
+              
                 <div class="px-3 md:w-5/12">
+                  
+                 
                     <div class="w-full mx-auto rounded-lg bg-white border border-gray-200 p-3 text-gray-800 font-light mb-6">
                         <div class="w-full flex mb-3 items-center">
                             <div class="w-32">
-                                <span class="text-gray-600 font-semibold">Contact</span>
+                                <span class="text-gray-600 font-semibold">Contact Person</span>
                             </div>
                             <div class="flex-grow pl-3">
-                                <span>Scott Windon</span>
+                                <span>{{$payee->customer_fname}}{{" "}}{{$payee->customer_lname}}</span>
+                            </div>
+                        </div>
+                        <div class="w-full flex mb-3 items-center">
+                            <div class="w-32">
+                                <span class="text-gray-600 font-semibold">Contact Number</span>
+                            </div>
+                            <div class="flex-grow pl-3">
+                                <span>{{$payee->customer_contact}}</span>
                             </div>
                         </div>
                         <div class="w-full flex items-center">
@@ -193,10 +223,11 @@ module.exports = {
                                 <span class="text-gray-600 font-semibold">Billing Address</span>
                             </div>
                             <div class="flex-grow pl-3">
-                                <span>123 George Street, Sydney, NSW 2000 Australia</span>
+                                <span>{{$payee->customer_address}}</span>
                             </div>
                         </div>
                     </div>
+                    @php dd($payment_s); @endphp
                     <div class="w-full mx-auto rounded-lg bg-white border border-gray-200 text-gray-800 font-light mb-6">
                         <div class="w-full p-3 border-b border-gray-200">
                             <div class="mb-5">
@@ -209,37 +240,39 @@ module.exports = {
                                 <div class="mb-3">
                                     <label class="text-gray-600 font-semibold text-sm mb-2 ml-1">Name on card</label>
                                     <div>
-                                        <input class="w-full px-3 py-2 mb-1 border border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors" placeholder="John Smith" type="text"/>
+                                        <input type="hidden" name="customer_id" value="{{$customer_id}}"/>
+                                        <input type="hidden" name="checkout_id[{{$payment_s->checkout_id}}]" value=""/>
+                                        <input name="cardname"  class="w-full px-3 py-2 mb-1 border border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors" placeholder="ex. Hello Name" type="text"/>
                                     </div>
                                 </div>
                                 <div class="mb-3">
-                                    <label class="text-gray-600 font-semibold text-sm mb-2 ml-1">Card number</label>
+                                    <label id="" class="text-gray-600 font-semibold text-sm mb-2 ml-1">Card number</label>
                                     <div>
-                                        <input class="w-full px-3 py-2 mb-1 border border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors" placeholder="0000 0000 0000 0000" type="text"/>
+                                        <input name="card_number" id="credit-card-number" maxlength="19" class="w-full px-3 py-2 mb-1 border border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors" placeholder="0000 0000 0000 0000" type="text"/>
                                     </div>
                                 </div>
                                 <div class="mb-3 -mx-2 flex items-end">
                                     <div class="px-2 w-1/4">
                                         <label class="text-gray-600 font-semibold text-sm mb-2 ml-1">Expiration date</label>
                                         <div>
-                                            <select class="form-select w-full px-3 py-2 mb-1 border border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors cursor-pointer">
-                                                <option value="01">01 - January</option>
-                                                <option value="02">02 - February</option>
-                                                <option value="03">03 - March</option>
-                                                <option value="04">04 - April</option>
-                                                <option value="05">05 - May</option>
-                                                <option value="06">06 - June</option>
-                                                <option value="07">07 - July</option>
-                                                <option value="08">08 - August</option>
-                                                <option value="09">09 - September</option>
-                                                <option value="10">10 - October</option>
-                                                <option value="11">11 - November</option>
-                                                <option value="12">12 - December</option>
+                                            <select name="expMonth" class="form-select w-full px-3 py-2 mb-1 border border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors cursor-pointer">
+                                                <option value="1">January</option>
+                                                <option value="2">February</option>
+                                                <option value="3">March</option>
+                                                <option value="4">April</option>
+                                                <option value="5">May</option>
+                                                <option value="6">June</option>
+                                                <option value="7">uly</option>
+                                                <option value="8">August</option>
+                                                <option value="9">September</option>
+                                                <option value="10">October</option>
+                                                <option value="11">November</option>
+                                                <option value="12">December</option>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="px-2 w-1/4">
-                                        <select class="form-select w-full px-3 py-2 mb-1 border border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors cursor-pointer">
+                                        <select name="expYear" class="form-select w-full px-3 py-2 mb-1 border border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors cursor-pointer">
                                             <option value="2020">2020</option>
                                             <option value="2021">2021</option>
                                             <option value="2022">2022</option>
@@ -267,9 +300,29 @@ module.exports = {
                         <button class="block w-full max-w-xs mx-auto bg-indigo-500 hover:bg-indigo-700 focus:bg-indigo-700 text-white rounded-lg px-3 py-2 font-semibold"><i class="mdi mdi-lock-outline mr-1"></i> PAY NOW</button>
                     </div>
                 </div>
+               
             </div>
         </div>
     </div>
    
 </div>
+<script>
+    const cardNumberInput = document.getElementById("credit-card-number");
+    cardNumberInput.addEventListener("input", formatCardNumber);
+    
+    function formatCardNumber() {
+        let cardNumber = cardNumberInput.value;
+        // Remove all non-numeric characters
+        cardNumber = cardNumber.replace(/[^0-9]/g, "");
+        let formattedCardNumber = "";
+        // Format the card number in "0000 0000 0000 0000" format
+        for (let i = 0; i < cardNumber.length; i++) {
+            if (i % 4 == 0 && i != 0) {
+                formattedCardNumber += " ";
+            }
+            formattedCardNumber += cardNumber.charAt(i);
+        }
+        cardNumberInput.value = formattedCardNumber;
+    }
+</script>
 @endsection

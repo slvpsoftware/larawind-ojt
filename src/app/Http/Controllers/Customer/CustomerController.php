@@ -28,17 +28,6 @@ class CustomerController extends Controller
     //save the customer registration details
     public function customer_register(Request $request)
     {
-
-        // $request->validate([
-        //     'fname' => 'required|max:255',
-        //     'lname' => 'required|max:255',
-        //     'email' => 'required|max:255',
-        //     'address' => 'required|max:255',
-        //     'contact' => 'required|max:255',
-        //     'username' => 'required|unique:customers|max:255',
-        //     'password' => 'required|min:8|confirmed',
-        // ]);
-
         $customer = new Customer();
         $customer->customer_fname       = $request->fname;
         $customer->customer_lname       = $request->lname;
@@ -81,8 +70,16 @@ class CustomerController extends Controller
 
     public function welcome() //display the welcome page
     {
-        return view('customers.welcome');
-
+        $customer = Auth::guard('customer')->user();
+        $cust_name = $customer->customer_fname;
+        $cust_lname = $customer->customer_lname;
+         
+        return view('customers.welcome',
+            [
+                'customer' => $customer,
+                'cust_name' => $cust_name,
+                'cust_lname' => $cust_lname,
+            ]);
     }
     public function logout()
     {
@@ -98,32 +95,20 @@ class CustomerController extends Controller
     //viewproductbystore
     public function viewproductbystore(Request $request, $id)
     {
-        // dd($id);
-        // $products
-        // // $admin = Admin::all();
         $store = Admin::find($id);
-        // dd($store);
         $products = Product::where("admin_id", $id)->get();
-        // dd($products);
-        // $products = Product::all()->where("admin_id", $request->id);
-
-
         return view('customers.viewproductbystore', [
             'products' => $products,
             'store'    => $store,
         ]);
-
     }
     public function addtocart(Request $request, $id)
     {
         //add selected cart to database
         $product = Product::find($id);
-
         $customer_id = Auth::guard('customer')->user()->id;
-
         //check if the product is already in the cart
         $cart = Cart::where('customer_id', $customer_id)->where('product_id', $product->id)->exists();
-
         if ($cart) {
             return redirect()->back()->with('error', 'Product is already in cart');
         } else {
@@ -132,12 +117,9 @@ class CustomerController extends Controller
             $cart->product_id   = $product->id;
             $cart->customer_id  = $customer_id;
             $cart->save();
-
             return redirect()->back()->with('added', 'Product added to cart successfully');
 
         }
-
-
     }
 
     public function viewcart(Request $request)
@@ -155,22 +137,11 @@ class CustomerController extends Controller
                 'products.product_quantity',
                 'carts.created_at',
                 'carts.id',
-                'checkouts.quantity'
-                // 'carts.product_id as cart_prod_id',
-                //'products.id as prod_id'    
+                'checkouts.quantity'  
             )
-            // ->groupBy('cart_prod.id', 'carts.created_at');
+            
             ->orderByDesc('carts.created_at')->paginate(3);
-            // dd($myproduct);
-
-        // $total = DB::table('carts')
-        //     ->leftjoin('products', 'carts.product_id', '=', 'products.id')
-        //     ->where('carts.customer_id', $customer_id)
-        //     ->selectRaw('SUM(products.product_price) as total')
-        //     ->first()
-        //     ->total;
        
-        // $qty = 1;
         $total = DB::table('checkouts')
         ->select(DB::raw('total * quantity as total'))
         ->get();
@@ -179,8 +150,6 @@ class CustomerController extends Controller
             foreach ($total as $key => $value) {
                 $finaltotal += $value->total;
             }
-
-
         return view('customers.mycart', [
             'myproduct' => $myproduct,
             // 'total'     => $total,
@@ -215,43 +184,43 @@ class CustomerController extends Controller
 
     //checkout
     public function checkout(Request $request)
-{
-    $customer_id = Auth::guard('customer')->user()->id;
-    $cart_ids = $request->product_id;
-    $price = $request->price_total;
-    $finalqty = $request->finalqty;
-    $qty = $request->qty;
-    // dd($finalqty);
+    {
+        $customer_id = Auth::guard('customer')->user()->id;
+        $cart_ids = $request->product_id;
+        $price = $request->price_total;
+        $finalqty = $request->finalqty;
+        $qty = $request->qty;
+        // dd($finalqty);
 
-    foreach ($cart_ids as $cart_id) {
-        $existingCheckout = Checkout::where('cart_id', $cart_id)->first();
+        foreach ($cart_ids as $cart_id) {
+            $existingCheckout = Checkout::where('cart_id', $cart_id)->first();
 
-        if ($existingCheckout) {
-            // dd('ni add');
-            $quantity = $qty[$cart_id] + $finalqty[$cart_id];
-            // dd($quantity);
-            // dd($qty[$cart_id]);
-            // Update the quantity and total of existing checkout item
-            $existingCheckout::find($cart_id);
-            $existingCheckout->quantity = $finalqty[$cart_id];
-            // $existingCheckout->quantity += $finalqty[$cart_id];
-            //check if total has existing value
-            
-            $existingCheckout->total = $price[$cart_id];
-            $existingCheckout->update();
-        } else {
-            // dump('wala ni add');
-            // Create a new checkout item
-            $checkout = new Checkout();
-            $checkout->cart_id = $cart_id;
-            $checkout->total = $price[$cart_id];
-            $checkout->quantity = $finalqty[$cart_id];
-            $checkout->save();
+            if ($existingCheckout) {
+                // dd('ni add');
+                $quantity = $qty[$cart_id] + $finalqty[$cart_id];
+                // dd($quantity);
+                // dd($qty[$cart_id]);
+                // Update the quantity and total of existing checkout item
+                $existingCheckout::find($cart_id);
+                $existingCheckout->quantity = $finalqty[$cart_id];
+                // $existingCheckout->quantity += $finalqty[$cart_id];
+                //check if total has existing value
+                
+                $existingCheckout->total = $price[$cart_id];
+                $existingCheckout->update();
+            } else {
+                // dump('wala ni add');
+                // Create a new checkout item
+                $checkout = new Checkout();
+                $checkout->cart_id = $cart_id;
+                $checkout->total = $price[$cart_id];
+                $checkout->quantity = $finalqty[$cart_id];
+                $checkout->save();
+            }
         }
-    }
 
-    return redirect()->route('customer.checkoutdetails')->with('checkout', 'Checkout successful');
-}
+        return redirect()->route('customer.checkoutdetails')->with('checkout', 'Checkout successful');
+    }
 
 
     //view checkout
@@ -271,19 +240,14 @@ class CustomerController extends Controller
                 'checkouts.created_at',
                 'checkouts.id',
                 'checkouts.total',
-                'checkouts.quantity',
-                // 'carts.product_id as cart_prod_id',
-                //'products.id as prod_id'    
+                'checkouts.quantity',    
             )
-            // ->groupBy('cart_prod.id', 'carts.created_at');
             ->orderByDesc('checkouts.created_at')->paginate(3);
 
             $total = DB::table('checkouts')
                 ->select(DB::raw('total * quantity as total'))
                 ->get();
-                // dd($total);
-           
-                
+
             $finaltotal = 0;
             foreach ($total as $key => $value) {
                 $finaltotal += $value->total;
@@ -291,17 +255,88 @@ class CustomerController extends Controller
             // dd($finaltotal);
             return view('customers.checkoutdetails',
             [
+                
                 'mycheckout' => $mycheckout,
                 'total'      => $total,
                 'finaltotal' => $finaltotal,
             ]);
-            
     }   
     
     //payment
-    public function payment()
+    public function paymentinfo()
     {
-        return view('customers.payment');
+        $customer_id = Auth::guard('customer')->user()->id;
+        $payee = Customer::find($customer_id);
+        // $payment_s = DB::table('checkouts')
+        //     ->leftjoin('carts', 'checkouts.cart_id', '=', 'carts.id')
+        //     ->leftjoin('products', 'carts.product_id', '=', 'products.id')
+        //     ->where('carts.customer_id', $customer_id)
+        //     ->select(
+        //         'products.product_name',
+        //         'products.product_price',
+        //         'products.prod_image',
+        //         'products.product_description',
+        //         'products.product_quantity',
+        //         'checkouts.created_at',
+        //         'checkouts.id as checkout_id',
+        //         'checkouts.total',
+        //         'checkouts.quantity',
+        //     )
+        //     ->orderByDesc('checkouts.created_at')->paginate(3);
+        $payment_s = DB::table('payments')
+            ->leftjoin('checkouts', 'payments.checkout_id', '=', 'checkouts.id')
+            ->leftjoin('products', 'checkouts.product_id', '=', 'products.id')
+            ->leftjoin('customers', 'payments.customer_id', '=', 'customers.id')
+            ->where('payments.customer_id', $customer_id)
+            ->select(
+                'checkouts.id as checkout_id',
+                'checkouts.total',
+                'checkouts.quantity',
+                'products.product_name',
+                'products.product_price',
+                'products.prod_image',
+                'products.product_description',
+                'products.product_quantity',
+                'customers.name',
+                'customers.email',
+                'customers.address',
+                'customers.contact',
+                'payments.payment_method',
+                'payments.payment_status',
+                'payments.created_at',
+                'payments.id as payment_id',
+            )
+            ->orderByDesc('payments.created_at')->paginate(3);
+            
+        $total = DB::table('checkouts')
+                ->select(DB::raw('total * quantity as total'))
+                ->get();
+        $finaltotal = 0;
+        foreach ($total as $key => $value) {
+            $finaltotal += $value->total;
+        }
+
+        return view('customers.payment',
+        [
+            'customer_id' => $customer_id,
+            'total'      => $total,
+            'finaltotal' => $finaltotal,
+            'payment_s'  => $payment_s,
+            'payee'      => $payee,
+        ]);
+    }
+    //saving payment info
+    public function savepayment(Request $request)
+    {
+        $customer_id = Auth::guard('customer')->user()->id;
+        $payment = new Payment();
+        $payment->customer_id = $customer_id;
+        $payment->payment_method = $request->payment_method;
+        $payment->payment_status = $request->payment_status;
+        $payment->payment_total = $request->payment_total;
+        $payment->payment_date = $request->payment_date;
+        $payment->save();
+        return redirect()->route('customer.paymentinfo')->with('payment', 'Payment successful');
     }
 }
     

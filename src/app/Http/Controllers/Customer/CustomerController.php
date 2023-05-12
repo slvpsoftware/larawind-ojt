@@ -8,6 +8,7 @@ use App\Models\Customer\Customer;
 use App\Models\Customer\Checkout;
 use App\Models\Product;
 use App\Models\Admin;
+use App\Models\Customer\Payment;
 use App\Models\Customer\Cart;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
@@ -267,46 +268,28 @@ class CustomerController extends Controller
     {
         $customer_id = Auth::guard('customer')->user()->id;
         $payee = Customer::find($customer_id);
-        // $payment_s = DB::table('checkouts')
-        //     ->leftjoin('carts', 'checkouts.cart_id', '=', 'carts.id')
-        //     ->leftjoin('products', 'carts.product_id', '=', 'products.id')
-        //     ->where('carts.customer_id', $customer_id)
-        //     ->select(
-        //         'products.product_name',
-        //         'products.product_price',
-        //         'products.prod_image',
-        //         'products.product_description',
-        //         'products.product_quantity',
-        //         'checkouts.created_at',
-        //         'checkouts.id as checkout_id',
-        //         'checkouts.total',
-        //         'checkouts.quantity',
-        //     )
-        //     ->orderByDesc('checkouts.created_at')->paginate(3);
-        $payment_s = DB::table('payments')
-            ->leftjoin('checkouts', 'payments.checkout_id', '=', 'checkouts.id')
-            ->leftjoin('products', 'checkouts.product_id', '=', 'products.id')
-            ->leftjoin('customers', 'payments.customer_id', '=', 'customers.id')
-            ->where('payments.customer_id', $customer_id)
+        $payment_s = DB::table('checkouts')
+            ->leftjoin('carts', 'checkouts.cart_id', '=', 'carts.id')
+            ->leftjoin('products', 'carts.product_id', '=', 'products.id')
+            ->leftjoin('customers', 'carts.customer_id', '=', 'customers.id')
+            ->where('carts.customer_id', $customer_id)
             ->select(
-                'checkouts.id as checkout_id',
-                'checkouts.total',
-                'checkouts.quantity',
+                'carts.id as cart_id',
+                'customers.id as customer_id',
+                'customers.customer_fname',
+                'products.id as product_id',
                 'products.product_name',
                 'products.product_price',
                 'products.prod_image',
                 'products.product_description',
                 'products.product_quantity',
-                'customers.name',
-                'customers.email',
-                'customers.address',
-                'customers.contact',
-                'payments.payment_method',
-                'payments.payment_status',
-                'payments.created_at',
-                'payments.id as payment_id',
+                'checkouts.created_at',
+                'checkouts.id as checkout_id',
+                'checkouts.total',
+                'checkouts.quantity',
             )
-            ->orderByDesc('payments.created_at')->paginate(3);
+            ->orderByDesc('checkouts.created_at')->paginate(3);
+         
             
         $total = DB::table('checkouts')
                 ->select(DB::raw('total * quantity as total'))
@@ -323,20 +306,57 @@ class CustomerController extends Controller
             'finaltotal' => $finaltotal,
             'payment_s'  => $payment_s,
             'payee'      => $payee,
+            // 'checkout_id' => $checkout_id,
         ]);
     }
     //saving payment info
-    public function savepayment(Request $request)
+    public function postpayment(Request $request)
     {
+     
         $customer_id = Auth::guard('customer')->user()->id;
-        $payment = new Payment();
-        $payment->customer_id = $customer_id;
-        $payment->payment_method = $request->payment_method;
-        $payment->payment_status = $request->payment_status;
-        $payment->payment_total = $request->payment_total;
-        $payment->payment_date = $request->payment_date;
-        $payment->save();
+        $check_ids = $request->checkout_id;
+        $cart_ids = $request->cart_id;
+        $name_of_card = $request->cardname;
+        $card_number = $request->card_number;
+        $expiry_month = $request->expMonth;
+        $expiry_year = $request->expYear;
+        $cvv = $request->cvv;
+   
+        foreach ($check_ids as $check_id) 
+        {
+            $payment = new Payment();
+            $payment->customer_id = $customer_id;
+            $payment->checkout_id = $check_id;
+            $payment->product_id = $cart_ids[$check_id];
+            $payment->name_of_card = $name_of_card;
+            $payment->card_number = $card_number;
+            $payment->expiry_month = $expiry_month;
+            $payment->expiry_year = $expiry_year;
+            $payment->cvv = $cvv;
+            $payment->save();
+        }
         return redirect()->route('customer.paymentinfo')->with('payment', 'Payment successful');
+
+    }
+    public function check()
+    {
+        $check = Payment::where('customer_id', Auth::guard('customer')->user()->id)->get();
+        $checkprod = Payment::select('product_id')->where('customer_id', Auth::guard('customer')->user()->id)->get();
+        $prodjoin = DB::table('products')
+            ->join('payments', 'products.id', '=', 'payments.product_id')
+            ->select('products.product_name', 'products.product_price', 'products.prod_image', 'products.product_description', 'products.product_quantity', 'payments.customer_id', 'payments.checkout_id', 'payments.product_id', 'payments.name_of_card', 'payments.card_number', 'payments.expiry_month', 'payments.expiry_year', 'payments.cvv')
+            ->get();
+           
+            return view('customers.confirmcheckout', 
+            [
+                'check' => $check, 
+                'prodjoin' => $prodjoin, 
+                'checkprod' => $checkprod
+            ]);
+    }
+    public function checkpayment()
+    {
+
     }
 }
     

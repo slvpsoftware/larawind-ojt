@@ -81,7 +81,7 @@
                                 @csrf
                                 @foreach ($myproduct as $item)
                                     {{-- @php dd($item)@endphp --}}
-                                    <input type="hidden" name="cart_id" value="{{$item->id}}">
+                                    <input type="hidden" name="cart_id" value="{{ $item->id }}">
                                     <div
                                         class="justify-between mb-6 rounded-lg bg-gray-200 p-6 shadow-md sm:flex sm:justify-start">
                                         <img src="{{ asset('prod_images/' . $item->prod_image) }}" alt="product-image"
@@ -92,8 +92,10 @@
                                                 <h2 class="text-lg font-bold text-gray-900">
                                                     {{ $item->product_name }}{{ "( $" }}{{ $item->product_price }}{{ ')' }}
                                                 </h2>
-                                                <input type="hidden" name="product_id[{{$item->id}}]" value="{{ $item->id }}">
-                                                <input type="hidden" name="price_total[{{$item->id}}]" value="{{ $item->product_price }}">
+                                                <input type="hidden" name="product_id[{{ $item->id }}]"
+                                                    value="{{ $item->id }}">
+                                                <input type="hidden" name="price_total[{{ $item->id }}]"
+                                                    value="{{ $item->product_price }}">
 
                                                 <p class="mt-1 text-xs text-gray-700">{{ $item->product_description }}S</p>
                                             </div>
@@ -110,19 +112,25 @@
                                                                     <input
                                                                         class="w-16 py-1 text-center border border-gray-400 rounded-none appearance-none focus:outline-none"
                                                                         type="number" id="qty-{{ $item->id }}"
-                                                                        name="qty[{{ $item->id }}]" value="{{$item->quantity ?? 1}}"
-                                                                        min="1" step="1" inputmode="numeric"
-                                                                        pattern="\\d*"
+                                                                        name="qty[{{ $item->id }}]"
+                                                                        value="{{ $item->quantity ?? 1 }}" min="1"
+                                                                        step="1" inputmode="numeric" pattern="\\d*"
                                                                         onchange="calculateTotal({{ $item->id }}, {{ $item->product_price }})">
-                                                                        <input type="hidden" name="cart_id[{{$item->id}}]" value="{{ $item->id }}">
-                                                                        <input type="hidden" name="product_base_price" value="{{ $item->product_price }}">
-                                                                        {{-- Final Quantity --}}
-                                                                        <input type="hidden" name="finalqty[{{$item->id}}]" value="{{$item->quantity ?? 1}}"
+                                                                    <input type="hidden"
+                                                                        name="cart_id[{{ $item->id }}]"
+                                                                        value="{{ $item->id }}">
+                                                                    <input type="hidden" name="product_base_price"
+                                                                        value="{{ $item->product_price }}">
+                                                                    {{-- Final Quantity --}}
+                                                                    <input type="hidden"
+                                                                        name="finalqty[{{ $item->id }}]"
+                                                                        value="{{ $item->quantity ?? 1 }}"
                                                                         id="final-qty-{{ $item->id }}">
                                                                 </div>
-                                                                <p>Total: $<span
-                                                                        id="total-{{ $item->id }}">{{ $item->product_price }}</span>
-                                                                </p>
+                                                                <p>Subtotal: $<span name="total-{{ $item->id }}" id="total-{{ $item->id }}">
+                                                                    {{ $subtotal->firstWhere('id', $item->id)->subtotal ?? $item->product_price }}
+                                                                </span></p>
+                                                                
                                                             </div>
                                                         </div>
                                                     </div>
@@ -136,19 +144,19 @@
                                                         onsubmit="return confirm('Are you sure you want to delete this product?');"
                                                         style="display: inline-block;">
                                                         @csrf --}}
-                                                        <button x-data="{ tooltip: 'Delete' }" value="deleteCart" name="submit">
-                                                            <input type="hidden" name="id"
-                                                                value="{{ $item->id }}">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                                                                fill="currentColor"
-                                                                class="h-5 w-5 cursor-pointer duration-150 hover:text-red-500">>
-                                                                <path fill-rule="evenodd"
-                                                                    d="M16.5 4.478v.227a48.816 48.816 0 013.878.512.75.75 0 11-.256 1.478l-.209-.035-1.005 13.07a3 3 0 01-2.991 2.77H8.084a3 3 0 01-2.991-2.77L4.087 6.66l-.209.035a.75.75 0 01-.256-1.478A48.567 48.567 0 017.5 4.705v-.227c0-1.564 1.213-2.9 2.816-2.951a52.662 52.662 0 013.369 0c1.603.051 2.815 1.387 2.815 2.951zm-6.136-1.452a51.196 51.196 0 013.273 0C14.39 3.05 15 3.684 15 4.478v.113a49.488 49.488 0 00-6 0v-.113c0-.794.609-1.428 1.364-1.452zm-.355 5.945a.75.75 0 10-1.5.058l.347 9a.75.75 0 101.499-.058l-.346-9zm5.48.058a.75.75 0 10-1.498-.058l-.347 9a.75.75 0 001.5.058l.345-9z"
-                                                                    clip-rule="evenodd" />
-                                                            </svg>
-                                                        </button>
+                                                    <button x-data="{ tooltip: 'Delete' }" value="deleteCart" name="submit">
+                                                        <input type="hidden" name="id"
+                                                            value="{{ $item->id }}">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                                            fill="currentColor"
+                                                            class="h-5 w-5 cursor-pointer duration-150 hover:text-red-500">>
+                                                            <path fill-rule="evenodd"
+                                                                d="M16.5 4.478v.227a48.816 48.816 0 013.878.512.75.75 0 11-.256 1.478l-.209-.035-1.005 13.07a3 3 0 01-2.991 2.77H8.084a3 3 0 01-2.991-2.77L4.087 6.66l-.209.035a.75.75 0 01-.256-1.478A48.567 48.567 0 017.5 4.705v-.227c0-1.564 1.213-2.9 2.816-2.951a52.662 52.662 0 013.369 0c1.603.051 2.815 1.387 2.815 2.951zm-6.136-1.452a51.196 51.196 0 013.273 0C14.39 3.05 15 3.684 15 4.478v.113a49.488 49.488 0 00-6 0v-.113c0-.794.609-1.428 1.364-1.452zm-.355 5.945a.75.75 0 10-1.5.058l.347 9a.75.75 0 101.499-.058l-.346-9zm5.48.058a.75.75 0 10-1.498-.058l-.347 9a.75.75 0 001.5.058l.345-9z"
+                                                                clip-rule="evenodd" />
+                                                        </svg>
+                                                    </button>
 
-                                                  
+
 
                                                 </div>
                                             </div>
@@ -163,20 +171,21 @@
                             <div class="flex justify-between">
                                 <p class="text-lg font-bold">Total</p>
                                 <div class="">
-                                    <p id="final-total">Final Total: ${{ number_format($total, 2) }}</p>
-                                    
+                                    @if($totalFSubtotal == 0)
+                                    <p id="final-total">Final Total: ${{$total}}</p>
+                                    @else
+                                    <p id="final-total">Final Total: ${{$totalFSubtotal}}</p>
+                                    @endif
                                     {{-- Final total input --}}
                                     <input type="hidden" name="final_total_input" id="final-total-input">
                                     <p id="demo"></p>
-
-                                    <p class="text-sm text-gray-700">including VAT</p>
                                 </div>
                             </div>
                             <button name="submit" value="checkoutCart"
                                 class="mt-6 w-full rounded-md bg-blue-500 py-1.5 font-medium text-blue-50 hover:bg-blue-600">Check
                                 out</button>
                         </div>
-                    </form>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -331,8 +340,8 @@
             const qtyInput = document.getElementById(`qty-${itemId}`);
             const qtyValue = parseInt(qtyInput.value);
             const subtotal = qtyValue * itemPrice;
-            document.getElementById(`total-${itemId}`).textContent = subtotal.toFixed(2);
-
+            document.getElementById(`total-${itemId}`).textContent = subtotal;
+            
             const finalQtyInput = document.getElementById(`final-qty-${itemId}`);
             finalQtyInput.value = qtyValue; // Assign the quantity value to the final-qty input
             console.log(finalQtyInput.value);
@@ -349,26 +358,5 @@
             finalTotalInput.value = total.toFixed(2);
 
         }
-
-
-        // function decrementQty(itemId, itemPrice) {
-        //     const qtyInput = document.getElementById(`qty-${itemId}`);
-        //     let qtyValue = parseInt(qtyInput.value);
-
-        //     if (qtyValue > 1) {
-        //         qtyValue--;
-        //         qtyInput.value = qtyValue;
-        //         calculateTotal(itemId, itemPrice);
-        //     }
-        // }
-
-        // function incrementQty(itemId, itemPrice) {
-        //     const qtyInput = document.getElementById(`qty-${itemId}`);
-        //     let qtyValue = parseInt(qtyInput.value);
-
-        //     qtyValue++;
-        //     qtyInput.value = qtyValue;
-        //     calculateTotal(itemId, itemPrice);
-        // }
     </script>
 @endsection

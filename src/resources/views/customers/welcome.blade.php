@@ -10,7 +10,8 @@
         <div class="flex items-center justify-between">
         <div>
             
-            <a class="text-2xl font-bold text-gray-800 hover:text-gray-700 dark:text-white dark:hover:text-gray-300 lg:text-3xl" href="#">Anime ToyShop</a>
+            <a class="text-2xl font-bold text-gray-800 hover:text-gray-700 dark:text-white dark:hover:text-gray-300 lg:text-3xl" href="#">Anime Toy Shop</a>
+           
         </div>
 
         <!-- Mobile menu button -->
@@ -35,6 +36,7 @@
             <a class="transform text-gray-700 transition-colors duration-300 hover:text-blue-500 dark:text-gray-200 dark:hover:text-blue-400 lg:mx-8" href="#">Pricing</a> 
             <a class="transform text-gray-700 transition-colors duration-300 hover:text-blue-500 dark:text-gray-200 dark:hover:text-blue-400 lg:mx-8" href="#">Contact</a>
             <a class="transform text-gray-700 transition-colors duration-300 hover:text-blue-500 dark:text-gray-200 dark:hover:text-blue-400 lg:mx-8" href="{{route('customer.mycart')}}">My Cart</a>
+            <a class="transform text-gray-700 transition-colors duration-300 hover:text-blue-500 dark:text-gray-200 dark:hover:text-blue-400 lg:mx-8" href="#">Orders</a>
             <a class="transform text-gray-700 transition-colors duration-300 hover:text-blue-500 dark:text-gray-200 dark:hover:text-blue-400 lg:mx-8" href="#">Profile</a>
             <a class="transform text-gray-700 transition-colors duration-300 hover:text-blue-500 dark:text-gray-200 dark:hover:text-blue-400 lg:mx-8" href="{{route('customer.logout')}}">Logout</a>
         </div>
@@ -45,6 +47,7 @@
     <div class="container mx-auto px-6 py-16 text-center">
         <div class="mx-auto max-w-lg">
         <h1 class="text-3xl font-bold text-gray-800 dark:text-white lg:text-4xl">Turn Your World Into Anime</h1>
+        <h2 class="text-3xl font-bold text-red-500 dark:text-white lg:text-4xl"> {{$cust_name}}{{" "}}{{$cust_lname}}</h2>
         <p class="mt-6 text-gray-500 dark:text-gray-300">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Libero similique obcaecati illum mollitia.</p>
         <p class="mt-3 text-sm text-gray-400">No credit card required</p>
         </div>

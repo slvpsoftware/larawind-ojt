@@ -2,6 +2,9 @@
 @section('content')
     <!-- component -->
     <script src="//unpkg.com/alpinejs" defer></script>
+    <style>
+        @import url(https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/5.3.45/css/materialdesignicons.min.css);
+    </style>
 
     <main>
         <section class="bg-white dark:bg-gray-900">
@@ -42,7 +45,7 @@
                         <a class="transform text-gray-700 transition-colors duration-300 hover:text-blue-500 dark:text-gray-200 dark:hover:text-blue-400 lg:mx-8"
                             href="#">Pricing</a>
                         <a class="transform text-gray-700 transition-colors duration-300 hover:text-blue-500 dark:text-gray-200 dark:hover:text-blue-400 lg:mx-8"
-                            href="{{route('customer.checkoutdetails')}}">Checked Out</a>
+                            href="{{route('customer.mycart')}}">My Cart</a>
                         <a class="transform text-gray-700 transition-colors duration-300 hover:text-blue-500 dark:text-gray-200 dark:hover:text-blue-400 lg:mx-8"
                             href="#">Profile</a>
                         <a class="transform text-gray-700 transition-colors duration-300 hover:text-blue-500 dark:text-gray-200 dark:hover:text-blue-400 lg:mx-8"
@@ -62,41 +65,31 @@
                     </table>
                 </div> --}}
                 <div class="h-screen bg-white pt-20">
-                    <h1 class="mb-10 text-center text-2xl font-bold">Cart Items</h1>
+                    <h1 class="mb-10 text-center text-2xl font-bold">Checked Out Items</h1>
                     <div class="mx-auto max-w-5xl justify-center px-6 md:flex md:space-x-6 xl:px-0">
 
                         <div class="rounded-lg md:w-2/3">
-                            @if ($myproduct->isEmpty())
-                                {{-- <div class="flex justify-center">
-                                <h1 class="text-2xl font-bold">No Items in Cart</h1>
-                            </div> --}}
-                                <div class="bg-red-100 border-t border-b border-red-500 text-red-700 px-8 py-24"
-                                    role="alert">
-                                    <p class="font-bold">Your cart is empty</p>
-                                    <p class="text-sm">You can select many items in different stores.</p>
-                                </div>
-                            @endif
+                           
 
-                            <form action="{{ route('customer.submitMyCart') }}" method="POST">
+                            <form action="{{route('customer.paymentinfo')}}" method="GET">
                                 @csrf
-                                @foreach ($myproduct as $item)
+                               @foreach($mycheckout as $checkoutitem)
                                     {{-- @php dd($item)@endphp --}}
-                                    <input type="hidden" name="cart_id" value="{{$item->id}}">
+                                    <input type="hidden" name="cart_id" value="">
                                     <div
                                         class="justify-between mb-6 rounded-lg bg-gray-200 p-6 shadow-md sm:flex sm:justify-start">
-                                        <img src="{{ asset('prod_images/' . $item->prod_image) }}" alt="product-image"
+                                        <img src="{{ asset('prod_images/' . $checkoutitem->prod_image) }}" alt="product-image"
                                             class="w-full rounded-lg sm:w-40" />
                                         <div class="sm:ml-4 sm:flex sm:w-full sm:justify-between">
 
-                                            <div class="mt-5 sm:mt-0">
+                                            <div class="mt-5 sm:mt-0 text-align-left">
                                                 <h2 class="text-lg font-bold text-gray-900">
-                                                    {{ $item->product_name }}{{ "( $ " }}{{ $item->product_price }}{{ ')' }}
+                                                    {{ $checkoutitem->product_name }}{{ "( $" }}{{ $checkoutitem->product_price }}{{ ')' }}
                                                 </h2>
-                                                <input type="hidden" name="cust_id[{{$item->id}}]" value="{{ $customer_id }}">
-                                                <input type="hidden" name="product_id[{{$item->id}}]" value="{{ $item->id }}">
-                                                <input type="hidden" name="price_total[{{$item->id}}]" value="{{ $item->product_price }}">
+                                                <input type="hidden" name="product_id[{{$checkoutitem->id}}]" value="{{ $checkoutitem->id }}">
+                                                <input type="hidden" name="price_total[{{$checkoutitem->id}}]" value="{{ $checkoutitem->product_price }}">
 
-                                                <p class="mt-1 text-xs text-gray-700">{{ $item->product_description }}S</p>
+                                                <p class="mt-1 text-xs text-gray-700">{{ $checkoutitem->product_description }}S</p>
                                             </div>
                                             <div
                                                 class="mt-4 flex justify-between sm:space-y-6 sm:mt-0 sm:block sm:space-x-6">
@@ -106,23 +99,23 @@
                                                         class="mt-4 flex justify-between sm:space-y-6 sm:mt-0 sm:block sm:space-x-6">
                                                         <div>
                                                             <div>
-                                                                <label for="qty-{{ $item->id }}">Quantity:</label>
+                                                                <label for="">Quantity:</label>
                                                                 <div>
                                                                     <input
-                                                                        class="w-16 py-1 text-center border border-gray-400 rounded-none appearance-none focus:outline-none"
-                                                                        type="number" id="qty-{{ $item->id }}"
-                                                                        name="qty[{{ $item->id }}]" value="{{$item->quantity ?? 1}}"
+                                                                        class="w-10 bg-slate-200 py-1 text-center border border-gray-400 rounded-none appearance-none focus:outline-none"
+                                                                        type="text" id=""
+                                                                        name="" value="{{ $checkoutitem->quantity }}"
                                                                         min="1" step="1" inputmode="numeric"
                                                                         pattern="\\d*"
-                                                                        onchange="calculateTotal({{ $item->id }}, {{ $item->product_price }})">
-                                                                        <input type="hidden" name="cart_id[{{$item->id}}]" value="{{ $item->id }}">
-                                                                        <input type="hidden" name="product_base_price" value="{{ $item->product_price }}">
+                                                                        readonly
+                                                                        onchange="">
+                                                                        <input type="hidden" name="" value="">
+                                                                        <input type="hidden" name="p" value="">
                                                                         {{-- Final Quantity --}}
-                                                                        <input type="hidden" name="finalqty[{{$item->id}}]" value="{{$item->quantity ?? 1}}"
-                                                                        id="final-qty-{{ $item->id }}">
+                                                                        <input type="hidden" name="}]" value="1"
+                                                                        id="">
                                                                 </div>
-                                                                <p>Total: $<span
-                                                                        id="total-{{ $item->id }}">{{ $item->product_price }}</span>
+                                                                <p>Total: $ {{ $checkoutitem->total * $checkoutitem->quantity }}</p>
                                                                 </p>
                                                             </div>
                                                         </div>
@@ -131,24 +124,8 @@
                                                 </div>
 
                                                 <div class="flex items-center space-x-4">
-                                                    {{-- <p class="text-sm">$ {{ $item->product_price }}</p> --}}
-
-                                                    {{-- <form action="{{ route('customer.deleteproduct') }}" method="POST"
-                                                        onsubmit="return confirm('Are you sure you want to delete this product?');"
-                                                        style="display: inline-block;">
-                                                        @csrf --}}
-                                                        <button x-data="{ tooltip: 'Delete' }" value="deleteCart" name="submit">
-                                                            <input type="hidden" name="id"
-                                                                value="{{ $item->id }}">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                                                                fill="currentColor"
-                                                                class="h-5 w-5 cursor-pointer duration-150 hover:text-red-500">>
-                                                                <path fill-rule="evenodd"
-                                                                    d="M16.5 4.478v.227a48.816 48.816 0 013.878.512.75.75 0 11-.256 1.478l-.209-.035-1.005 13.07a3 3 0 01-2.991 2.77H8.084a3 3 0 01-2.991-2.77L4.087 6.66l-.209.035a.75.75 0 01-.256-1.478A48.567 48.567 0 017.5 4.705v-.227c0-1.564 1.213-2.9 2.816-2.951a52.662 52.662 0 013.369 0c1.603.051 2.815 1.387 2.815 2.951zm-6.136-1.452a51.196 51.196 0 013.273 0C14.39 3.05 15 3.684 15 4.478v.113a49.488 49.488 0 00-6 0v-.113c0-.794.609-1.428 1.364-1.452zm-.355 5.945a.75.75 0 10-1.5.058l.347 9a.75.75 0 101.499-.058l-.346-9zm5.48.058a.75.75 0 10-1.498-.058l-.347 9a.75.75 0 001.5.058l.345-9z"
-                                                                    clip-rule="evenodd" />
-                                                            </svg>
-                                                        </button>
-
+                                                  
+                                                      
                                                   
 
                                                 </div>
@@ -156,7 +133,7 @@
 
                                         </div>
                                     </div>
-                                @endforeach
+                               @endforeach
                         </div>
 
                         <!-- Sub total -->
@@ -164,7 +141,7 @@
                             <div class="flex justify-between">
                                 <p class="text-lg font-bold">Total</p>
                                 <div class="">
-                                    <p id="final-total">Final Total: ${{ $finaltotal }}</p>
+                                    <p id="final-total">${{" "}}{{$finaltotal}}</p>
                                     
                                     {{-- Final total input --}}
                                     <input type="hidden" name="final_total_input" id="final-total-input">
@@ -173,16 +150,16 @@
                                     <p class="text-sm text-gray-700">including VAT</p>
                                 </div>
                             </div>
-                            <button name="submit" value="checkoutCart"
-                                class="mt-6 w-full rounded-md bg-blue-500 py-1.5 font-medium text-blue-50 hover:bg-blue-600">Check
-                                out</button>
+                            <button type="submit"
+                                class="mt-6 w-full rounded-md bg-blue-500 py-1.5 font-medium text-blue-50 hover:bg-blue-600">
+                                <i class="mdi mdi-credit-card -ml-2 mr-2"></i>Pay Now</button>
                         </div>
                     </form>
                     </div>
                 </div>
             </div>
             <div class="m-10">
-                {{ $myproduct->links('pagination::tailwind') }}
+                {{ $mycheckout->links('pagination::tailwind') }}
 
             </div>
         </section>
@@ -282,6 +259,49 @@
         </footer>
     </main>
 
+    {{-- <script>
+        function decrementQty(itemId) {
+            const qtyInput = document.getElementById(`qty-${itemId}`);
+            let qtyValue = parseInt(qtyInput.value);
+
+            if (qtyValue > 1) {
+                qtyValue--;
+                qtyInput.value = qtyValue;
+                calculateTotal(itemId, {{ $item->product_price }});
+            }
+        }
+
+        function incrementQty(itemId) {
+            const qtyInput = document.getElementById(`qty-${itemId}`);
+            let qtyValue = parseInt(qtyInput.value);
+
+            qtyValue++;
+            qtyInput.value = qtyValue;
+            calculateTotal(itemId, {{ $item->product_price }});
+        }
+
+        function calculateTotal(itemId, itemPrice) {
+            const qtyInput = document.getElementById(`qty-${itemId}`);
+            const qtyValue = parseInt(qtyInput.value);
+            const total = qtyValue * itemPrice;
+            document.getElementById(`total-${itemId}`).textContent = total.toFixed(2);
+        }
+        // function finalTotal() {
+        //     const total = document.getElementById('total').textContent;
+        //     document.getElementById('final-total').textContent = total;
+        // }
+        let total = 0;
+
+        // function calculateTotal(itemId, itemPrice) {
+        //     const qtyInput = document.getElementById(`qty-${itemId}`);
+        //     const qtyValue = parseInt(qtyInput.value);
+        //     const subtotal = qtyValue * itemPrice;
+        //     document.getElementById(`total-${itemId}`).textContent = subtotal.toFixed(2);
+
+        //     // Update the total variable
+        //     total = total + itemPrice;
+        // }
+    </script> --}}
     <script>
         let total = 0;
 

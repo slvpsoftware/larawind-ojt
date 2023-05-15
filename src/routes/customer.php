@@ -36,8 +36,14 @@ Route::prefix('customer')->name('customer.')->group(function(){
         Route::get('/viewproductbystore/{id}', [CustomerController::class, 'viewproductbystore'])->name('viewproductbystore');
         Route::post('/addtocart/{id}', [CustomerController::class, 'addtocart'])->name('addtocart');
         Route::get('/mycart', [CustomerController::class, 'viewcart'])->name('mycart');
-        Route::post('/deleteproduct', [CustomerController::class, 'deleteProduct'])->name('deleteproduct');
+        Route::get('/deleteproduct', [CustomerController::class, 'deleteProduct'])->name('deleteproduct');
         Route::get('/productDetails/{id}', [CustomerController::class, 'productDetails'])->name('productDetails');
+        Route::get('/checkoutdetails', [CustomerController::class, 'viewcheckout'])->name('checkoutdetails');
+        Route::post('/submitMyCart', [CustomerController::class, 'submitMyCart'])->name('submitMyCart');
+        Route::get('/paymentinfo', [CustomerController::class, 'paymentinfo'])->name('paymentinfo');
+        Route::post('/postpayment', [CustomerController::class, 'postpayment'])->name('postpayment');
+        Route::get('/checkpayment', [CustomerController::class, 'check'])->name('checkpayment');
+        Route::get('/orderDetails', [CustomerController::class, 'orderdetails'])->name('orderDetails');
     });
 });
 

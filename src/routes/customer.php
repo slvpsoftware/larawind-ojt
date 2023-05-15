@@ -43,7 +43,7 @@ Route::prefix('customer')->name('customer.')->group(function(){
         Route::get('/paymentinfo', [CustomerController::class, 'paymentinfo'])->name('paymentinfo');
         Route::post('/postpayment', [CustomerController::class, 'postpayment'])->name('postpayment');
         Route::get('/checkpayment', [CustomerController::class, 'check'])->name('checkpayment');
-        Route::post('/checkpayment', [CustomerController::class, 'checkpayment'])->name('checkpayment');
+        Route::get('/orderDetails', [CustomerController::class, 'orderdetails'])->name('orderDetails');
     });
 });
 

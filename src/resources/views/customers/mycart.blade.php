@@ -92,6 +92,7 @@
                                                 <h2 class="text-lg font-bold text-gray-900">
                                                     {{ $item->product_name }}{{ "( $ " }}{{ $item->product_price }}{{ ')' }}
                                                 </h2>
+                                                <input type="hidden" name="cust_id[{{$item->id}}]" value="{{ $customer_id }}">
                                                 <input type="hidden" name="product_id[{{$item->id}}]" value="{{ $item->id }}">
                                                 <input type="hidden" name="price_total[{{$item->id}}]" value="{{ $item->product_price }}">
 

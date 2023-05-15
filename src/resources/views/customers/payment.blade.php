@@ -6,10 +6,10 @@
     </style>
     <style>
         /*
-    module.exports = {
-        plugins: [require('@tailwindcss/forms'),]
-    };
-    */
+        module.exports = {
+            plugins: [require('@tailwindcss/forms'),]
+        };
+        */
         .form-radio {
             -webkit-appearance: none;
             -moz-appearance: none;
@@ -144,6 +144,8 @@
                         <a class="transform text-gray-700 transition-colors duration-300 hover:text-blue-500 dark:text-gray-200 dark:hover:text-blue-400 lg:mx-8"
                             href="#">Contact</a>
                         <a class="transform text-gray-700 transition-colors duration-300 hover:text-blue-500 dark:text-gray-200 dark:hover:text-blue-400 lg:mx-8"
+                            href="{{route('customer.orderDetails')}}">Orders</a>
+                        <a class="transform text-gray-700 transition-colors duration-300 hover:text-blue-500 dark:text-gray-200 dark:hover:text-blue-400 lg:mx-8"
                             href="#">Profile</a>
                         <a class="transform text-gray-700 transition-colors duration-300 hover:text-blue-500 dark:text-gray-200 dark:hover:text-blue-400 lg:mx-8"
                             href="{{ route('customer.logout') }}">Logout</a>
@@ -161,48 +163,74 @@
                 <h1 class="text-3xl md:text-5xl text-center font-bold text-gray-600">Checkout</h1>
             </div>
             @if (session()->has('payment'))
-            <div class="max-w-lg mx-auto">
-                <div class="flex bg-green-200 rounded-lg p-4 mb-4 text-sm text-green-700 place-content-center"
-                    role="alert">
-                    <svg class="w-5 h-5 inline mr-3" fill="currentColor" viewBox="0 0 20 20"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd"
-                            d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
-                            clip-rule="evenodd"></path>
-                    </svg>
-                    <div class="">
-                        <span class="font-bold">Success!</span> {{ session()->get('payment') }}
+                <div class="max-w-lg mx-auto">
+                    <div class="flex bg-green-200 rounded-lg p-4 mb-4 text-sm text-green-700 place-content-center"
+                        role="alert">
+                        <svg class="w-5 h-5 inline mr-3" fill="currentColor" viewBox="0 0 20 20"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                                clip-rule="evenodd"></path>
+                        </svg>
+                        <div class="">
+                            <span class="font-bold">Success!</span> {{ session()->get('payment') }}
+                        </div>
                     </div>
                 </div>
-            </div>
-        @endif
+            @endif
+            @if (session()->has('error_payment'))
+                <div class="max-w-lg mx-auto">
+                    <div class="flex bg-red-200 rounded-lg p-4 mb-4 text-sm text-red-700 place-content-center"
+                        role="alert">
+                        <svg class="w-5 h-5 inline mr-3" fill="currentColor" viewBox="0 0 20 20"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                                clip-rule="evenodd"></path>
+                        </svg>
+                        <div class="">
+                            <span class="font-bold">Warning!</span> {{ session()->get('error_payment') }}
+                        </div>
+                    </div>
+                </div>
+            @endif
         </div>
-        <form action="{{route('customer.postpayment')}}" method="POST">
+        <form action="{{ route('customer.postpayment') }}" method="POST">
             @csrf
-        
+
             <div class="w-full bg-white border-t border-b border-gray-200 px-5 py-10 text-gray-800">
                 <div class="w-full">
                     <div class="-mx-3 md:flex items-start">
 
                         <div class="px-3 md:w-7/12 lg:pr-10">
-                            @foreach ($payment_s as $payment )
-                            {{-- @php dd($payment_s); @endphp --}}
+                            @foreach ($payment_s as $payment)
+                                {{-- @php dd($payment_s); @endphp --}}
                                 <div class="w-full mx-auto text-gray-800 font-light mb-6 border-b border-gray-200 pb-6">
                                     <div class="w-full flex items-center">
 
                                         <div class="overflow-hidden rounded-lg w-24 h-24 bg-gray-50 border border-gray-200">
                                             <img src="{{ asset('prod_images/' . $payment->prod_image) }}" alt="">
                                         </div>
-                                        
-                                        
-                                        <input type="hidden" name="checkout_id[{{$payment->checkout_id}}]" value="{{ $payment->checkout_id }}" />
-                                       
-                                        <input type="hidden" name="cart_id[{{$payment->checkout_id}}]" value="{{ $payment->product_id }}" />
-                                        
+
+
+                                        <input type="hidden" name="checkout_id[{{ $payment->checkout_id }}]"
+                                            value="{{ $payment->checkout_id }}" />
+
+                                        <input type="hidden" name="cart_id[{{ $payment->checkout_id }}]"
+                                            value="{{ $payment->product_id }}" />
+                                        <input type="hidden" name="quantity[{{ $payment->checkout_id }}]"
+                                            value="{{ $payment->quantity }}" />
+                                        <input type="hidden" name="payment_date[{{ $payment->checkout_id }}]"
+                                            value="{{ date('Y-m-d') }}" />
+                                        <input type="hidden" name="price[{{ $payment->checkout_id }}]"
+                                            value="{{ $payment->total }}" />
+
                                         <div class="flex-grow pl-3">
                                             <h6 class="font-semibold uppercase text-gray-600">{{ $payment->product_name }}
                                             </h6>
-                                            <p class="text-gray-400 font-bold">x{{ $payment->quantity }}{{" ("}}<span>{{$payment->total}}{{") "}}</span></p>
+                                            <p class="text-gray-400 font-bold">
+                                                x{{ $payment->quantity }}{{ ' (' }}<span>{{ $payment->total }}{{ ') ' }}</span>
+                                            </p>
                                         </div>
                                         <div>
                                             <span

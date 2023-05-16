@@ -125,41 +125,53 @@ class CustomerController extends Controller
     }
 
     public function viewcart(Request $request)
-    {
-        $customer_id = Auth::guard('customer')->user()->id;
-        $myproduct = DB::table('carts')
-            ->leftjoin('products', 'carts.product_id', '=', 'products.id')
-            ->leftjoin('checkouts', 'checkouts.cart_id', '=', 'carts.id')
-            ->where('carts.customer_id', $customer_id)
-            ->select(
-                'products.product_name',
-                'products.product_price',
-                'products.prod_image',
-                'products.product_description',
-                'products.product_quantity',
-                'carts.created_at',
-                'carts.id',
-                'checkouts.quantity'  
-            )
-            
-            ->orderByDesc('carts.created_at')->paginate(3);
-       
-        $total = DB::table('checkouts')
-        ->select(DB::raw('total * quantity as total'))
+{
+    $customer_id = Auth::guard('customer')->user()->id;
+    $myproduct = DB::table('carts')
+        ->leftjoin('products', 'carts.product_id', '=', 'products.id')
+        ->leftjoin('checkouts', 'checkouts.cart_id', '=', 'carts.id')
+        ->where('carts.customer_id', $customer_id)
+        ->select(
+            'products.product_name',
+            'products.product_price',
+            'products.prod_image',
+            'products.product_description',
+            'products.product_quantity',
+            'carts.created_at',
+            'carts.id',
+            'checkouts.quantity'
+        )
+        ->orderByDesc('carts.created_at')->paginate(3);
+
+    $total = DB::table('carts')
+        ->leftjoin('products', 'carts.product_id', '=', 'products.id')
+        ->where('carts.customer_id', $customer_id)
+        ->selectRaw('SUM(products.product_price) as total')
+        ->first()
+        ->total;
+
+        //get subtotal per cart
+        $subtotal = DB::table('carts')
+        ->join('checkouts', 'checkouts.cart_id', '=', 'carts.id')
+        ->join('products', 'carts.product_id', '=', 'products.id')
+        ->where('carts.customer_id', $customer_id)
+        ->groupBy('carts.id')   
+        ->select('carts.id', DB::raw('SUM(products.product_price * checkouts.quantity) as subtotal'))
         ->get();
         
-        $finaltotal = 0;
-            foreach ($total as $key => $value) {
-                $finaltotal += $value->total;
-            }
-        return view('customers.mycart', [
-            'myproduct' => $myproduct,
-            // 'total'     => $total,
-            'finaltotal' => $finaltotal,
-            'customer_id' => $customer_id,
-        ]);
+        $totalFSubtotal = $subtotal->sum('subtotal');
+      
+        $qty = 1;
 
-    }
+    return view('customers.mycart', [
+        'myproduct' => $myproduct,
+        'total' => $total,
+        'qty' => $qty,
+        'subtotal' => $subtotal->keyBy('id'),
+        'totalFSubtotal' => $totalFSubtotal,
+    ]);
+    
+}
 
     public function submitMyCart(Request $request)
     {
@@ -250,6 +262,9 @@ class CustomerController extends Controller
             ->orderByDesc('checkouts.created_at')->paginate(3);
 
             $total = DB::table('checkouts')
+                ->leftjoin('carts', 'checkouts.cart_id', '=', 'carts.id')
+                ->leftjoin('products', 'carts.product_id', '=', 'products.id')
+                ->where('carts.customer_id', $customer_id)
                 ->select(DB::raw('total * quantity as total'))
                 ->get();
 

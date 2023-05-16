@@ -215,7 +215,7 @@
                                         <td class="py-3 px-8 text-left">
                                             <div class="flex items-center">
                                                 <div class="mr-2">
-                                                    <span>{{ $items->prod_price}}</span>
+                                                    <span>{{ $items->prod_quantity}}</span>
                                                 </div>
                                                 
                                             </div>

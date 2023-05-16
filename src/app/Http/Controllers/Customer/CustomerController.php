@@ -169,6 +169,7 @@ class CustomerController extends Controller
         'qty' => $qty,
         'subtotal' => $subtotal->keyBy('id'),
         'totalFSubtotal' => $totalFSubtotal,
+        'customer_id' => $customer_id,
     ]);
     
 }

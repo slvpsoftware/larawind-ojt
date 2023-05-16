@@ -45,7 +45,7 @@
                         <a class="transform text-gray-700 transition-colors duration-300 hover:text-blue-500 dark:text-gray-200 dark:hover:text-blue-400 lg:mx-8"
                             href="#">Pricing</a>
                         <a class="transform text-gray-700 transition-colors duration-300 hover:text-blue-500 dark:text-gray-200 dark:hover:text-blue-400 lg:mx-8"
-                            href="#">Contact</a>
+                            href="{{route('customer.mycart')}}">My Cart</a>
                         <a class="transform text-gray-700 transition-colors duration-300 hover:text-blue-500 dark:text-gray-200 dark:hover:text-blue-400 lg:mx-8"
                             href="#">Profile</a>
                         <a class="transform text-gray-700 transition-colors duration-300 hover:text-blue-500 dark:text-gray-200 dark:hover:text-blue-400 lg:mx-8"
@@ -71,7 +71,7 @@
                         <div class="rounded-lg md:w-2/3">
                            
 
-                            <form action="{{route('customer.payment')}}" method="GET">
+                            <form action="{{route('customer.paymentinfo')}}" method="GET">
                                 @csrf
                                @foreach($mycheckout as $checkoutitem)
                                     {{-- @php dd($item)@endphp --}}
@@ -82,14 +82,14 @@
                                             class="w-full rounded-lg sm:w-40" />
                                         <div class="sm:ml-4 sm:flex sm:w-full sm:justify-between">
 
-                                            <div class="mt-5 sm:mt-0">
+                                            <div class="mt-5 sm:mt-0 text-align-left">
                                                 <h2 class="text-lg font-bold text-gray-900">
-                                                    
+                                                    {{ $checkoutitem->product_name }}{{ "( $" }}{{ $checkoutitem->product_price }}{{ ')' }}
                                                 </h2>
-                                                <input type="hidden" name="" value="">
-                                                <input type="hidden" name="" value="">
+                                                <input type="hidden" name="product_id[{{$checkoutitem->id}}]" value="{{ $checkoutitem->id }}">
+                                                <input type="hidden" name="price_total[{{$checkoutitem->id}}]" value="{{ $checkoutitem->product_price }}">
 
-                                                <p class="mt-1 text-xs text-gray-700"></p>
+                                                <p class="mt-1 text-xs text-gray-700">{{ $checkoutitem->product_description }}S</p>
                                             </div>
                                             <div
                                                 class="mt-4 flex justify-between sm:space-y-6 sm:mt-0 sm:block sm:space-x-6">

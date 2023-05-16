@@ -42,7 +42,7 @@
                         <a class="transform text-gray-700 transition-colors duration-300 hover:text-blue-500 dark:text-gray-200 dark:hover:text-blue-400 lg:mx-8"
                             href="#">Pricing</a>
                         <a class="transform text-gray-700 transition-colors duration-300 hover:text-blue-500 dark:text-gray-200 dark:hover:text-blue-400 lg:mx-8"
-                            href="#">Contact</a>
+                            href="{{route('customer.checkoutdetails')}}">Checked Out</a>
                         <a class="transform text-gray-700 transition-colors duration-300 hover:text-blue-500 dark:text-gray-200 dark:hover:text-blue-400 lg:mx-8"
                             href="#">Profile</a>
                         <a class="transform text-gray-700 transition-colors duration-300 hover:text-blue-500 dark:text-gray-200 dark:hover:text-blue-400 lg:mx-8"
@@ -90,12 +90,11 @@
 
                                             <div class="mt-5 sm:mt-0">
                                                 <h2 class="text-lg font-bold text-gray-900">
-                                                    {{ $item->product_name }}{{ "( $" }}{{ $item->product_price }}{{ ')' }}
+                                                    {{ $item->product_name }}{{ "( $ " }}{{ $item->product_price }}{{ ')' }}
                                                 </h2>
-                                                <input type="hidden" name="product_id[{{ $item->id }}]"
-                                                    value="{{ $item->id }}">
-                                                <input type="hidden" name="price_total[{{ $item->id }}]"
-                                                    value="{{ $item->product_price }}">
+                                                <input type="hidden" name="cust_id[{{$item->id}}]" value="{{ $customer_id }}">
+                                                <input type="hidden" name="product_id[{{$item->id}}]" value="{{ $item->id }}">
+                                                <input type="hidden" name="price_total[{{$item->id}}]" value="{{ $item->product_price }}">
 
                                                 <p class="mt-1 text-xs text-gray-700">{{ $item->product_description }}S</p>
                                             </div>
@@ -290,49 +289,6 @@
         </footer>
     </main>
 
-    {{-- <script>
-        function decrementQty(itemId) {
-            const qtyInput = document.getElementById(`qty-${itemId}`);
-            let qtyValue = parseInt(qtyInput.value);
-
-            if (qtyValue > 1) {
-                qtyValue--;
-                qtyInput.value = qtyValue;
-                calculateTotal(itemId, {{ $item->product_price }});
-            }
-        }
-
-        function incrementQty(itemId) {
-            const qtyInput = document.getElementById(`qty-${itemId}`);
-            let qtyValue = parseInt(qtyInput.value);
-
-            qtyValue++;
-            qtyInput.value = qtyValue;
-            calculateTotal(itemId, {{ $item->product_price }});
-        }
-
-        function calculateTotal(itemId, itemPrice) {
-            const qtyInput = document.getElementById(`qty-${itemId}`);
-            const qtyValue = parseInt(qtyInput.value);
-            const total = qtyValue * itemPrice;
-            document.getElementById(`total-${itemId}`).textContent = total.toFixed(2);
-        }
-        // function finalTotal() {
-        //     const total = document.getElementById('total').textContent;
-        //     document.getElementById('final-total').textContent = total;
-        // }
-        let total = 0;
-
-        // function calculateTotal(itemId, itemPrice) {
-        //     const qtyInput = document.getElementById(`qty-${itemId}`);
-        //     const qtyValue = parseInt(qtyInput.value);
-        //     const subtotal = qtyValue * itemPrice;
-        //     document.getElementById(`total-${itemId}`).textContent = subtotal.toFixed(2);
-
-        //     // Update the total variable
-        //     total = total + itemPrice;
-        // }
-    </script> --}}
     <script>
         let total = 0;
 

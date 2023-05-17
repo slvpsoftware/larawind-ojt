@@ -212,7 +212,7 @@
                                             <img src="{{ asset('prod_images/' . $payment->prod_image) }}" alt="">
                                         </div>
 
-
+                                        
                                         <input type="hidden" name="checkout_id[{{ $payment->checkout_id }}]"
                                             value="{{ $payment->checkout_id }}" />
 

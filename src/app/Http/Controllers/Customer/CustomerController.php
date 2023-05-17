@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Customer;
 
 use App\Http\Controllers\Controller;
+use App\Mail\InvoiceOrderMailable;
 use Illuminate\Http\Request;
 use App\Models\Customer\Customer;
 use App\Models\Customer\Checkout;
@@ -16,6 +17,9 @@ use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
+
 
 class CustomerController extends Controller
 {
@@ -98,7 +102,10 @@ class CustomerController extends Controller
     public function viewproductbystore(Request $request, $id)
     {
         $store = Admin::find($id);
-        $products = Product::where("admin_id", $id)->get();
+        $products = Product::where("admin_id", $id)
+        ->where("prod_status", "1")                        
+        ->get();
+
         return view('customers.viewproductbystore', [
             'products' => $products,
             'store'    => $store,
@@ -207,7 +214,10 @@ class CustomerController extends Controller
         $price = $request->price_total;
         $finalqty = $request->finalqty;
         $qty = $request->qty;
-        // dd($finalqty);
+        // // dd($finalqty);
+        // $invoice = Str::random(10);
+        // $invoice = mt_rand( 1000000000, 9999999999);
+       
 
         foreach ($cart_ids as $cart_id) {
             $existingCheckout = Checkout::where('cart_id', $cart_id)->first();
@@ -344,6 +354,7 @@ class CustomerController extends Controller
         $expiry_month = $request->expMonth;
         $expiry_year = $request->expYear;
         $cvv = $request->cvv;
+        $invoice_id = mt_rand(1000000000, 9999999999);
 
         foreach ($check_ids as $check_id) 
         {
@@ -364,6 +375,7 @@ class CustomerController extends Controller
                 $payment->expiry_month = $expiry_month;
                 $payment->expiry_year = $expiry_year;
                 $payment->cvv = $cvv;
+                $payment->invoice_id = $invoice_id;
                 
                
                 $payment->save();
@@ -418,12 +430,14 @@ class CustomerController extends Controller
             'payments.prod_quantity',
             'payments.name_of_card',
             'payments.payment_date',
+            'payments.invoice_id',
             'payments.card_number',
             'payments.expiry_month',
             'payments.expiry_year',
             'payments.cvv',
+
         )->where('customer_id', $cus_id)->get()
-        ->groupBy('name_of_card');
+        ->groupBy('invoice_id');
 
 
         $total = DB::table('payments')
@@ -433,7 +447,7 @@ class CustomerController extends Controller
         foreach ($total as $key => $value) {
             $finaltotal += $value->total;
         }
-         
+        
         return view('customers.orderDetails',
         [
             'orders' => $orders,
@@ -443,6 +457,64 @@ class CustomerController extends Controller
     public function checkpayment()
     {
 
+    }
+
+    public function invoice(Request $request, $invoice_id)
+    {
+   
+    $cus_id = Auth::guard('customer')->user()->id;
+    $orders = Payment::leftjoin('products', 'payments.product_id', '=', 'products.id')
+    ->leftjoin('customers', 'payments.customer_id', '=', 'customers.id')
+    ->select(
+        'customers.id as customer_id',
+        'customers.customer_fname',
+        'customers.customer_lname',
+        'customers.customer_address',
+        'customers.customer_contact',
+        'customers.customer_email',
+        'products.id as product_id',
+        'products.product_name',
+        'products.product_price',
+        'products.prod_image',
+        'products.product_description',
+        'products.product_quantity',
+        'payments.id as payment_id',
+        'payments.prod_price',
+        'payments.prod_quantity',
+        'payments.name_of_card',
+        'payments.invoice_id',
+        'payments.payment_date as payment_date',
+        'payments.card_number',
+        'payments.expiry_month',
+        'payments.expiry_year',
+        'payments.cvv',
+    )->where('customer_id', $cus_id)
+    ->where('payments.invoice_id', $invoice_id)->get();
+    
+    $payments = Payment::where('invoice_id', $invoice_id)->get();
+    
+    $total = DB::table('payments')
+    ->where('invoice_id', $invoice_id)
+    ->select(DB::raw('prod_quantity * prod_price as total'))
+    ->get();
+    $finaltotal = 0;
+    foreach ($total as $key => $value) {
+        $finaltotal += $value->total;
+    }
+
+     //$paymentId = 1;
+    //     // $payment = Payment::find($paymentId);
+    //     Mail::to("custemail")->send(new InvoiceOrderMailable($payments));
+    //    return redirect('customer.invoice'.$paymentId)->with('mail', 'Invoice sent'. $payments->custemail);
+    
+    return view('customers.invoice',
+    [
+        'orders' => $orders,
+        'finaltotal' => $finaltotal,
+        'invoice_id' => $invoice_id,
+        'payments' => $payments,
+       
+    ]);
     }
 }
     

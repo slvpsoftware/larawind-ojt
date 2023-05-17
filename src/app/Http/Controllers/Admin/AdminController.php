@@ -65,7 +65,16 @@ class AdminController extends Controller
     //homepage
     public function home()
     {
-        return view('pages.homepage');
+        $admin = Auth::guard('admin')->user();
+        //count number of products
+        $products = $admin->products;
+        $count = $products->count();
+        
+        return view('pages.homepage',
+        [
+            'admin' => $admin,
+            'count' => $count,
+        ]);
     }
     //logout
     public function logout()

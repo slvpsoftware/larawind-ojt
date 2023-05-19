@@ -3,7 +3,7 @@
     <style>
         @import url(https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/5.3.45/css/materialdesignicons.min.css);
     </style>
-    <main class="relative min-h-screen w-full bg-white">
+    <main class="relative min-h-screen w-full bg-black">
         <!-- component -->
 
         <div class="p-6" x-data="app">
@@ -56,18 +56,18 @@
                 <div class="grid grid-cols-12 mx-auto gap-2 sm:gap-4 md:gap-6 lg:gap-10 xl:gap-14 max-w-7xl my-10 px-2">
                     <div id="menu" class="bg-white/10 col-span-3 rounded-lg p-4 ">
                         <h1
-                            class="font-bold text-lg lg:text-3xl bg-gradient-to-br from-white via-white/50 to-transparent bg-clip-text text-transparent">
+                            class="font-bold text-white text-center text-lg lg:text-3xl bg-gradient-to-br from-white via-white/50 to-transparent bg-clip-text ">
                             Dashboard<span class="text-indigo-400">.</span></h1>
-                        <p class="text-slate-400 text-sm mb-2">Welcome back,</p>
+                        <p class="text-slate-400 text-sm mb-2 text-center">Welcome back,</p>
                         <a href="#"
                             class="flex flex-col space-y-2 md:space-y-0 md:flex-row mb-5 items-center md:space-x-2 hover:bg-white/10 group transition duration-150 ease-linear rounded-lg group w-full py-3 px-2">
                             <div>
-                                <img class="rounded-full w-10 h-10 relative object-cover"
+                                <img class="rounded-full w-24 h-24 relative object-cover"
                                     src="https://img.freepik.com/free-photo/no-problem-concept-bearded-man-makes-okay-gesture-has-everything-control-all-fine-gesture-wears-spectacles-jumper-poses-against-pink-wall-says-i-got-this-guarantees-something_273609-42817.jpg?w=1800&t=st=1669749937~exp=1669750537~hmac=4c5ab249387d44d91df18065e1e33956daab805bee4638c7fdbf83c73d62f125"
                                     alt="">
                             </div>
                             <div>
-                                <p class="font-medium group-hover:text-indigo-400 leading-4">{{ $admin->store_name }}</p>
+                                <p class="font-medium text-xl group-hover:text-indigo-400 leading-4">{{ $admin->store_name }}</p>
                                 <span class="text-xs text-slate-400">Pantazi LLC</span>
                             </div>
                         </a>
@@ -161,9 +161,7 @@
                             {{-- </a> --}}
                             <div class="relative flex flex-col space-y-2 md:flex-row md:space-y-0 space-x-2 items-center">
                                 <div class="flex items-center">
-
                                     <div class="ml-2">
-
                                         <p
                                             class="font-bold text-base lg:text-xl text-slate-200 leading-4 group-hover:text-indigo-400">
                                             <i class="mdi mdi-order-bool-ascending -ml-2 mr-1"></i>Orders
@@ -212,7 +210,58 @@
                                     {{ $count }}
                                 </div>
                             </div>
-                            <a href="#"
+                            <div class="relative flex flex-col space-y-2 md:flex-row md:space-y-0 space-x-2 items-center">
+                                <div class="flex items-center">
+                                    <div class="ml-2">
+                                        <p
+                                            class="font-bold text-base lg:text-xl text-slate-200 leading-4 group-hover:text-indigo-400">
+                                            <i class="mdi mdi-file-outline -ml-2 mr-1"></i>Invoice
+                                        </p>
+                                        <ul class="list-none list-inside ml-4">
+                                            <li>
+                                                <span class="mdi mdi-send"></span>
+                                                <a href="#"
+                                                    class="font-bold hover:bg-white/10 hover:text-violet-600 transition duration-150 ease-linear rounded-lg py-1 px-1 group">
+                                                    Send Invoice
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <span class="mdi mdi-printer"></span>
+                                                <a href="#"
+                                                    class="font-bold hover:bg-white/10 hover:text-violet-600 duration-150 ease-linear rounded-lg py-1 px-1 group">
+                                                    Print Invoice
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <span class="mdi mdi-truck"></span>
+                                                <a href="#"
+                                                    class="font-bold hover:bg-white/10 hover:text-violet-600 duration-150 ease-linear rounded-lg py-1 px-1 group">
+                                                    To Ship
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <span class="mdi mdi-clock-time-four"></span>
+                                                <a href="#"
+                                                    class="font-bold hover:bg-white/10 hover:text-violet-600 duration-150 ease-linear rounded-lg py-1 px-1 group">
+                                                    To Be Recieved
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <span class="mdi mdi-check-decagram"></span>
+                                                <a href="#"
+                                                    class="font-bold hover:bg-white/10 hover:text-violet-600 duration-150 ease-linear rounded-lg py-1 px-1 group">
+                                                    Completed Orders
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div
+                                    class="absolute -top-3 -right-3 md:top-0 md:right-0 px-2 py-1.5 rounded-full bg-indigo-800 text-xs font-mono font-bold">
+                                    {{ $count }}
+                                </div>
+                            </div>
+                            {{-- <a href="#"
                                 class="hover:bg-white/10 transition duration-150 ease-linear rounded-lg py-3 px-2 group">
                                 <div
                                     class="relative flex flex-col space-y-2 md:flex-row md:space-y-0 space-x-2 items-center">
@@ -234,7 +283,7 @@
                                         class="absolute -top-3 -right-3 md:top-0 md:right-0 px-2 py-1.5 rounded-full bg-indigo-800 text-xs font-mono font-bold">
                                         23</div>
                                 </div>
-                            </a>
+                            </a> --}}
                             <a href="#"
                                 class="hover:bg-white/10 transition duration-150 ease-linear rounded-lg py-3 px-2 group">
                                 <div class="flex flex-col space-y-2 md:flex-row md:space-y-0 space-x-2 items-center">
@@ -291,21 +340,20 @@
                                                 <path stroke-linecap="round" stroke-linejoin="round"
                                                     d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                                             </svg>
-
-
                                         </div>
                                         <div>
                                             <p class="text-indigo-300 text-sm font-medium uppercase leading-4">Available
                                                 Products</p>
                                             <p class="text-white font-bold text-2xl inline-flex items-center space-x-2">
-                                                <span>+28</span>
+                                                <span>{{ $count }}</span>
+                                                <span>Products</span>
                                                 <span>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                    {{-- <svg xmlns="http://www.w3.org/2000/svg" fill="none"
                                                         viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
                                                         class="w-6 h-6">
                                                         <path stroke-linecap="round" stroke-linejoin="round"
                                                             d="M2.25 18L9 11.25l4.306 4.307a11.95 11.95 0 015.814-5.519l2.74-1.22m0 0l-5.94-2.28m5.94 2.28l-2.28 5.941" />
-                                                    </svg>
+                                                    </svg> --}}
 
                                                 </span>
                                             </p>
@@ -320,8 +368,6 @@
                                                 <path stroke-linecap="round" stroke-linejoin="round"
                                                     d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
                                             </svg>
-
-
                                         </div>
                                         <div>
                                             <p class="text-teal-300 text-sm font-medium uppercase leading-4">Unavailable
@@ -329,12 +375,12 @@
                                             <p class="text-white font-bold text-2xl inline-flex items-center space-x-2">
                                                 <span>$2,873.88</span>
                                                 <span>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                    {{-- <svg xmlns="http://www.w3.org/2000/svg" fill="none"
                                                         viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
                                                         class="w-6 h-6">
                                                         <path stroke-linecap="round" stroke-linejoin="round"
                                                             d="M2.25 18L9 11.25l4.306 4.307a11.95 11.95 0 015.814-5.519l2.74-1.22m0 0l-5.94-2.28m5.94 2.28l-2.28 5.941" />
-                                                    </svg>
+                                                    </svg> --}}
 
                                                 </span>
                                             </p>
@@ -349,8 +395,6 @@
                                                 <path stroke-linecap="round" stroke-linejoin="round"
                                                     d="M2.25 6L9 12.75l4.286-4.286a11.948 11.948 0 014.306 6.43l.776 2.898m0 0l3.182-5.511m-3.182 5.51l-5.511-3.181" />
                                             </svg>
-
-
                                         </div>
                                         <div>
                                             <p class="text-blue-300 text-sm font-medium uppercase leading-4">Out of Stocks
@@ -358,12 +402,12 @@
                                             <p class="text-white font-bold text-2xl inline-flex items-center space-x-2">
                                                 <span>+79</span>
                                                 <span>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                    {{-- <svg xmlns="http://www.w3.org/2000/svg" fill="none"
                                                         viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
                                                         class="w-6 h-6">
                                                         <path stroke-linecap="round" stroke-linejoin="round"
                                                             d="M2.25 6L9 12.75l4.286-4.286a11.948 11.948 0 014.306 6.43l.776 2.898m0 0l3.182-5.511m-3.182 5.51l-5.511-3.181" />
-                                                    </svg>
+                                                    </svg> --}}
 
                                                 </span>
                                             </p>
@@ -498,14 +542,15 @@
                                 </div>
                             </div>
                         </div>
+
                         <div id="last-users">
-                            <h1 class="font-bold py-4 uppercase">Completed Orders</h1>
+                            <h1 class="font-bold py-4 uppercase">New Orders</h1>
                             <div class="overflow-x-scroll">
                                 <table class="w-full whitespace-nowrap">
                                     <thead class="bg-black/60">
                                         <th class="text-left py-3 px-2 rounded-l-lg">Invoice #</th>
-                                        <th class="text-left py-3 px-2">Email</th>
-                                        <th class="text-left py-3 px-2">Group</th>
+                                        <th class="text-left py-3 px-2">Payee's Name</th>
+                                        <th class="text-left py-3 px-2">Total Amount</th>
                                         <th class="text-left py-3 px-2">Status</th>
                                         <th class="text-left py-3 px-2 rounded-r-lg">Actions</th>
                                     </thead>
@@ -521,6 +566,62 @@
                                         <td class="py-3 px-2">thai.mei@abc.com</td>
                                         <td class="py-3 px-2">User</td>
                                         <td class="py-3 px-2">Approved</td>
+                                        <td class="py-3 px-2">
+                                            <div class="inline-flex items-center space-x-3">
+                                                <a href="" title="Edit" class="hover:text-white"><svg
+                                                        xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                        viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor"
+                                                        class="w-6 h-6 ml-4">
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+                                                    </svg>
+                                                </a>
+                                                {{-- <a href="" title="Edit password" class="hover:text-white"><svg
+                                                        xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                        viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                                                        class="w-5 h-5">
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
+                                                    </svg>
+                                                </a>
+                                                <a href="" title="Suspend user" class="hover:text-white"><svg
+                                                        xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                        viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                                                        class="w-5 h-5">
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
+                                                    </svg>
+                                                </a> --}}
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div id="last-users">
+                            <h1 class="font-bold py-4 uppercase">Completed Orders</h1>
+                            <div class="overflow-x-scroll">
+                                <table class="w-full whitespace-nowrap">
+                                    <thead class="bg-black/60">
+                                        <th class="text-left py-3 px-2 rounded-l-lg">Invoice #</th>
+                                        <th class="text-left py-3 px-2">Payee's Name</th>
+                                        <th class="text-left py-3 px-2">Total Amount</th>
+                                        <th class="text-left py-3 px-2">Status</th>
+                                        <th class="text-left py-3 px-2 rounded-r-lg">Actions</th>
+                                    </thead>
+                                    <tr class="border-b border-gray-700">
+                                        <td class="py-3 px-2 font-bold">
+                                            <div class="inline-flex space-x-3 items-center">
+                                                <span><img class="rounded-full w-8 h-8"
+                                                        src="https://images.generated.photos/tGiLEDiAbS6NdHAXAjCfpKoW05x2nq70NGmxjxzT5aU/rs:fit:256:256/czM6Ly9pY29uczgu/Z3Bob3Rvcy1wcm9k/LnBob3Rvcy92M18w/OTM4ODM1LmpwZw.jpg"
+                                                        alt=""></span>
+                                                <span>Thai Mei</span>
+                                            </div>
+                                        </td>
+                                        <td class="py-3 px-2">thai.mei@abc.com</td>
+                                        <td class="py-3 px-2">User</td>
+                                        <td class="py-3 px-2">Completed</td>
                                         <td class="py-3 px-2">
                                             <div class="inline-flex items-center space-x-3">
                                                 <a href="" title="Edit" class="hover:text-white"><svg

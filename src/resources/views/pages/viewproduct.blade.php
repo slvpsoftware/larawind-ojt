@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-<script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
     <style>
         input[type=range]::-webkit-slider-thumb {
             pointer-events: all;
@@ -62,7 +62,7 @@
                 }
             </style>
 
-            <div class="antialiased bg-black w-full min-h-screen text-slate-300 relative py-4">
+            <div class="antialiased bg-black w-full min-h-screen w-full text-slate-300 relative py-4">
                 <div class="grid grid-cols-12 mx-auto gap-2 sm:gap-4 md:gap-6 lg:gap-10 xl:gap-14 max-w-7xl my-10 px-2">
                     <div id="menu" class="bg-white/10 col-span-3 rounded-lg p-4 ">
                         <h1
@@ -76,6 +76,7 @@
                                     src="https://img.freepik.com/free-photo/no-problem-concept-bearded-man-makes-okay-gesture-has-everything-control-all-fine-gesture-wears-spectacles-jumper-poses-against-pink-wall-says-i-got-this-guarantees-something_273609-42817.jpg?w=1800&t=st=1669749937~exp=1669750537~hmac=4c5ab249387d44d91df18065e1e33956daab805bee4638c7fdbf83c73d62f125"
                                     alt="">
                             </div>
+
                             <div>
                                 <p class="font-medium text-xl group-hover:text-indigo-400 leading-4"></p>
                                 <span class="text-xs text-slate-400">Pantazi LLC</span>
@@ -338,7 +339,7 @@
                         </div>
                         <p class="text-sm text-center text-gray-600">v2.0.0.3 | &copy; 2022 Pantazi Soft</p>
                     </div>
-                    <div id="content" class="bg-white/10 col-span-9 rounded-lg p-6">
+                    <div id="content" class="bg-transparent col-span-9 rounded-lg p-6 overflow-auto w-full">
                         <div id="24h">
                             <h1 class="font-bold py-4 uppercase">Available Products</h1>
 
@@ -369,18 +370,36 @@
                                     <nav :class="{ 'flex': open, 'hidden': !open }"
                                         class="flex-col flex-grow pb-4 md:pb-0 hidden md:flex md:justify-end md:flex-row">
 
-                                        {{-- Search bar --}}
+                                        {{-- Search bar
                                         <div
                                             class="relative  rounded-2xl bg-transparent pb-20  shadow-xl ring-1 ring-gray-900/5 sm:my-auto sm:max-w-lg sm:px-10">
                                             <div class="my-auto max-w-md">
                                                 <form action="{{ route('admin.search') }}" method="GET"
                                                     class="relative my-auto w-max ">
                                                     <input type="search" name="search"
-                                                        class="peer cursor-pointer relative z-10 h-10 w-8 rounded-full border bg-slate-300 pl-12 outline-black focus:w-full 
-                  focus:cursor-text focus:border-black focus:pl-16 focus:pr-4 text-black" />
+                                                        class="peer cursor-pointer relative z-10 h-10 w-8 rounded-full border bg-slate-200 pl-12 outline-none focus:w-full 
+                                                        focus:cursor-text focus:border-black focus:pl-16 focus:pr-4 text-black" />
                                                     <svg xmlns="http://www.w3.org/2000/svg"
-                                                        class="absolute inset-y-0 my-auto h-8 w-12 border-r border-white stroke-white px-3.5 peer-focus:border-black peer-focus:stroke-black"
-                                                        fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                                                        class="absolute inset-y-0 my-auto h-8 w-12 border-r border-none stroke-black px-3.5 peer-focus:border-black peer-focus:stroke-black"
+                                                        fill="none" viewBox="0 0 24 24" stroke="white"
+                                                        stroke-width="2">
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                                    </svg>
+                                                </form>
+                                            </div>
+                                        </div> --}}
+                                        {{-- Search bar --}}
+                                        <div
+                                            class="relative rounded-2xl bg-transparent pb-20 shadow-xl ring-1 ring-gray-900/5 sm:my-auto sm:max-w-lg sm:px-10">
+                                            <div class="my-auto max-w-md">
+                                                <form action="{{ route('admin.search') }}" method="GET"
+                                                    class="relative my-auto w-max">
+                                                    <input type="search" name="search"
+                                                        class="peer cursor-pointer relative z-10 h-10 w-8 rounded-full border bg-transparent pl-12 outline-none focus:w-full focus:cursor-text focus:border-white focus:pl-16 focus:pr-4 text-white" />
+                                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                                        class="absolute inset-y-0 my-auto h-8 w-12 border-r border-none stroke-white px-3.5 peer-focus:border-white peer-focus:stroke-white"
+                                                        fill="black" viewBox="0 0 24 24" stroke="white"
                                                         stroke-width="2">
                                                         <path stroke-linecap="round" stroke-linejoin="round"
                                                             d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -388,6 +407,7 @@
                                                 </form>
                                             </div>
                                         </div>
+
 
                                         {{-- Price Range --}}
                                         <form action="{{ route('admin.filterprice') }}" method="GET">
@@ -489,7 +509,8 @@
                                                                                 class="my-3 border-none bg-transparent outline-none focus:outline-none"
                                                                                 {{ in_array($key, $category_filter ?? []) ? 'checked' : '' }} />
                                                                             <p class="pt-1">
-                                                                                <span>{{ $category }}</span></p>
+                                                                                <span>{{ $category }}</span>
+                                                                            </p>
                                                                         </div>
                                                                     </div>
                                                                 </label>
@@ -536,28 +557,38 @@
 
 
 
-                            <div class="overflow-hidden rounded-lg border border-gray-200 shadow-md m-5">
+                            <div
+                                class="inline-block w-auto h-auto overflow-hidden rounded-lg border border-gray-200 shadow-md m-5 text-sm">
 
 
 
                                 <table class="w-full border-collapse bg-white text-left text-base text-gray-500">
                                     <thead class="bg-black text-white">
                                         <tr>
-                                            <th scope="col" class="px-6 py-4 font-medium text-white "> Image </th>
-                                            <th scope="col" class="px-6 py-4 font-medium text-white "> Name </th>
-                                            <th scope="col" class="px-6 py-4 font-medium text-white"> Price </th>
-                                            <th scope="col" class="px-6 py-4 font-medium text-white"> Quantity </th>
-                                            <th scope="col" class="px-6 py-4 font-medium text-white"> Category </th>
-                                            <th scope="col" class="px-6 py-4 font-medium text-white"> Description </th>
-                                            <th scope="col" class="px-6 py-4 font-medium text-white"> Created At </th>
-                                            <th scope="col" class="px-6 py-4 font-medium text-white"> Status </th>
-                                            <th scope="col" class="px-6 py-4 font-medium text-white"> Action </th>
+                                            <th scope="col" class="px-2 py-2 font-medium text-white text-sm "> Image
+                                            </th>
+                                            <th scope="col" class="px-2 py-2 font-medium text-white text-sm"> Name
+                                            </th>
+                                            <th scope="col" class="px-2 py-2 font-medium text-white text-sm"> Price
+                                            </th>
+                                            <th scope="col" class="px-2 py-2 font-medium text-white text-sm"> Quantity
+                                            </th>
+                                            <th scope="col" class="px-2 py-2 font-medium text-white text-sm"> Category
+                                            </th>
+                                            <th scope="col" class="px-2 py-2 font-medium text-white text-sm">
+                                                Description </th>
+                                            <th scope="col" class="px-2 py-2 font-medium text-white text-sm"> Created
+                                                At </th>
+                                            <th scope="col" class="px-2 py-2 font-medium text-white text-sm"> Status
+                                            </th>
+                                            <th scope="col" class="px-2 py-2 font-medium text-white text-sm"> Action
+                                            </th>
                                         </tr>
                                     </thead>
                                     @foreach ($products as $product)
                                         <tbody class="divide-y divide-gray-100 border-t border-gray-100">
                                             <tr class="hover:bg-gray-200">
-                                                <th class="flex gap-3 px-6 py-4 font-normal text-gray-900">
+                                                <th class="flex gap-3 px-2 py-2 font-normal text-gray-900">
                                                     <div class="relative h-24 w-24 rounded-full bg-gray-400">
                                                         {{-- fetch image from database --}}
 
@@ -573,34 +604,34 @@
                                                 </th>
                                                 <td class="px-6 py-4 ">
                                                     <div class="text-base ">
-                                                        <div class="font-medium text-gray-700 capitalize">
+                                                        <div class="font-sm text-gray-700 capitalize text-sm">
                                                             {{ $product->product_name }}
                                                         </div>
                                                     </div>
                                                 </td>
                                                 <td class="px-6 py-4">
                                                     <div class="text-base">
-                                                        <div class="font-medium text-gray-700">
+                                                        <div class="font-sm text-gray-700 text-sm">
                                                             {{ $product->product_price }}</div>
                                                     </div>
                                                 </td>
 
                                                 <td class="px-6 py-4">
                                                     <div class="text-base">
-                                                        <div class="font-medium text-gray-700">
+                                                        <div class="font-sm text-gray-700 text-sm">
                                                             {{ $product->product_quantity }}</div>
                                                     </div>
                                                 </td>
 
                                                 <td class="px-6 py-4">
                                                     {{-- <div class="text-base">
-                                        <div class="font-medium text-gray-700">
+                                        <div class="font-sm text-gray-700">
                                             {{ $product->categories->count() > 0 ? $product->categories->name() : 'No Category' }}
                                         </div>
                                     </div> --}}
                                                     {{-- category --}}
                                                     <div class="text-base">
-                                                        <div class="font-medium text-gray-700">
+                                                        <div class="font-sm text-gray-700">
                                                             @if ($product->categories->count() > 0)
                                                                 @foreach ($product->categories as $category)
                                                                     <span
@@ -615,20 +646,20 @@
                                                 </td>
                                                 <td class="px-6 py-4">
                                                     <div class="text-base">
-                                                        <div class="font-medium text-gray-700">
+                                                        <div class="font-sm text-gray-700">
                                                             {{ $product->product_description }}</div>
                                                     </div>
                                                 </td>
                                                 <td class="px-6 py-4">
                                                     <div class="text-base">
-                                                        <div class="font-medium text-gray-700">{{ $product->created_at }}
+                                                        <div class="font-sm text-gray-700">{{ $product->created_at }}
                                                         </div>
                                                     </div>
                                                 </td>
 
                                                 <td class="px-6 py-4">
                                                     <div class="text-base">
-                                                        <div class="font-medium text-gray-700 uppercase ">
+                                                        <div class="font-sm text-gray-700 uppercase ">
                                                             {{ $product->prod_status == 0 ? 'Unpublished' : 'Published' }}
                                                         </div>
                                                     </div>

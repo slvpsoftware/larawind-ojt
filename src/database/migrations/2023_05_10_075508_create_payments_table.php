@@ -23,6 +23,7 @@ class CreatePaymentsTable extends Migration
             $table->string("prod_quantity");
             $table->string("name_of_card");
             $table->string("card_number");
+            $table->string("order_status");
             $table->string("payment_date");
             $table->string("expiry_month");
             $table->string("expiry_year");

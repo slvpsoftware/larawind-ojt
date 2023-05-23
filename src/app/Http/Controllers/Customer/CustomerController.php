@@ -355,6 +355,7 @@ class CustomerController extends Controller
         $expiry_year = $request->expYear;
         $cvv = $request->cvv;
         $invoice_id = mt_rand(1000000000, 9999999999);
+        $order_status = 0;
 
         foreach ($check_ids as $check_id) 
         {
@@ -376,10 +377,10 @@ class CustomerController extends Controller
                 $payment->expiry_year = $expiry_year;
                 $payment->cvv = $cvv;
                 $payment->invoice_id = $invoice_id;
-                
-               
+                $payment->order_status = $order_status;
                 $payment->save();
             }
+            
             if($existing_payment)
             {
                 return redirect()->route('customer.paymentinfo')->with('error_payment', 'This item is already checked out');

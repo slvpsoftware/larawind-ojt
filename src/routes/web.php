@@ -98,6 +98,7 @@ Route::prefix('admin')->name('admin.')->group(function(){
             Route::get('/search', [ProductController::class, 'search'])->name('search');
             Route::get('/filtercategory', [ProductController::class, 'filterCategory'])->name('filtercategory');
             Route::get('/filterprice', [ProductController::class, 'filterPrice'])->name('filterprice');
+            Route::get('/newOrders', [AdminController::class, 'newOrders'])->name('newOrders');
         });
     });
 //-------------------------customer route---------------------------------

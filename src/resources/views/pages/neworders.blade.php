@@ -3,7 +3,44 @@
     <style>
         @import url(https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/5.3.45/css/materialdesignicons.min.css);
     </style>
-    <main class="relative min-h-screen w-full bg-white">
+    <style>
+        /* Style for the modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+    <main class="relative min-h-screen w-full bg-black">
         <!-- component -->
 
         <div class="p-6" x-data="app">
@@ -45,7 +82,7 @@
                     font-family: 'Inter', sans-serif;
                 }
 
-                @supports (font-variation-settings: normal) {
+                @supports (font-variation-settings normal) {
                     :root {
                         font-family: 'Inter var', sans-serif;
                     }
@@ -281,480 +318,135 @@
                     </div>
                     <div id="content" class="bg-white/10 col-span-9 rounded-lg p-6">
                         <div id="24h">
-                            <h1 class="font-bold py-4 uppercase">Product Status</h1>
-                            <div id="stats" class="grid gird-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                                <div class="bg-black/60 to-white/5 p-6 rounded-lg">
-                                    <div class="flex flex-row space-x-4 items-center">
-                                        <div id="stats-1">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                stroke-width="1.5" stroke="currentColor" class="w-10 h-10">
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                    d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                            </svg>
+                            <h1 class="flex font-bold py-4 text-2xl uppercase place-content-center justify-center">New
+                                Orders</h1>
 
-
-                                        </div>
-                                        <div>
-                                            <p class="text-indigo-300 text-sm font-medium uppercase leading-4">Available
-                                                Products</p>
-                                            <p class="text-white font-bold text-2xl inline-flex items-center space-x-2">
-                                                <span>+28</span>
-                                                <span>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                        viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                                                        class="w-6 h-6">
-                                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                                            d="M2.25 18L9 11.25l4.306 4.307a11.95 11.95 0 015.814-5.519l2.74-1.22m0 0l-5.94-2.28m5.94 2.28l-2.28 5.941" />
-                                                    </svg>
-
-                                                </span>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="bg-black/60 p-6 rounded-lg">
-                                    <div class="flex flex-row space-x-4 items-center">
-                                        <div id="stats-1">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                stroke-width="1.5" stroke="currentColor" class="w-10 h-10">
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                    d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
-                                            </svg>
-
-
-                                        </div>
-                                        <div>
-                                            <p class="text-teal-300 text-sm font-medium uppercase leading-4">Unavailable
-                                            </p>
-                                            <p class="text-white font-bold text-2xl inline-flex items-center space-x-2">
-                                                <span>$2,873.88</span>
-                                                <span>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                        viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                                                        class="w-6 h-6">
-                                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                                            d="M2.25 18L9 11.25l4.306 4.307a11.95 11.95 0 015.814-5.519l2.74-1.22m0 0l-5.94-2.28m5.94 2.28l-2.28 5.941" />
-                                                    </svg>
-
-                                                </span>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="bg-black/60 p-6 rounded-lg">
-                                    <div class="flex flex-row space-x-4 items-center">
-                                        <div id="stats-1">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                stroke-width="1.5" stroke="currentColor" class="w-10 h-10">
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                    d="M2.25 6L9 12.75l4.286-4.286a11.948 11.948 0 014.306 6.43l.776 2.898m0 0l3.182-5.511m-3.182 5.51l-5.511-3.181" />
-                                            </svg>
-
-
-                                        </div>
-                                        <div>
-                                            <p class="text-blue-300 text-sm font-medium uppercase leading-4">Out of Stocks
-                                            </p>
-                                            <p class="text-white font-bold text-2xl inline-flex items-center space-x-2">
-                                                <span>+79</span>
-                                                <span>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                        viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                                                        class="w-6 h-6">
-                                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                                            d="M2.25 6L9 12.75l4.286-4.286a11.948 11.948 0 014.306 6.43l.776 2.898m0 0l3.182-5.511m-3.182 5.51l-5.511-3.181" />
-                                                    </svg>
-
-                                                </span>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
-                        <div id="last-incomes">
-                            <h1 class="font-bold py-4 uppercase">Last 24h incomes</h1>
-                            <div id="stats"
-                                class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-                                <div class="bg-black/60 to-white/5 rounded-lg">
-                                    <div class="flex flex-row items-center">
-                                        <div class="text-3xl p-4">💰</div>
-                                        <div class="p-2">
-                                            <p class="text-xl font-bold">348$</p>
-                                            <p class="text-gray-500 font-medium">Amber Gates</p>
-                                            <p class="text-gray-500 text-sm">24 Nov 2022</p>
-                                        </div>
-                                    </div>
-                                    <div class="border-t border-white/5 p-4">
-                                        <a href="#" class="inline-flex space-x-2 items-center text-center">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                    d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
-                                            </svg>
-                                            <span>Info</span>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="bg-black/60 to-white/5 rounded-lg">
-                                    <div class="flex flex-row items-center">
-                                        <div class="text-3xl p-4">💰</div>
-                                        <div class="p-2">
-                                            <p class="text-xl font-bold">68$</p>
-                                            <p class="text-gray-500 font-medium">Maia Kipper</p>
-                                            <p class="text-gray-500 text-sm">23 Nov 2022</p>
-                                        </div>
-                                    </div>
-                                    <div class="border-t border-white/5 p-4">
-                                        <a href="#" class="inline-flex space-x-2 items-center text-center">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                    d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
-                                            </svg>
-                                            <span>Info</span>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="bg-black/60 to-white/5 rounded-lg">
-                                    <div class="flex flex-row items-center">
-                                        <div class="text-3xl p-4">💰</div>
-                                        <div class="p-2">
-                                            <p class="text-xl font-bold">12$</p>
-                                            <p class="text-gray-500 font-medium">Oprah Milles</p>
-                                            <p class="text-gray-500 text-sm">23 Nov 2022</p>
-                                        </div>
-                                    </div>
-                                    <div class="border-t border-white/5 p-4">
-                                        <a href="#" class="inline-flex space-x-2 items-center text-center">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                    d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
-                                            </svg>
-                                            <span>Info</span>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="bg-black/60 to-white/5 rounded-lg">
-                                    <div class="flex flex-row items-center">
-                                        <div class="text-3xl p-4">💰</div>
-                                        <div class="p-2">
-                                            <p class="text-xl font-bold">105$</p>
-                                            <p class="text-gray-500 font-medium">Jonny Nite</p>
-                                            <p class="text-gray-500 text-sm">23 Nov 2022</p>
-                                        </div>
-                                    </div>
-                                    <div class="border-t border-white/5 p-4">
-                                        <a href="#" class="inline-flex space-x-2 items-center text-center">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                    d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
-                                            </svg>
-                                            <span>Info</span>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="bg-black/60 to-white/5 rounded-lg">
-                                    <div class="flex flex-row items-center">
-                                        <div class="text-3xl p-4">💰</div>
-                                        <div class="p-2">
-                                            <p class="text-xl font-bold">52$</p>
-                                            <p class="text-gray-500 font-medium">Megane Baile</p>
-                                            <p class="text-gray-500 text-sm">22 Nov 2022</p>
-                                        </div>
-                                    </div>
-                                    <div class="border-t border-white/5 p-4">
-                                        <a href="#" class="inline-flex space-x-2 items-center text-center">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                    d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
-                                            </svg>
-                                            <span>Info</span>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="bg-black/60 to-white/5 rounded-lg">
-                                    <div class="flex flex-row items-center">
-                                        <div class="text-3xl p-4">💰</div>
-                                        <div class="p-2">
-                                            <p class="text-xl font-bold">28$</p>
-                                            <p class="text-gray-500 font-medium">Tony Ankel</p>
-                                            <p class="text-gray-500 text-sm">22 Nov 2022</p>
-                                        </div>
-                                    </div>
-                                    <div class="border-t border-white/5 p-4">
-                                        <a href="#" class="inline-flex space-x-2 items-center text-center">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                    d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z" />
-                                            </svg>
-                                            <span>Info</span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+
                         <div id="last-users">
-                            <h1 class="font-bold py-4 uppercase">Completed Orders</h1>
+                            {{-- <h1 class="font-bold py-4 uppercase">New Orders</h1> --}}
                             <div class="overflow-x-scroll">
                                 <table class="w-full whitespace-nowrap">
-                                    <thead class="bg-black/60">
-                                        <th class="text-left py-3 px-2 rounded-l-lg">Name</th>
-                                        <th class="text-left py-3 px-2">Email</th>
-                                        <th class="text-left py-3 px-2">Group</th>
-                                        <th class="text-left py-3 px-2">Status</th>
-                                        <th class="text-left py-3 px-2 rounded-r-lg">Actions</th>
+                                    <thead class="bg-white/60">
+                                        <th class="text-left text-white py-3 px-2 rounded-l-lg">Invoice #</th>
+                                        <th class="text-left text-white py-3 px-2">Order Date</th>
+                                        <th class="text-left text-white py-3 px-2">Total</th>
+                                        <th class="text-left text-white py-3 px-2">Status</th>
+                                        <th class="text-left text-white py-3 px-2 rounded-r-lg">Actions</th>
                                     </thead>
-                                    <tr class="border-b border-gray-700">
-                                        <td class="py-3 px-2 font-bold">
-                                            <div class="inline-flex space-x-3 items-center">
-                                                <span><img class="rounded-full w-8 h-8"
-                                                        src="https://images.generated.photos/tGiLEDiAbS6NdHAXAjCfpKoW05x2nq70NGmxjxzT5aU/rs:fit:256:256/czM6Ly9pY29uczgu/Z3Bob3Rvcy1wcm9k/LnBob3Rvcy92M18w/OTM4ODM1LmpwZw.jpg"
-                                                        alt=""></span>
-                                                <span>Thai Mei</span>
-                                            </div>
-                                        </td>
-                                        <td class="py-3 px-2">thai.mei@abc.com</td>
-                                        <td class="py-3 px-2">User</td>
-                                        <td class="py-3 px-2">Approved</td>
-                                        <td class="py-3 px-2">
-                                            <div class="inline-flex items-center space-x-3">
-                                                <a href="" title="Edit" class="hover:text-white"><svg
-                                                        xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                        viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                                                        class="w-5 h-5">
-                                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                                            d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
-                                                    </svg>
-                                                </a>
-                                                <a href="" title="Edit password" class="hover:text-white"><svg
-                                                        xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                        viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                                                        class="w-5 h-5">
-                                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                                            d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
-                                                    </svg>
-                                                </a>
-                                                <a href="" title="Suspend user" class="hover:text-white"><svg
-                                                        xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                        viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                                                        class="w-5 h-5">
-                                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                                            d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
-                                                    </svg>
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr class="border-b border-gray-700">
-                                        <td class="py-3 px-2 font-bold">
-                                            <div class="inline-flex space-x-3 items-center">
-                                                <span><img class="rounded-full w-8 h-8"
-                                                        src="https://images.generated.photos/tGiLEDiAbS6NdHAXAjCfpKoW05x2nq70NGmxjxzT5aU/rs:fit:256:256/czM6Ly9pY29uczgu/Z3Bob3Rvcy1wcm9k/LnBob3Rvcy92M18w/OTM4ODM1LmpwZw.jpg"
-                                                        alt=""></span>
-                                                <span>Thai Mei</span>
-                                            </div>
-                                        </td>
-                                        <td class="py-3 px-2">thai.mei@abc.com</td>
-                                        <td class="py-3 px-2">User</td>
-                                        <td class="py-3 px-2">Approved</td>
-                                        <td class="py-3 px-2">
-                                            <div class="inline-flex items-center space-x-3">
-                                                <a href="" title="Edit" class="hover:text-white"><svg
-                                                        xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                        viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                                                        class="w-5 h-5">
-                                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                                            d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
-                                                    </svg>
-                                                </a>
-                                                <a href="" title="Edit password" class="hover:text-white"><svg
-                                                        xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                        viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                                                        class="w-5 h-5">
-                                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                                            d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
-                                                    </svg>
-                                                </a>
-                                                <a href="" title="Suspend user" class="hover:text-white"><svg
-                                                        xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                        viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                                                        class="w-5 h-5">
-                                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                                            d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
-                                                    </svg>
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr class="border-b border-gray-700">
-                                        <td class="py-3 px-2 font-bold">
-                                            <div class="inline-flex space-x-3 items-center">
-                                                <span><img class="rounded-full w-8 h-8"
-                                                        src="https://images.generated.photos/tGiLEDiAbS6NdHAXAjCfpKoW05x2nq70NGmxjxzT5aU/rs:fit:256:256/czM6Ly9pY29uczgu/Z3Bob3Rvcy1wcm9k/LnBob3Rvcy92M18w/OTM4ODM1LmpwZw.jpg"
-                                                        alt=""></span>
-                                                <span>Thai Mei</span>
-                                            </div>
-                                        </td>
-                                        <td class="py-3 px-2">thai.mei@abc.com</td>
-                                        <td class="py-3 px-2">User</td>
-                                        <td class="py-3 px-2">Approved</td>
-                                        <td class="py-3 px-2">
-                                            <div class="inline-flex items-center space-x-3">
-                                                <a href="" title="Edit" class="hover:text-white"><svg
-                                                        xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                        viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                                                        class="w-5 h-5">
-                                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                                            d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
-                                                    </svg>
-                                                </a>
-                                                <a href="" title="Edit password" class="hover:text-white"><svg
-                                                        xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                        viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                                                        class="w-5 h-5">
-                                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                                            d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
-                                                    </svg>
-                                                </a>
-                                                <a href="" title="Suspend user" class="hover:text-white"><svg
-                                                        xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                        viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                                                        class="w-5 h-5">
-                                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                                            d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
-                                                    </svg>
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr class="border-b border-gray-700">
-                                        <td class="py-3 px-2 font-bold">
-                                            <div class="inline-flex space-x-3 items-center">
-                                                <span><img class="rounded-full w-8 h-8"
-                                                        src="https://images.generated.photos/niCVbIBAm4hahzwS83HoEtcVEIactkKohOzgXWYY4lM/rs:fit:256:256/czM6Ly9pY29uczgu/Z3Bob3Rvcy1wcm9k/LnBob3Rvcy92M18w/NTk4ODczLmpwZw.jpg"
-                                                        alt=""></span>
-                                                <span>Marquez Spineli</span>
-                                            </div>
-                                        </td>
-                                        <td class="py-3 px-2">marquez.spineli@cba.com</td>
-                                        <td class="py-3 px-2">User</td>
-                                        <td class="py-3 px-2">Approved</td>
-                                        <td class="py-3 px-2">
-                                            <div class="inline-flex items-center space-x-3">
-                                                <a href="" title="Edit" class="hover:text-white"><svg
-                                                        xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                        viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                                                        class="w-5 h-5">
-                                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                                            d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
-                                                    </svg>
-                                                </a>
-                                                <a href="" title="Edit password" class="hover:text-white"><svg
-                                                        xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                        viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                                                        class="w-5 h-5">
-                                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                                            d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
-                                                    </svg>
-                                                </a>
-                                                <a href="" title="Suspend user" class="hover:text-white"><svg
-                                                        xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                        viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                                                        class="w-5 h-5">
-                                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                                            d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
-                                                    </svg>
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr class="border-b border-gray-800">
-                                        <td class="py-3 px-2 font-bold">
-                                            <div class="inline-flex space-x-3 items-center">
-                                                <span><img class="rounded-full w-8 h-8"
-                                                        src="https://images.generated.photos/f_xU7q780YXiKG7IwKVV05eU6Sj2nIodEkN1S8GyM2M/rs:fit:256:256/czM6Ly9pY29uczgu/Z3Bob3Rvcy1wcm9k/LnBob3Rvcy92M18w/NDk2MTc4LmpwZw.jpg"
-                                                        alt=""></span>
-                                                <span>Mark Spike</span>
-                                            </div>
-                                        </td>
-                                        <td class="py-3 px-2">mark.spike@abc.com</td>
-                                        <td class="py-3 px-2">Administrator</td>
-                                        <td class="py-3 px-2">Approved</td>
-                                        <td class="py-3 px-2">
-                                            <div class="inline-flex items-center space-x-3">
-                                                <a href="" title="Edit" class="hover:text-white"><svg
-                                                        xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                        viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                                                        class="w-5 h-5">
-                                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                                            d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
-                                                    </svg>
-                                                </a>
-                                                <a href="" title="Edit password" class="hover:text-white"><svg
-                                                        xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                        viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                                                        class="w-5 h-5">
-                                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                                            d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
-                                                    </svg>
-                                                </a>
-                                                <a href="" title="Suspend user" class="hover:text-white"><svg
-                                                        xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                        viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                                                        class="w-5 h-5">
-                                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                                            d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
-                                                    </svg>
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                    @foreach ($new_orders as $order)
+                                        <tr class="border-b border-gray-700">
+                                            <td class="py-3 px-2 font-bold">
+                                                <div class="inline-flex space-x-3 items-center">
+                                                    <span>{{ $order->invoice_id }}</span>
+                                                </div>
+                                            </td>
+                                            <td class="py-3 px-2">{{ $order->payment_date }}</td>
+                                            <td class="py-3 px-2">{{ $order->total }}</td>
 
-
+                                            @if ($order->order_status == 0)
+                                                <td class="py-3 px-2">Pending</td>
+                                            @elseif($order->order_status == 1)
+                                                <td class="py-3 px-2">To be Shipped</td>
+                                            @elseif($order->order_status == 2)
+                                                <td class="py-3 px-2">To be Recieved</td>
+                                            @elseif($order->order_status == 3)
+                                                <td class="py-3 px-2">Completed</td>
+                                            @endif
+                                            <td class="py-6 px-2">
+                                                <div class="inline-flex items-center space-x-4">
+                                                    <a href="#" title="Edit" class="hover:text-white"
+                                                        onclick="openModal('{{ $order->invoice_id }}', event)">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                            viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                                                            class="w-8 h-8 ml-4">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+                                                        </svg>
+                                                        </a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                 </table>
                             </div>
+
                         </div>
 
                     </div>
+
                 </div>
             </div>
-            {{-- <script>
-                function toggleProductOptions(event) {
-                    event.preventDefault();
-                    var nestedList = document.getElementById("nestedList");
+            {{-- MODALS --}}
+            <div id="myModal" class="modal">
+                <!-- Modal content -->
+                <div class="modal-content">
+                    <button class="flex justify-content-end bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full"
+                                onclick="closeModal()">Close</button>
+                    <h1 class="font-bold py-4 uppercase">Order Details</h1>
+                    <p id="invoiceId"></p>
+                    <div class="overflow-x-scroll">
+                        <table class="w-full whitespace-nowrap">
+                            <thead class="bg-white/60">
+                                <th class="text-left text-black py-3 px-2 rounded-l-lg">Product ID</th>
+                                <th class="text-left text-black py-3 px-2">Product Name</th>
+                                <th class="text-left text-black py-3 px-2">Product Price</th>
+                                <th class="text-left text-black py-3 px-2">Name on Card</th>
+                                <th class="text-left text-black py-3 px-2 rounded-r-lg">Card Number</th>
+                            </thead>
+                            @foreach ($new_orders as $order)
+                                <tr class="border-b border-gray-700">
+                                    <td class="py-3 px-2 font-bold">
+                                        <div class="inline-flex space-x-3 items-center">
+                                            <span>{{ $order->invoice_id }}</span>
+                                        </div>
+                                    </td>
+                                    <td class="py-3 px-2">{{ $order->payment_date }}</td>
+                                    <td class="py-3 px-2">{{ $order->total }}</td>
 
-                    if (nestedList) {
-                        nestedList.style.display = nestedList.style.display === "none" ? "block" : "none";
-                        return;
-                    }
+                                    @if ($order->order_status == 0)
+                                        <td class="py-3 px-2">Pending</td>
+                                    @elseif($order->order_status == 1)
+                                        <td class="py-3 px-2">To be Shipped</td>
+                                    @elseif($order->order_status == 2)
+                                        <td class="py-3 px-2">To be Recieved</td>
+                                    @elseif($order->order_status == 3)
+                                        <td class="py-3 px-2">Completed</td>
+                                    @endif
+                                    <td class="py-6 px-2">
+                                        <div class="inline-flex items-center space-x-4">
+                                            <a href="#" title="Edit" class="hover:text-white"
+                                                onclick="openModal('{{ $order->invoice_id }}', event)">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                    viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                                                    class="w-8 h-8 ml-4">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+                                                </svg>
+                                                </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforeach
+                            
+                        </table>
+                    </div>
+                </div>
+            </div>
+            {{-- END MODALS --}}
 
-                    nestedList = document.createElement("ul");
-                    nestedList.id = "nestedList";
-
-                    var viewProductsItem = document.createElement("li");
-                    var viewProductsLink = document.createElement("a");
-                    viewProductsLink.href = "{{ route('admin.addproduct') }}"; // Set the link URL here
-                    viewProductsLink.textContent = "View Products";
-                    viewProductsItem.appendChild(viewProductsLink);
-
-                    var addProductsItem = document.createElement("li");
-                    var addProductsLink = document.createElement("a");
-                    addProductsLink.href = "#"; // Set the link URL here
-                    addProductsLink.textContent = "Add Products";
-                    addProductsItem.appendChild(addProductsLink);
-
-                    nestedList.appendChild(viewProductsItem);
-                    nestedList.appendChild(addProductsItem);
-
-                    var link = event.target;
-                    var parent = link.parentNode;
-                    parent.appendChild(nestedList);
+            <script>
+                function openModal(invoiceId, event) {
+                    event.preventDefault(); // Prevent the default link behavior
+                    var modal = document.getElementById("myModal");
+                    var invoiceIdElement = document.getElementById("invoiceId");
+                    invoiceIdElement.innerText = "Invoice ID: " + invoiceId;
+                    modal.style.display = "block";
                 }
-            </script> --}}
-      
-            @endsection
+
+                function closeModal() {
+                    var modal = document.getElementById("myModal");
+                    modal.style.display = "none";
+                }
+            </script>
+        @endsection

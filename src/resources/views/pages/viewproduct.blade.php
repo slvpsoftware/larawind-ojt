@@ -107,30 +107,6 @@
                             </a>
 
 
-                            {{-- <a href="#"
-                                class="hover:bg-white/10 transition duration-150 ease-linear rounded-lg py-3 px-2 group"
-                                onclick="toggleProductOptions(event)">
-                                <div
-                                    class="relative flex flex-col space-y-2 md:flex-row md:space-y-0 space-x-2 items-center">
-                                    <div>
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                            stroke-width="1.5" stroke="currentColor"
-                                            class="w-6 h-6 group-hover:text-indigo-400">
-                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
-                                        </svg>
-                                    </div>
-                                    <div>
-                                        <p
-                                            class="font-bold text-base lg:text-lg text-slate-200 leading-4 group-hover:text-indigo-400">
-                                            Products</p>
-                                        <p class="text-slate-400 text-sm hidden md:block">Manage Products</p>
-                                    </div>
-                                    <div
-                                        class="absolute -top-3 -right-3 md:top-0 md:right-0 px-2 py-1.5 rounded-full bg-indigo-800 text-xs font-mono font-bold">
-                                        {{ $count }}</div>
-                                </div>
-                            </a> --}}
 
                             {{-- 
                             <a href="#"
@@ -185,13 +161,7 @@
                                                     New Orders
                                                 </a>
                                             </li>
-                                            <li>
-                                                <span class="mdi mdi-cash-100"></span>
-                                                <a href="#"
-                                                    class="font-bold hover:bg-white/10 hover:text-violet-600 duration-150 ease-linear rounded-lg py-1 px-1 group">
-                                                    To Pay
-                                                </a>
-                                            </li>
+                                           
                                             <li>
                                                 <span class="mdi mdi-truck"></span>
                                                 <a href="#"
@@ -272,29 +242,7 @@
                                     {{-- {{ $count }} --}}
                                 </div>
                             </div>
-                            {{-- <a href="#"
-                                class="hover:bg-white/10 transition duration-150 ease-linear rounded-lg py-3 px-2 group">
-                                <div
-                                    class="relative flex flex-col space-y-2 md:flex-row md:space-y-0 space-x-2 items-center">
-                                    <div>
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                            stroke-width="1.5" stroke="currentColor"
-                                            class="w-6 h-6 group-hover:text-indigo-400">
-                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
-                                        </svg>
-                                    </div>
-                                    <div>
-                                        <p
-                                            class="font-bold text-base lg:text-xl text-slate-200 leading-4 group-hover:text-indigo-400">
-                                            Invoices</p>
-                                        <p class="text-slate-400 text-sm hidden md:block">Manage invoices</p>
-                                    </div>
-                                    <div
-                                        class="absolute -top-3 -right-3 md:top-0 md:right-0 px-2 py-1.5 rounded-full bg-indigo-800 text-xs font-mono font-bold">
-                                        23</div>
-                                </div>
-                            </a> --}}
+
                             <a href="#"
                                 class="hover:bg-white/10 transition duration-150 ease-linear rounded-lg py-3 px-2 group">
                                 <div class="flex flex-col space-y-2 md:flex-row md:space-y-0 space-x-2 items-center">
@@ -370,26 +318,7 @@
                                     <nav :class="{ 'flex': open, 'hidden': !open }"
                                         class="flex-col flex-grow pb-4 md:pb-0 hidden md:flex md:justify-end md:flex-row">
 
-                                        {{-- Search bar
-                                        <div
-                                            class="relative  rounded-2xl bg-transparent pb-20  shadow-xl ring-1 ring-gray-900/5 sm:my-auto sm:max-w-lg sm:px-10">
-                                            <div class="my-auto max-w-md">
-                                                <form action="{{ route('admin.search') }}" method="GET"
-                                                    class="relative my-auto w-max ">
-                                                    <input type="search" name="search"
-                                                        class="peer cursor-pointer relative z-10 h-10 w-8 rounded-full border bg-slate-200 pl-12 outline-none focus:w-full 
-                                                        focus:cursor-text focus:border-black focus:pl-16 focus:pr-4 text-black" />
-                                                    <svg xmlns="http://www.w3.org/2000/svg"
-                                                        class="absolute inset-y-0 my-auto h-8 w-12 border-r border-none stroke-black px-3.5 peer-focus:border-black peer-focus:stroke-black"
-                                                        fill="none" viewBox="0 0 24 24" stroke="white"
-                                                        stroke-width="2">
-                                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                                                    </svg>
-                                                </form>
-                                            </div>
-                                        </div> --}}
-                                        {{-- Search bar --}}
+
                                         <div
                                             class="relative rounded-2xl bg-transparent pb-20 shadow-xl ring-1 ring-gray-900/5 sm:my-auto sm:max-w-lg sm:px-10">
                                             <div class="my-auto max-w-md">
@@ -559,7 +488,7 @@
 
 
                             <div
-                                class="inline-block w-auto h-auto overflow-hidden rounded-lg border border-gray-200 shadow-md m-5 text-sm">
+                                class="inline-block w-full h-full  m-auto overflow-hidden rounded-lg border border-gray-200 shadow-md m-5 text-sm">
 
 
 
@@ -586,119 +515,130 @@
                                             </th>
                                         </tr>
                                     </thead>
-                                    @foreach ($products as $product)
-                                        <tbody class="divide-y divide-gray-100 border-t border-gray-100">
-                                            <tr class="hover:bg-gray-200">
-                                                <th class="flex gap-3 px-2 py-2 font-normal text-gray-900">
-                                                    <div class="relative h-24 w-24 rounded-full bg-gray-400">
-                                                        {{-- fetch image from database --}}
+                                    @if (count($products) > 0)
+                                        @foreach ($products as $product)
+                                            <tbody class="divide-y divide-gray-100 border-t border-gray-100 font-xs">
+                                                <tr class="hover:bg-gray-200">
+                                                    <th class="flex gap-3 px-2 py-2 font-normal text-gray-900">
+                                                        <div class="relative h-12 w-12 rounded-full bg-gray-400">
+                                                            {{-- fetch image from database --}}
 
-                                                        @if ($product->prod_image != '')
-                                                            <img class="h-full w-full  rounded-full object-fit object-center border-2 border-black"
-                                                                src="{{ asset('prod_images/' . $product->prod_image) }}"
-                                                                alt="">
-                                                        @endif
-
-
-                                                    </div>
-
-                                                </th>
-                                                <td class="px-6 py-4 ">
-                                                    <div class="text-base ">
-                                                        <div class="font-sm text-gray-700 capitalize text-sm">
-                                                            {{ $product->product_name }}
+                                                            @if ($product->prod_image != '')
+                                                                <img class="h-full w-full   object-fit object-center border-2 border-black"
+                                                                    src="{{ asset('prod_images/' . $product->prod_image) }}"
+                                                                    alt="">
+                                                            @endif
                                                         </div>
-                                                    </div>
-                                                </td>
-                                                <td class="px-6 py-4">
-                                                    <div class="text-base">
-                                                        <div class="font-sm text-gray-700 text-sm">
-                                                            {{ $product->product_price }}</div>
-                                                    </div>
-                                                </td>
 
-                                                <td class="px-6 py-4">
-                                                    <div class="text-base">
-                                                        <div class="font-sm text-gray-700 text-sm">
-                                                            {{ $product->product_quantity }}</div>
-                                                    </div>
-                                                </td>
+                                                    </th>
+                                                    <td class="px-4 py-2 ">
+                                                        <div class="text-base ">
+                                                            <div class="font-xs text-gray-700 capitalize text-xs">
+                                                                {{ $product->product_name }}
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td class="px-6 py-4">
+                                                        <div class="text-base">
+                                                            <div class="font-xs text-gray-700 text-xs">
+                                                                {{ $product->product_price }}</div>
+                                                        </div>
+                                                    </td>
 
-                                                <td class="px-6 py-4">
-                                                    {{-- <div class="text-base">
-                                        <div class="font-sm text-gray-700">
+                                                    <td class="px-6 py-4">
+                                                        <div class="text-base">
+                                                            <div class="font-xs text-gray-700 text-xs">
+                                                                {{ $product->product_quantity }}</div>
+                                                        </div>
+                                                    </td>
+
+                                                    <td class="px-6 py-4">
+                                                        {{-- <div class="text-base">
+                                        <div class="font-xs text-gray-700">
                                             {{ $product->categories->count() > 0 ? $product->categories->name() : 'No Category' }}
                                         </div>
                                     </div> --}}
-                                                    {{-- category --}}
-                                                    <div class="text-base">
-                                                        <div class="font-sm text-gray-700">
-                                                            @if ($product->categories->count() > 0)
-                                                                @foreach ($product->categories as $category)
+                                                        {{-- category --}}
+                                                        <div class="text-base">
+                                                            <div class="font-xs text-gray-700">
+                                                                @if ($product->categories->count() > 0)
+                                                                    @foreach ($product->categories as $category)
+                                                                        <span
+                                                                            class="bg-gray-200 rounded-full px-2 py-1 text-xs font-semibold text-gray-700 mr-2">{{ $category->name }}</span>
+                                                                    @endforeach
+                                                                @else
                                                                     <span
-                                                                        class="bg-gray-200 rounded-full px-2 py-1 text-sm font-semibold text-gray-700 mr-2">{{ $category->name }}</span>
-                                                                @endforeach
-                                                            @else
-                                                                <span
-                                                                    class="bg-gray-200 rounded-full px-2 py-1 text-sm font-semibold text-gray-700 mr-2">No
-                                                                    Category</span>
-                                                            @endif
+                                                                        class="bg-gray-200 rounded-full px-2 py-1 text-xs font-semibold text-gray-700 mr-2">No
+                                                                        Category</span>
+                                                                @endif
+                                                            </div>
+                                                    </td>
+                                                    <td class="px-6 py-4">
+                                                        <div class="text-base">
+                                                            <div class="font-xs text-gray-700">
+                                                                {{ $product->product_description }}</div>
                                                         </div>
-                                                </td>
-                                                <td class="px-6 py-4">
-                                                    <div class="text-base">
-                                                        <div class="font-sm text-gray-700">
-                                                            {{ $product->product_description }}</div>
-                                                    </div>
-                                                </td>
-                                                <td class="px-6 py-4">
-                                                    <div class="text-base">
-                                                        <div class="font-sm text-gray-700">{{ $product->created_at }}
+                                                    </td>
+                                                    <td class="px-6 py-4">
+                                                        <div class="text-base">
+                                                            <div class="font-xs text-gray-700">{{ $product->created_at }}
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                </td>
+                                                    </td>
 
-                                                <td class="px-6 py-4">
-                                                    <div class="text-base">
-                                                        <div class="font-sm text-gray-700 uppercase ">
-                                                            {{ $product->prod_status == 0 ? 'Unpublished' : 'Published' }}
+                                                    <td class="px-6 py-4">
+                                                        <div class="text-base">
+                                                            <div class="font-xs text-gray-700 capitalized ">
+                                                                {{ $product->prod_status == 0 ? 'Unpublished' : 'Published' }}
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                </td>
+                                                    </td>
 
-                                                <td class="px-6 py-4">
-                                                    <form action="{{ route('admin.deleteproduct') }}" method="POST"
-                                                        onsubmit="return confirm('Are you sure you want to delete this product?');"
-                                                        style="display: inline-block;">
-                                                        @csrf
-                                                        <div class="flex space-x-2">
+                                                    <td class="px-6 py-4">
+                                                        <form action="{{ route('admin.deleteproduct') }}" method="POST"
+                                                            onsubmit="return confirm('Are you sure you want to delete this product?');"
+                                                            style="display: inline-block;">
+                                                            @csrf
+                                                            <div class="flex space-x-2">
 
-                                                            <button x-data="{ tooltip: 'Delete' }" type="submit">
-                                                                <input type="hidden" name="id"
-                                                                    value="{{ $product->id }}">
-                                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                                    viewBox="0 0 24 24" stroke-width="1.5" stroke="red"
-                                                                    class="h-6 w-6" x-tooltip="tooltip">
-                                                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                                                        d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
-                                                                </svg>
-                                                            </button>
-                                                    </form>
+                                                                <button x-data="{ tooltip: 'Delete' }" type="submit">
+                                                                    <input type="hidden" name="id"
+                                                                        value="{{ $product->id }}">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                                        viewBox="0 0 24 24" stroke-width="1.5"
+                                                                        stroke="red" class="h-6 w-6"
+                                                                        x-tooltip="tooltip">
+                                                                        <path stroke-linecap="round"
+                                                                            stroke-linejoin="round"
+                                                                            d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+                                                                    </svg>
+                                                                </button>
+                                                        </form>
 
-                                                    <a x-data="{ tooltip: 'Edite' }"
-                                                        href="{{ route('admin.editproduct', $product->id) }}">
-                                                        {{-- <input type="hidden" name="id" value="{{$product->id}}"> --}}
-                                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                            viewBox="0 0 24 24" stroke-width="1.5" stroke="green"
-                                                            class="h-6 w-6" x-tooltip="tooltip">
-                                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                                d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125" />
-                                                        </svg>
-                                                    </a>
+                                                        <a x-data="{ tooltip: 'Edite' }"
+                                                            href="{{ route('admin.editproduct', $product->id) }}">
+                                                            {{-- <input type="hidden" name="id" value="{{$product->id}}"> --}}
+                                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                                viewBox="0 0 24 24" stroke-width="1.5" stroke="green"
+                                                                class="h-6 w-6" x-tooltip="tooltip">
+                                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                                    d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125" />
+                                                            </svg>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        @endforeach
+                                    @else
+                                        <tbody class="divide-y divide-gray-100 border-t border-gray-100">
+                                            <tr>
+                                                <td colspan="8" class="px-6 py-4 text-center">
+                                                    <span class="text-gray-700">No items found.</span>
                                                 </td>
                                             </tr>
                                         </tbody>
-                                    @endforeach
+                                    @endif
+
                                 </table>
 
                             </div>

@@ -63,7 +63,7 @@
                             class="flex flex-col space-y-2 md:space-y-0 md:flex-row mb-5 items-center md:space-x-2 hover:bg-white/10 group transition duration-150 ease-linear rounded-lg group w-full py-3 px-2">
                             <div>
                                 <img class="rounded-full w-24 h-24 relative object-cover"
-                                    src="https://img.freepik.com/free-photo/no-problem-concept-bearded-man-makes-okay-gesture-has-everything-control-all-fine-gesture-wears-spectacles-jumper-poses-against-pink-wall-says-i-got-this-guarantees-something_273609-42817.jpg?w=1800&t=st=1669749937~exp=1669750537~hmac=4c5ab249387d44d91df18065e1e33956daab805bee4638c7fdbf83c73d62f125"
+                                    src="https://i.pinimg.com/originals/e9/91/80/e991804378163190adbd288a473edc85.jpg"
                                     alt="">
                             </div>
                             <div>
@@ -169,18 +169,12 @@
                                         <ul class="list-none list-inside ml-4">
                                             <li>
                                                 <span class="mdi mdi-new-box"></span>
-                                                <a href="#"
+                                                <a href="{{route('admin.newOrders')}}"
                                                     class="font-bold hover:bg-white/10 hover:text-violet-600 transition duration-150 ease-linear rounded-lg py-1 px-1 group">
                                                     New Orders
                                                 </a>
                                             </li>
-                                            <li>
-                                                <span class="mdi mdi-cash-100"></span>
-                                                <a href="#"
-                                                    class="font-bold hover:bg-white/10 hover:text-violet-600 duration-150 ease-linear rounded-lg py-1 px-1 group">
-                                                    To Pay
-                                                </a>
-                                            </li>
+                                            
                                             <li>
                                                 <span class="mdi mdi-truck"></span>
                                                 <a href="#"

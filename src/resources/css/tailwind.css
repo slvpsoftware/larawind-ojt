@@ -962,10 +962,6 @@ video {
   margin-top: 2rem;
 }
 
-.ml-6 {
-  margin-left: 1.5rem;
-}
-
 .-mt-1 {
   margin-top: -0.25rem;
 }
@@ -996,10 +992,6 @@ video {
 
 .mt-0 {
   margin-top: 0px;
-}
-
-.ml-8 {
-  margin-left: 2rem;
 }
 
 .block {
@@ -1134,16 +1126,16 @@ video {
   height: 100vh;
 }
 
+.h-12 {
+  height: 3rem;
+}
+
 .h-3 {
   height: 0.75rem;
 }
 
 .h-80 {
   height: 20rem;
-}
-
-.h-36 {
-  height: 9rem;
 }
 
 .min-h-full {
@@ -1250,6 +1242,10 @@ video {
   width: 24rem;
 }
 
+.w-auto {
+  width: auto;
+}
+
 .w-full {
   width: 100%;
 }
@@ -1261,14 +1257,6 @@ video {
 
 .w-2 {
   width: 0.5rem;
-}
-
-.w-auto {
-  width: auto;
-}
-
-.w-36 {
-  width: 9rem;
 }
 
 .min-w-full {
@@ -1643,6 +1631,10 @@ video {
   border-color: rgb(243 244 246 / var(--tw-divide-opacity));
 }
 
+.overflow-auto {
+  overflow: auto;
+}
+
 .overflow-hidden {
   overflow: hidden;
 }
@@ -1807,10 +1799,6 @@ video {
   border-color: rgb(51 65 85 / var(--tw-border-opacity));
 }
 
-.border-transparent {
-  border-color: transparent;
-}
-
 .border-white\/5 {
   border-color: rgb(255 255 255 / 0.05);
 }
@@ -1929,6 +1917,11 @@ video {
   background-color: rgb(226 232 240 / var(--tw-bg-opacity));
 }
 
+.bg-slate-400 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(148 163 184 / var(--tw-bg-opacity));
+}
+
 .bg-transparent {
   background-color: transparent;
 }
@@ -1957,14 +1950,13 @@ video {
   background-color: rgb(17 24 39 / var(--tw-bg-opacity));
 }
 
-.bg-slate-300 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(203 213 225 / var(--tw-bg-opacity));
+.bg-white\/60 {
+  background-color: rgb(255 255 255 / 0.6);
 }
 
-.bg-slate-400 {
+.bg-red-500 {
   --tw-bg-opacity: 1;
-  background-color: rgb(148 163 184 / var(--tw-bg-opacity));
+  background-color: rgb(239 68 68 / var(--tw-bg-opacity));
 }
 
 .bg-gradient-to-br {
@@ -2199,6 +2191,11 @@ video {
 .py-0 {
   padding-top: 0px;
   padding-bottom: 0px;
+}
+
+.py-6 {
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
 }
 
 .pb-20 {
@@ -2647,10 +2644,6 @@ video {
   outline-style: solid;
 }
 
-.outline-black {
-  outline-color: #000;
-}
-
 .ring-1 {
   --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
   --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(1px + var(--tw-ring-offset-width)) var(--tw-ring-color);
@@ -2827,6 +2820,11 @@ video {
   background-color: rgb(255 255 255 / 0.1);
 }
 
+.hover\:bg-red-700:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(185 28 28 / var(--tw-bg-opacity));
+}
+
 .hover\:tracking-wide:hover {
   letter-spacing: 0.025em;
 }
@@ -2869,11 +2867,6 @@ video {
 .hover\:text-gray-700:hover {
   --tw-text-opacity: 1;
   color: rgb(55 65 81 / var(--tw-text-opacity));
-}
-
-.hover\:text-gray-900:hover {
-  --tw-text-opacity: 1;
-  color: rgb(17 24 39 / var(--tw-text-opacity));
 }
 
 .hover\:text-purple-500:hover {
@@ -2947,6 +2940,11 @@ video {
   border-color: rgb(99 102 241 / var(--tw-border-opacity));
 }
 
+.focus\:border-white:focus {
+  --tw-border-opacity: 1;
+  border-color: rgb(255 255 255 / var(--tw-border-opacity));
+}
+
 .focus\:bg-blue-500:focus {
   --tw-bg-opacity: 1;
   background-color: rgb(59 130 246 / var(--tw-bg-opacity));
@@ -2975,19 +2973,14 @@ video {
   padding-right: 1rem;
 }
 
-.focus\:text-gray-600:focus {
-  --tw-text-opacity: 1;
-  color: rgb(75 85 99 / var(--tw-text-opacity));
-}
-
-.focus\:text-gray-900:focus {
-  --tw-text-opacity: 1;
-  color: rgb(17 24 39 / var(--tw-text-opacity));
-}
-
 .focus\:text-black:focus {
   --tw-text-opacity: 1;
   color: rgb(0 0 0 / var(--tw-text-opacity));
+}
+
+.focus\:text-gray-600:focus {
+  --tw-text-opacity: 1;
+  color: rgb(75 85 99 / var(--tw-text-opacity));
 }
 
 .focus\:outline-none:focus {
@@ -3087,8 +3080,17 @@ video {
   border-color: rgb(0 0 0 / var(--tw-border-opacity));
 }
 
+.peer:focus ~ .peer-focus\:border-white {
+  --tw-border-opacity: 1;
+  border-color: rgb(255 255 255 / var(--tw-border-opacity));
+}
+
 .peer:focus ~ .peer-focus\:stroke-black {
   stroke: #000;
+}
+
+.peer:focus ~ .peer-focus\:stroke-white {
+  stroke: #fff;
 }
 
 :is([dir="rtl"] .rtl\:-scale-x-100) {
